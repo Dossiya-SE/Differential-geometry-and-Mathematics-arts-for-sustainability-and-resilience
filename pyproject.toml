@@ -30,7 +30,7 @@ autodiff = ["jax>=0.5,<1"]
 dev = [
   "hypothesis>=6.130,<7",
   "jsonschema>=4.23,<5",
-  "mypy>=1.15,<2",
+  "mypy>=1.15,<3",
   "pytest>=8.3,<9",
   "pytest-cov>=6,<7",
   "pyyaml>=6,<7",
