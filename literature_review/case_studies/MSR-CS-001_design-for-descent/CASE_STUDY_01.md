@@ -2,11 +2,11 @@
 title: "Design Grammars for Sustainable Resilience: A Critical Transfer Review of Design for Descent"
 review_id: "MSR-CS-001"
 review_author: "Dossiya Dakou"
-version: "0.2.1"
+version: "0.3.0"
 date: "2026-08-22"
-status: "Working literature-review case study"
+status: "Main paper reviewed; artifact inventory and reproduction open"
 evidence_cutoff: "2026-08-22"
-primary_source_status: "OBSERVED - complete 11-page main paper"
+primary_source_status: "OBSERVED - complete 11-page main paper; supplement not found after documented search"\nreproduction_status: "NOT_STARTED"
 ---
 
 # Design Grammars for Sustainable Resilience
@@ -15,7 +15,7 @@ primary_source_status: "OBSERVED - complete 11-page main paper"
 
 ### Abstract
 
-This case study critically examines Kodnongbua et al.'s *Design for Descent* as the first paper in the literature review for **Mathematics Exploration for Sustainable Resilience: Differential Geometry and Mathematical Art for Sustainability and Resilience**. The source introduces Stochastic Rewrite Descent (SRD), a mixed discrete-continuous optimization method for shape grammars, and identifies reversibility, jump continuity, local geometric control, and repairability as properties that make grammar-defined design spaces more amenable to gradient-based optimization. Full-text extraction, equation verification, table inspection, and visual review show strong direct contributions to procedural geometry, inverse design, topology optimization, and mathematical art. The paper does not directly implement differential geometry, sustainability assessment, climate hazards, infrastructure resilience, critical-service continuity, equity, or uncertainty quantification. It is therefore classified as a transferable mathematical method, geometric-design study, and visualization study (`M + G + V`), not a direct sustainable-resilience application. Building on its verified formalism, this review proposes only a domain-neutral research abstraction: discrete configurations connected by rewrite maps, with continuous state strata carrying justified dynamics, admissibility constraints, and possibly intrinsic metrics. It does not select an application system or demonstrator. The extension is explicitly labeled `PROPOSED`. The central finding is that sustainable-resilience optimization requires not only a capable optimizer but also a representation designed for feasible intervention, correction, adaptation, and verification.
+This case study critically examines Kodnongbua et al.'s *Design for Descent* as the first paper in the literature review for **Mathematics Exploration for Sustainable Resilience: Differential Geometry and Mathematical Art for Sustainability and Resilience**. The source introduces Stochastic Rewrite Descent (SRD), a mixed discrete-continuous optimization method for shape grammars, and identifies reversibility, jump continuity, local geometric control, and repairability as properties that make grammar-defined design spaces more amenable to gradient-based optimization. Full-text extraction, equation verification, table inspection, and visual review show strong direct contributions to procedural geometry, inverse design, topology optimization, and mathematical art. The paper does not directly implement differential geometry, sustainability assessment, climate hazards, infrastructure resilience, critical-service continuity, equity, or uncertainty quantification. It is therefore classified as a transferable mathematical method, geometric-design study, and visualization study (`M + G + V`), not a direct sustainable-resilience application. Building on its reviewed formalism, this review proposes only a domain-neutral research abstraction: discrete configurations connected by rewrite maps, with continuous state strata carrying justified dynamics, admissibility constraints, and possibly intrinsic metrics. It does not select an application system or demonstrator. The extension is explicitly labeled `PROPOSED`. The central finding is that sustainable-resilience optimization requires not only a capable optimizer but also a representation designed for feasible intervention, correction, adaptation, and verification.
 
 **Keywords:** shape grammar; mixed discrete-continuous optimization; stochastic rewrite descent; procedural geometry; mathematical art; sustainable resilience; viability; hybrid systems; topology optimization; differential geometry
 
@@ -51,15 +51,15 @@ The unit of analysis is one focal publication:
 
 > Kodnongbua, M., Zhang, Z. J., Sharp, N., and Schulz, A. (2025). *Design for Descent: What Makes a Shape Grammar Easy to Optimize?* SIGGRAPH Asia 2025 Conference Papers. https://doi.org/10.1145/3757377.3764004
 
-The supplied main paper contains 11 pages. All pages were text-extracted. Pages containing the graphical abstract, design principles, experimental applications, topology-optimization sequence, and ablation figures were visually inspected. The source PDF checksum and inspection record are reported in `VALIDATION_LOG.md`.
+The supplied main paper contains 11 pages. All pages were text-extracted. Pages containing the graphical abstract, design principles, experimental applications, topology-optimization sequence, and ablation figures were visually inspected. The source PDF checksum and inspection record are reported in `VALIDATION_LOG.md`; artifact identities and lifecycle states are recorded in `SOURCE_MANIFEST.yaml`.
 
 ### 3.2 Evidence discipline
 
-Claims are labeled `OBSERVED`, `INFERRED`, `EXTERNAL`, `PROPOSED`, `NOT_OBSERVED`, or `NOT_VERIFIED` according to the repository evidence protocol. `PROPOSED` statements are project constructs and are not evidence from Kodnongbua et al.
+Claims are labeled `OBSERVED`, `INFERRED`, `EXTERNAL`, `PROPOSED`, `NOT_OBSERVED`, or `NOT_VERIFIED` according to the repository evidence protocol. `PROPOSED` statements are project constructs and are not evidence from Kodnongbua et al. These claim statuses are distinct from artifact-lifecycle and execution statuses defined in `protocol/PRIMARY_EVIDENCE_BUNDLE.md` at the literature-review root.
 
 ### 3.3 Classification rule
 
-The paper is evaluated against five study classes: direct application (`D`), transferable method (`M`), geometric design (`G`), visualization and mathematical art (`V`), and contextual (`C`). Classes are assigned from explicit full-text evidence, not keywords or popularity.
+The paper is evaluated against five study classes: direct application (`D`), transferable method (`M`), geometric design (`G`), visualization and mathematical art (`V`), and contextual (`C`). Classes are assigned from explicit full-text evidence, not keywords or popularity.\n\n### 3.4 Artifact and reproduction boundary\n\nThe complete 11-page main paper has been reviewed. The official implementation repository has been identified and inspected only at the level of provenance, pinned revision, top-level structure, and selected environment metadata. The referenced supplement was not located in a documented search. The environment has not been built, the code has not been executed, and no numerical result has been reproduced. Accordingly, this document is a `MAIN_PAPER_REVIEWED` critical review, not a reproduction report.
 
 ## 4. Verified source contribution
 
