@@ -10,6 +10,20 @@ The review treats sustainable resilience provisionally as the **geometry and dyn
 
 The project is in an exploratory evidence-synthesis stage. It will first determine which scientific problem provides the strongest defensible intersection of differential geometry, mathematical art, sustainability, and resilience. No candidate becomes the governing application until it passes the non-compensatory eligibility gates and comparative assessment defined in [`literature_review/protocol/APPLICATION_DOMAIN_SELECTION.md`](literature_review/protocol/APPLICATION_DOMAIN_SELECTION.md). The live decision state and search frame are recorded in [`literature_review/application_selection/`](literature_review/application_selection/).
 
+## Phase-0 application-scope map
+
+The first landscape review expands the search frame from 10 to 12 primary application families and decomposes it into 60 searchable subscopes. It adds Earth/climate-system dynamics and urban morphology/spatial planning, while treating digital twins, mathematical art, and finance/governance as cross-cutting layers rather than presumed application domains.
+
+| Artifact | Purpose |
+|---|---|
+| [Scope review](literature_review/application_selection/scope_review_01/SCOPE_REVIEW_01.md) | Publication-style cross-domain synthesis and decision implications |
+| [Review protocol](literature_review/application_selection/scope_review_01/REVIEW_PROTOCOL.md) | Questions, PCC frame, inclusion/exclusion, coding, and limitations |
+| [Scope taxonomy](literature_review/application_selection/scope_review_01/SCOPE_TAXONOMY.csv) | 12 families and 60 searchable subscopes |
+| [Anchor evidence matrix](literature_review/application_selection/scope_review_01/ANCHOR_EVIDENCE_MATRIX.csv) | 42 curated sources coded separately for geometry, sustainability, resilience, and art |
+| [Search log](literature_review/application_selection/scope_review_01/SEARCH_LOG.csv) | Exact 64-query discovery record from 2026-08-22 |
+
+The principal result is a provisional **bridge deficit**: no single anchor in the Phase-0 corpus jointly supplies explicit differential geometry, quantified sustainability, quantified resilience, and a validated mathematical-art function. This finding is bounded to the mapped corpus and is not a global absence claim.
+
 ## Review architecture
 
 The evidence base is organized into five non-exclusive study classes:
@@ -38,7 +52,7 @@ The project does not treat mathematical beauty as scientific validation. Mathema
 
 ## Reproducibility
 
-Each case-study folder contains:
+Each paper case-study folder contains:
 
 - a publication-style critical review;
 - a machine-readable evidence record;

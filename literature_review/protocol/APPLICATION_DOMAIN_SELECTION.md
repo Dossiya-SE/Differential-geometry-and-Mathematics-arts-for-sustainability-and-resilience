@@ -10,7 +10,7 @@ The protocol governs project-level selection. It does not alter the classificati
 
 `NOT_SELECTED` - No application domain, focal system, hazard or stressor, spatial scale, temporal scale, geography, or demonstrator is frozen.
 
-Coupled Power-Water-Transportation-Solid-Waste infrastructure under urban flooding is one `CANDIDATE`. It must be evaluated under the same rules as every other candidate.
+Coupled Power-Water-Transportation-Solid-Waste infrastructure under urban flooding is one incomplete, unscreened `CANDIDATE`. It must be evaluated under the same rules as every other candidate.
 
 ## 3. Candidate-generation scope
 
@@ -26,8 +26,12 @@ Candidate generation must remain broad enough to test the project's central inte
 8. food, agriculture, or coupled human-natural systems;
 9. community service, health, or humanitarian logistics systems;
 10. multiscale geometric design problems connecting form, function, resources, and recovery.
+11. Earth and climate-system dynamics, extremes, tipping, and projection manifolds;
+12. urban morphology, spatial planning, heat, accessibility, and land-use resilience.
 
 New families may be added when supported by evidence. This list is a search frame, not a ranking.
+
+The Phase-0 landscape review supporting this expansion is [`../application_selection/scope_review_01/SCOPE_REVIEW_01.md`](../application_selection/scope_review_01/SCOPE_REVIEW_01.md). It classifies digital twins and sensing; inverse problems and uncertainty; mathematical art and visualization; and equity, finance, governance, and implementation as cross-cutting enabling or decision layers rather than standalone application families unless a bounded system and outcome justify otherwise.
 
 ## 4. Unit of comparison
 

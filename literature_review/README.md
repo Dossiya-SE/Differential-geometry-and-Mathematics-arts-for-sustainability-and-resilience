@@ -1,5 +1,13 @@
 # Literature Review
 
+## Application-scope review
+
+The application remains `NOT_SELECTED`. [`application_selection/scope_review_01/SCOPE_REVIEW_01.md`](application_selection/scope_review_01/SCOPE_REVIEW_01.md) maps the full Phase-0 candidate-generation universe across 12 application families and 60 subscopes. The package includes a protocol, 42-record anchor evidence matrix, exact 64-query search log, machine-readable review record, and validation log.
+
+This map is a candidate-generation artifact, not a family ranking or a completed PRISMA-ScR review.
+
+## Paper case studies
+
 ## Review purpose
 
 The review investigates how differential geometry, geometric dynamics, optimization, and mathematical art can support sustainable resilience through three connected functions:

@@ -14,8 +14,13 @@ decision:
   demonstrator: "NOT_SELECTED"
 
 process:
-  phase: "EXPLORATORY_CANDIDATE_GENERATION"
+  phase: "PHASE_0_SCOPE_MAPPING_COMPLETED"
   governing_protocol: "../protocol/APPLICATION_DOMAIN_SELECTION.md"
+  scope_review_status: "COMPLETED_PHASE_0"
+  scope_review_record: "scope_review_01/SCOPE_REVIEW_RECORD.yaml"
+  application_families_mapped: 12
+  searchable_subscopes_mapped: 60
+  curated_anchor_records: 42
   eligibility_screening: "NOT_STARTED"
   comparative_scoring: "NOT_STARTED"
   weights: "NOT_DEFINED"
@@ -37,3 +42,6 @@ controls:
   - "Criteria and any weights must be frozen before final comparative scoring"
   - "Source evidence, reviewer inference, and project proposals must remain separated"
   - "NO_SELECTION is valid when no candidate satisfies the decision rule"
+  - "Phase-0 scope evidence expands the search frame but does not rank families"
+  - "Digital twins mathematical art and finance/governance are cross-cutting layers unless a bounded system-outcome candidate is specified"
+  - "Adjacent geometric methods must not be mislabeled as differential geometry"

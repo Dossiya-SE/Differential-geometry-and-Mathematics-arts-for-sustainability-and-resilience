@@ -1,0 +1,62 @@
+schema_version: "1.0.0"
+review_id: "MSR-SR-001"
+title: "Application-Scope Landscape Review for Differential Geometry and Mathematical Art in Sustainable Resilience"
+version: "0.3.0"
+record_date: "2026-08-22"
+review_type: "PHASE_0_LANDSCAPE_SCOPING_REVIEW"
+
+method:
+  framework: "PCC-informed scoping review and evidence map"
+  reporting_alignment:
+    - "JBI scoping-review guidance"
+    - "PRISMA-ScR reporting principles"
+  prisma_complete: false
+  search_channel: "Targeted web discovery followed by publisher or institutional verification"
+  queries_executed: 64
+  curated_anchor_records: 42
+  dual_independent_screening: false
+  database_exports: false
+  full_text_corpus_screened: false
+  risk_of_bias_appraisal: false
+
+scope:
+  original_application_families: 10
+  expanded_application_families: 12
+  searchable_subscopes: 60
+  cross_cutting_layers: 6
+  added_families:
+    - id: "MSR-SF-011"
+      label: "Earth and climate-system dynamics extremes tipping and projection manifolds"
+      rationale: "Distinct planetary-scale state-space and dynamical-system object not reducible to local infrastructure or ecology"
+    - id: "MSR-SF-012"
+      label: "Urban morphology spatial planning heat accessibility and land-use resilience"
+      rationale: "Distinct spatial-form decision domain connecting morphology to multiple sustainability and resilience outcomes"
+
+cross_cutting_layers:
+  - "Differential geometry manifolds shape spaces and curvature"
+  - "Topology network geometry optimal transport and topological data analysis"
+  - "Dynamics viability reachability control and optimization"
+  - "Inverse problems state estimation uncertainty digital twins and sensing"
+  - "Mathematical art scientific visualization sonification and participation"
+  - "Equity ethics finance governance and implementation"
+
+principal_finding:
+  label: "BRIDGE_DEFICIT"
+  status: "PROVISIONAL_CORPUS_LIMITED"
+  statement: "No single curated anchor jointly operationalizes explicit differential geometry quantified sustainability quantified resilience and a validated mathematical-art or visualization function"
+  global_absence_claim: false
+
+decision_effect:
+  application_domain: "NOT_SELECTED"
+  family_ranking: "NOT_PERFORMED"
+  comparative_scoring: "NOT_STARTED"
+  eligibility_screening: "NOT_STARTED"
+  candidate_generation_effect: "SEARCH_FRAME_EXPANDED"
+
+limitations:
+  - "Web discovery is not an exhaustive multidisciplinary database search"
+  - "No stable total-hit counts were used"
+  - "Most anchors were verified at metadata or abstract level rather than by full-text claim extraction"
+  - "English-language search strings may miss non-English scholarship"
+  - "Publication and terminology bias may obscure negative or null evidence"
+  - "Absence in this phase means not yet identified and not global nonexistence"
