@@ -12,7 +12,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -23,8 +23,15 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
       - uses: quarto-dev/quarto-actions/setup@v2
       - name: Install research and verification dependencies
         run: python -m pip install --upgrade pip && python -m pip install -e '.[dev]'
+      - name: Install pinned Mermaid CLI
+        run: npm install --global @mermaid-js/mermaid-cli@11.16.0
+      - name: Record Mermaid CLI version
+        run: mmdc --version
       - name: Run complete verification
         run: make verify-ci
