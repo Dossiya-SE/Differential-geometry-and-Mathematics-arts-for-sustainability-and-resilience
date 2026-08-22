@@ -335,6 +335,40 @@ def unescaped_dollar(text: str) -> bool:
                for index, char in enumerate(text))
 
 
+def is_escaped(text: str, index: int) -> bool:
+    backslashes = 0
+    cursor = index - 1
+    while cursor >= 0 and text[cursor] == "\\":
+        backslashes += 1
+        cursor -= 1
+    return backslashes % 2 == 1
+
+
+def inline_dollar_fragments(text: str) -> list[str]:
+    """Extract non-display dollar spans without crossing adjacent expressions."""
+    fragments: list[str] = []
+    index = 0
+    while index < len(text):
+        if (text[index] != "$" or is_escaped(text, index)
+                or (index > 0 and text[index - 1] == "$")
+                or (index + 1 < len(text) and text[index + 1] == "$")):
+            index += 1
+            continue
+        end = index + 1
+        while end < len(text):
+            if (text[end] == "$" and not is_escaped(text, end)
+                    and (end + 1 >= len(text) or text[end + 1] != "$")):
+                body = text[index + 1:end]
+                if body.strip():
+                    fragments.append(body)
+                index = end + 1
+                break
+            end += 1
+        else:
+            break
+    return fragments
+
+
 def legacy_semantic_hashes(text: str) -> list[dict[str, Any]]:
     """Hash TeX bodies before delimiter conversion without interpreting TeX."""
     records: list[dict[str, Any]] = []
@@ -511,9 +545,9 @@ def extract(root: Path, policy: Policy) -> list[dict[str, Any]]:
                     visible = head + rest
                 else:
                     in_display, display_start, display_lines, visible = True, number, [tail], head
-            for match in re.finditer(r"(?<!\\)\$(?!\$)(\S(?:.*?\S)?)\$(?!\d)", visible):
+            for body in inline_dollar_fragments(visible):
                 records.append({"path": relative, "line": number, "display": False,
-                                "syntax": "dollar", "tex": match.group(1)})
+                                "syntax": "dollar", "tex": body})
     return records
 
 

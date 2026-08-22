@@ -39,7 +39,8 @@
       "surface": "github-markdown",
       "archival": false,
       "before_sha256": "04b001638eda52c7d5900fbdcffa4ec4c4196bcafe5b8661f00be07b126d7f77",
-      "after_sha256": "6fdc68ce5ef8c535485b8c114c20afc5390d9329a07d4c36900e8c90875f3667",
+      "after_delimiter_sha256": "6fdc68ce5ef8c535485b8c114c20afc5390d9329a07d4c36900e8c90875f3667",
+      "after_sha256": "f5b5e4e171738aa92834f54160643339263f2d64edddae7097b702749b9353f0",
       "preserved_tex_bodies": [
         {
           "line": 13,
@@ -85,6 +86,16 @@
           "line": 74,
           "display": true,
           "tex_sha256": "6b7f70c95a982bf7a121255599fad3835ea13816caaf39177e2f01523a7f012d"
+        }
+      ],
+      "manual_repairs": [
+        {
+          "rule_id": "MSM006",
+          "line": 65,
+          "renderer_evidence": "MathJax and KaTeX rejected unescaped underscores inside texttt",
+          "treatment": "Escape identifier underscores inside texttt without changing displayed identifiers",
+          "before_tex_sha256": "4b6bd2d2cf295281596fc5c2e086d1fe325e5686b78efe5f2411db80500879de",
+          "after_tex_sha256": "a18e13215daaf198481ddfc20131898558f81be926994bc6e06a6d7363a459fc"
         }
       ],
       "skipped": []
