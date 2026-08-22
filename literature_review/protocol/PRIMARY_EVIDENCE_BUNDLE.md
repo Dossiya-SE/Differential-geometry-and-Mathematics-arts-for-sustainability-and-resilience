@@ -72,11 +72,11 @@ Here $\mathcal S_{\mathrm{terminal}}$ denotes exactly the artifact states `INSPE
 
 The inventory is closed only when
 
-$$
+```math
 G_i^{\mathrm{inventory}}
 =
 \bigwedge_{a\in A_i^*}R_{\mathrm{inv}}(s_{i,a})=1.
-$$
+```
 
 This is an **inventory-closure gate**, not a reproduction gate. A terminal absence or restriction can close the inventory while preventing reproduction. `IDENTIFIED` and `OBTAINED` remain open because inspection is incomplete.
 

@@ -16,7 +16,7 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
 DEEP = "*" * 2 + "/"
 MARKDOWN_SUFFIXES = {".md", ".markdown", ".mdx"}
 DEFAULT_INCLUDE = [DEEP + "*.md", DEEP + "*.markdown", DEEP + "*.mdx"]
@@ -38,6 +38,7 @@ MOJIBAKE = re.compile(
     r"(?:\u00c3[\u0080-\u00bf]|\u00c2[\u0080-\u00bf]|"
     r"\u00e2(?:\u20ac|[\u0080-\u00bf]).|\u00ef\u00bf\u00bd|\ufffd)"
 )
+SETEXT_COLLISION = re.compile(r"^\s*(?:=+|-+)\s*$")
 RULES = {
     "MSM001": ("legacy-inline-on-github", "Legacy inline delimiter on GitHub Markdown"),
     "MSM002": ("legacy-display-on-github", "Legacy display delimiter on GitHub Markdown"),
@@ -46,6 +47,7 @@ RULES = {
     "MSM005": ("unmatched-display-dollar", "Unmatched double-dollar delimiter"),
     "MSM008": ("probable-mojibake", "Probable character-encoding corruption"),
     "MSM009": ("invalid-utf8", "Document is not valid UTF-8"),
+    "MSM010": ("gfm-setext-inside-display", "Display math contains a line parsed as a GFM Setext heading"),
 }
 
 
@@ -171,7 +173,7 @@ def finding(rule: str, path: str, line: int, col: int, end_line: int, end_col: i
         rule, path, line, col, end_line, end_col,
         "warning" if review else "error",
         "REVIEW" if review else "HIGH_CONFIDENCE",
-        surface, archival, rule in {"MSM001", "MSM002"} and not review,
+        surface, archival, rule in {"MSM001", "MSM002", "MSM010"} and not review,
         RULES[rule][1], snippet.strip()[:240],
     )
 
@@ -230,9 +232,13 @@ def scan_text(text: str, path: str, surface: str, archival: bool) -> list[Findin
         if inline_open:
             results.append(finding("MSM004", path, number, inline_open[0], number, inline_open[0] + 1,
                                    surface, archival, inline_open[1]))
+        display_before = in_dollars
         for event in re.finditer(r"(?<!\\)\$\$", visible):
             dollars_open = (number, event.start() + 1, source) if dollars_open is None else None
         outside, in_dollars = mask_supported_math(visible, in_dollars)
+        if display_before and SETEXT_COLLISION.fullmatch(visible):
+            results.append(finding("MSM010", path, number, 1, number, len(source) + 1,
+                                   surface, archival, source))
         outside = LEGACY_INLINE.sub(lambda item: " " * len(item.group(0)), outside)
         outside = LEGACY.sub(lambda item: " " * len(item.group(0)), outside)
         if display_touched or display_open:
@@ -413,6 +419,42 @@ def legacy_semantic_hashes(text: str) -> list[dict[str, Any]]:
     return records
 
 
+def rewrite_dollar_collisions(text: str) -> tuple[str, list[str]]:
+    """Use a math fence when GFM would parse a display body as Markdown structure."""
+    lines = text.splitlines(keepends=True)
+    skipped: list[str] = []
+    in_fence, fence_char, fence_len = False, "", 0
+    display_open: int | None = None
+    for index, line in enumerate(lines):
+        plain = line.rstrip("\r\n")
+        fence = FENCE.match(plain)
+        if fence:
+            marker = fence.group(1)
+            if not in_fence:
+                in_fence, fence_char, fence_len = True, marker[0], len(marker)
+            elif marker[0] == fence_char and len(marker) >= fence_len:
+                in_fence, fence_char, fence_len = False, "", 0
+            continue
+        if in_fence or plain.strip() != "$$":
+            continue
+        if display_open is None:
+            display_open = index
+            continue
+        body_lines = lines[display_open + 1:index]
+        if any(SETEXT_COLLISION.fullmatch(item.rstrip("\r\n")) for item in body_lines):
+            if any("```" in item for item in body_lines):
+                skipped.append(f"lines {display_open + 1}-{index + 1}: math-fence collision")
+            else:
+                opening_newline = lines[display_open][len(lines[display_open].rstrip("\r\n")):]
+                closing_newline = line[len(line.rstrip("\r\n")):]
+                opening_plain = lines[display_open].rstrip("\r\n")
+                indent = opening_plain[:len(opening_plain) - len(opening_plain.lstrip())]
+                lines[display_open] = f"{indent}```math{opening_newline}"
+                lines[index] = f"{indent}```{closing_newline}"
+        display_open = None
+    return "".join(lines), skipped
+
+
 def rewrite(text: str) -> tuple[str, list[str]]:
     replacements, skipped = [], []
     offset, in_fence, fence_char, fence_len = 0, False, "", 0
@@ -459,7 +501,8 @@ def rewrite(text: str) -> tuple[str, list[str]]:
     output = text
     for start, end, replacement in sorted(replacements, reverse=True):
         output = output[:start] + replacement + output[end:]
-    return output, skipped
+    output, collision_skipped = rewrite_dollar_collisions(output)
+    return output, skipped + collision_skipped
 
 
 def fix(root: Path, policy: Policy, apply: bool, allow_archival: bool,

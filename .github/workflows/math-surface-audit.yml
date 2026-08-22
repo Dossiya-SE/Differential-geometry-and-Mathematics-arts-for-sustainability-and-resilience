@@ -32,7 +32,7 @@ jobs:
 
       - name: Install pinned renderer validators
         working-directory: .github/math-surface
-        run: npm install --ignore-scripts --no-audit --no-fund
+        run: npm ci --ignore-scripts --no-audit --no-fund
 
       - name: Validate MathJax 4 and KaTeX
         id: renderer

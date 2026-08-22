@@ -40,7 +40,7 @@
       "archival": false,
       "before_sha256": "04b001638eda52c7d5900fbdcffa4ec4c4196bcafe5b8661f00be07b126d7f77",
       "after_delimiter_sha256": "6fdc68ce5ef8c535485b8c114c20afc5390d9329a07d4c36900e8c90875f3667",
-      "after_sha256": "31933c9b2525d8391591094fa2fbf71b9d63cf6295af37b20666955ae49e8a81",
+      "after_sha256": "94dfb024b6b9bb9e6c8713af2c7a6614776edbed071dfeb9a2154b7347838bfb",
       "preserved_tex_bodies": [
         {
           "line": 13,
@@ -100,10 +100,55 @@
             "c80a8547494c7902a1a1357931c68375263e498167293e1325b2eb4e87bfb178"
           ],
           "after_tex_sha256": "b90933107fc4439263cd5917ceb78a68b29e8a0adb8173349a2aff0574e2b1f8"
+        },
+        {
+          "rule_id": "MSM010",
+          "line": 75,
+          "renderer_evidence": "GitHub parsed the standalone equals-sign line inside the double-dollar display as GFM Setext heading structure before MathJax received the formula",
+          "treatment": "Replace only the double-dollar display container with a fenced math block",
+          "before_tex_sha256": "6b7f70c95a982bf7a121255599fad3835ea13816caaf39177e2f01523a7f012d",
+          "after_tex_sha256": "6b7f70c95a982bf7a121255599fad3835ea13816caaf39177e2f01523a7f012d"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "path": "literature_review/case_studies/MSR-CS-001_design-for-descent/CASE_STUDY_01.md",
+      "surface": "github-markdown",
+      "archival": false,
+      "tool_version": "1.2.0",
+      "rule_id": "MSM010",
+      "before_sha256": "c97c131092dd5129f5578951cb2604ddc6a8493f42953bd88c4c0f72e93316ec",
+      "after_sha256": "218bcbb12bf7481587dfa6dcf5b193e5959384fd937b6cc40ef4dc7db773bcb5",
+      "treatment": "Replace four double-dollar display containers containing standalone equals-sign lines with fenced math blocks",
+      "preserved_tex_bodies": [
+        {
+          "line": 78,
+          "display": true,
+          "before_tex_sha256": "4908563561c62266f7b3d745b8dc26d47fb15dc37fc97a5c469f912f7c4c9acd",
+          "after_tex_sha256": "4908563561c62266f7b3d745b8dc26d47fb15dc37fc97a5c469f912f7c4c9acd"
+        },
+        {
+          "line": 91,
+          "display": true,
+          "before_tex_sha256": "a6985d0a902da4a15e7e5c5c8096c04dd61eca89590ed55bc344fd9cf906136d",
+          "after_tex_sha256": "a6985d0a902da4a15e7e5c5c8096c04dd61eca89590ed55bc344fd9cf906136d"
+        },
+        {
+          "line": 227,
+          "display": true,
+          "before_tex_sha256": "497bfb5df87587660fabd6e5b11d299e6c0831f1ff6428c8eb2e4d61514f46f2",
+          "after_tex_sha256": "497bfb5df87587660fabd6e5b11d299e6c0831f1ff6428c8eb2e4d61514f46f2"
+        },
+        {
+          "line": 268,
+          "display": true,
+          "before_tex_sha256": "f589ffb8565db232d89f34b8f1ba3253768fbad98db22bb2aee153e7468bde9d",
+          "after_tex_sha256": "f589ffb8565db232d89f34b8f1ba3253768fbad98db22bb2aee153e7468bde9d"
         }
       ],
       "skipped": []
     }
   ],
-  "changed_files": 2
+  "changed_files": 3
 }
