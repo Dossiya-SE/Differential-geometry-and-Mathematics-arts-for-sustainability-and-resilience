@@ -1,0 +1,88 @@
+schema_version: "1.0.0"
+record_id: "MSR-CS-001"
+review_version: "0.1.0"
+review_date: "2026-08-22"
+review_author: "Dossiya Dakou"
+
+source:
+  title: "Design for Descent: What Makes a Shape Grammar Easy to Optimize?"
+  authors:
+    - "Milin Kodnongbua"
+    - "Zihan Jack Zhang"
+    - "Nicholas Sharp"
+    - "Adriana Schulz"
+  year: 2025
+  venue: "SIGGRAPH Asia 2025 Conference Papers"
+  doi: "10.1145/3757377.3764004"
+  pages: 11
+  license_reported: "Creative Commons Attribution-NonCommercial 4.0 International"
+  pdf_sha256: "9b61925d981edf9173aa58045bf90e44488e09e5ded1c692085f75a9e0812314"
+  main_text_status: "OBSERVED"
+  supplement_status: "NOT_VERIFIED"
+  code_status: "NOT_VERIFIED"
+
+classification:
+  direct_application_D: false
+  transferable_method_M: true
+  geometric_design_G: true
+  visualization_mathematical_art_V: true
+  contextual_C: false
+  final_label: "M+G+V"
+
+research_problem:
+  observed: "Optimize shape programs over mixed discrete structures and continuous parameters."
+  status: "OBSERVED"
+
+mathematical_objects:
+  grammar_tuple: "G=(V,Sigma,R,omega)"
+  design_space: "disjoint union over s in S of {s} x R^{d(s)}"
+  objective: "minimize f(I(s,p)) + g(s,p)"
+  optimizer: "Stochastic Rewrite Descent"
+
+observed_design_guidelines:
+  - "Reversibility"
+  - "Jump continuity"
+  - "Local geometric control"
+  - "Repairability"
+
+observed_grammars:
+  - "Tree"
+  - "Arc-Line"
+  - "Union-Rectangle"
+
+observed_applications:
+  - "Target-image matching"
+  - "Changing-target morphing"
+  - "Text-conditioned shape generation"
+  - "Cantilever topology optimization"
+  - "MBB-beam topology optimization"
+
+datasets:
+  one_component_count: 128
+  donut_count: 25
+  two_component_count: 23
+
+direct_relevance:
+  differential_geometry: "NOT_OBSERVED"
+  mathematical_art: "OBSERVED_STRONG"
+  geometric_design: "OBSERVED_STRONG"
+  sustainability_assessment: "NOT_OBSERVED"
+  resilience_assessment: "NOT_OBSERVED"
+  coupled_infrastructure: "NOT_OBSERVED"
+  optimization: "OBSERVED_STRONG"
+
+proposed_transfer:
+  status: "PROPOSED"
+  state_space: "Stratified hybrid P-W-T-SW infrastructure state space"
+  hazard_demonstrator: "Urban flooding with solid-waste blockage feedback"
+  outcome: "Safe and equitable critical-service continuity"
+  extension: "Discrete rewrites across modes plus continuous dynamics and optional intrinsic metrics within strata"
+
+validity_limits:
+  - "Main paper only; supplement not supplied"
+  - "Code stated but not executed"
+  - "No independent numerical reproduction"
+  - "No quantified sustainability outcome"
+  - "No hazard, recovery, viability, equity, or service-continuity model"
+  - "Proposed infrastructure mapping is not a source-paper result"
+

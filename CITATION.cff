@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this literature-review package, cite the repository and the focal source paper."
+title: "Mathematics Exploration for Sustainable Resilience: Literature Review Case Study 01"
+type: dataset
+authors:
+  - family-names: "Dakou"
+    given-names: "Dossiya"
+version: "0.1.0"
+date-released: "2026-08-22"
+preferred-citation:
+  type: conference-paper
+  title: "Design for Descent: What Makes a Shape Grammar Easy to Optimize?"
+  authors:
+    - family-names: "Kodnongbua"
+      given-names: "Milin"
+    - family-names: "Zhang"
+      given-names: "Zihan Jack"
+    - family-names: "Sharp"
+      given-names: "Nicholas"
+    - family-names: "Schulz"
+      given-names: "Adriana"
+  collection-title: "SIGGRAPH Asia 2025 Conference Papers"
+  year: 2025
+  doi: "10.1145/3757377.3764004"
+
