@@ -403,7 +403,7 @@ The standalone Mermaid source is maintained at [`diagrams/MSR_RA_002_SCIENTIFIC_
 
 For every focal paper `MSR-CS-NNN`, the default path is:
 
-\[
+$$
 \text{source acquisition}
 \rightarrow
 \text{independent reconstruction}
@@ -415,7 +415,7 @@ For every focal paper `MSR-CS-NNN`, the default path is:
 \text{stress test}
 \rightarrow
 \text{bounded conclusion}.
-\]
+$$
 
 Cross-paper synthesis is downstream of individual judgement. A paper is not interpreted as a sustainable-resilience contribution merely because its mathematics appears transferable.
 
@@ -437,19 +437,19 @@ A missing artifact does not automatically fail the review. It must receive an ad
 
 Scientific evidence status and artifact/reproduction status remain orthogonal. In particular:
 
-\[
+$$
 \texttt{REPRODUCED}
 \not\Rightarrow
 \texttt{VALIDATED},
-\]
+$$
 
 and
 
-\[
+$$
 \texttt{PROPOSED}
 \not\Rightarrow
 \texttt{OBSERVED}
-\]
+$$
 
 merely because a proposed extension has been implemented in code.
 
@@ -500,7 +500,7 @@ The release node returns to the research-question node because every completed s
 
 The authoritative conceptual loop is therefore
 
-\[
+$$
 \mathcal E
 \rightarrow
 \mathcal M
@@ -515,6 +515,6 @@ The authoritative conceptual loop is therefore
 \rightarrow
 \mathcal P
 \circlearrowleft,
-\]
+$$
 
 where evidence, mathematics, computation, reproduction, synthesis, transfer, and publication remain separately auditable stages.

@@ -10,17 +10,17 @@ It applies to every study class (`D`, `M`, `G`, `V`, and `C`). The required arti
 
 For study (i), record
 
-\[
+$$
 \mathcal{B}_i=(\mathcal{I}_i,\mathcal{A}_i,\mathcal{E}_i,\mathcal{X}_i,\mathcal{P}_i),
-\]
+$$
 
 where:
 
-- \(\mathcal{I}_i\) is source identity: title, authors, venue, DOI, version, correction or retraction state, and official landing pages;
-- \(\mathcal{A}_i\) is the artifact inventory: main text, supplement, code, data, model weights, configurations, and any additional claim-critical artifact;
-- \(\mathcal{E}_i\) is the execution specification: operating system, runtime, dependency lock, hardware, random seeds, external services, and licenses;
-- \(\mathcal{X}_i\) is the experiment register: source claim, equation, algorithm, command, inputs, expected output, metric, tolerance, and stress test;
-- \(\mathcal{P}_i\) is audit provenance: retrieval dates, immutable identifiers, hashes, search paths, logs, deviations, and reviewer decisions.
+- $\mathcal{I}_i$ is source identity: title, authors, venue, DOI, version, correction or retraction state, and official landing pages;
+- $\mathcal{A}_i$ is the artifact inventory: main text, supplement, code, data, model weights, configurations, and any additional claim-critical artifact;
+- $\mathcal{E}_i$ is the execution specification: operating system, runtime, dependency lock, hardware, random seeds, external services, and licenses;
+- $\mathcal{X}_i$ is the experiment register: source claim, equation, algorithm, command, inputs, expected output, metric, tolerance, and stress test;
+- $\mathcal{P}_i$ is audit provenance: retrieval dates, immutable identifiers, hashes, search paths, logs, deviations, and reviewer decisions.
 
 `ENV` is therefore an execution specification, not merely another downloadable artifact. A model checkpoint may be required for one experiment and not applicable to another. Applicability must be decided at experiment level.
 
@@ -60,22 +60,22 @@ Independent validation is a later stage: it requires a new dataset, stress condi
 
 ## 4. Inventory-closure gate
 
-Let \(A_i^*\) be the set of artifacts required by the registered claims and experiments. Define
+Let $A_i^*$ be the set of artifacts required by the registered claims and experiments. Define
 
-\[
+$$
 R_{\mathrm{inv}}(s)=1
 \quad\text{iff}\quad
 s\in\{\texttt{INSPECTED},\texttt{NOT_APPLICABLE},\texttt{NOT_FOUND_AFTER_SEARCH},
 \texttt{ACCESS_RESTRICTED},\texttt{LICENSE_RESTRICTED}\}.
-\]
+$$
 
 The inventory is closed only when
 
-\[
+$$
 G_i^{\mathrm{inventory}}
 =
 \bigwedge_{a\in A_i^*}R_{\mathrm{inv}}(s_{i,a})=1.
-\]
+$$
 
 This is an **inventory-closure gate**, not a reproduction gate. A terminal absence or restriction can close the inventory while preventing reproduction. `IDENTIFIED` and `OBTAINED` remain open because inspection is incomplete.
 
