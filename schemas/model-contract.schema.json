@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Dossiya-SE/Differential-geometry-and-Mathematics-arts-for-sustainability-and-resilience/schemas/model-contract.schema.json",
+  "title": "MSR mathematical model contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "model_id",
+    "version",
+    "title",
+    "status",
+    "application_decision",
+    "purpose",
+    "mathematical_structure",
+    "maps",
+    "parameters",
+    "assumptions",
+    "invariants",
+    "numerical",
+    "uncertainty",
+    "evidence",
+    "implementation",
+    "verification"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0.0"},
+    "model_id": {"type": "string", "pattern": "^MSR-MOD-[0-9]{4}$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "title": {"type": "string", "minLength": 8},
+    "record_date": {"type": "string", "format": "date"},
+    "status": {
+      "type": "string",
+      "enum": ["PROPOSED", "REFERENCE_VERIFIED", "VALIDATED", "REJECTED", "SUPERSEDED"]
+    },
+    "application_decision": {"type": "string", "enum": ["NOT_SELECTED", "SELECTED"]},
+    "purpose": {"type": "string", "minLength": 20},
+    "mathematical_structure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state_space", "ambient_space", "dimension", "metric", "topology"],
+      "properties": {
+        "state_space": {"type": "string", "minLength": 1},
+        "ambient_space": {"type": "string", "minLength": 1},
+        "dimension": {"type": "integer", "minimum": 1},
+        "ambient_dimension": {"type": "integer", "minimum": 1},
+        "metric": {"type": "string", "minLength": 1},
+        "topology": {"type": "string", "minLength": 1}
+      }
+    },
+    "maps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "domain", "codomain", "definition"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "domain": {"type": "string", "minLength": 1},
+          "codomain": {"type": "string", "minLength": 1},
+          "definition": {"type": "string", "minLength": 1},
+          "singularities": {"type": "string"}
+        }
+      }
+    },
+    "parameters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["symbol", "meaning", "unit", "admissible_set"],
+        "properties": {
+          "symbol": {"type": "string", "minLength": 1},
+          "meaning": {"type": "string", "minLength": 1},
+          "unit": {"type": "string", "minLength": 1},
+          "admissible_set": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement", "status"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^A-[0-9]{3}$"},
+          "statement": {"type": "string", "minLength": 5},
+          "status": {"$ref": "#/$defs/evidence_state"}
+        }
+      }
+    },
+    "invariants": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement", "test"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^INV-[0-9]{3}$"},
+          "statement": {"type": "string", "minLength": 5},
+          "test": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "numerical": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["representation", "precision", "absolute_tolerance", "relative_tolerance"],
+      "properties": {
+        "representation": {"type": "string", "minLength": 1},
+        "precision": {"type": "string", "minLength": 1},
+        "absolute_tolerance": {"type": "number", "exclusiveMinimum": 0},
+        "relative_tolerance": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "uncertainty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["representation", "status"],
+      "properties": {
+        "representation": {"type": "string", "minLength": 1},
+        "status": {"$ref": "#/$defs/evidence_state"}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["citation_keys", "evidence_status", "limitations"],
+      "properties": {
+        "citation_keys": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "audit_ids": {"type": "array", "items": {"type": "string"}},
+        "evidence_status": {"$ref": "#/$defs/evidence_state"},
+        "limitations": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+      }
+    },
+    "implementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reference_language", "module"],
+      "properties": {
+        "reference_language": {"type": "string", "const": "Python"},
+        "module": {"type": "string", "minLength": 1}
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tests", "benchmark_experiments", "validation_status"],
+      "properties": {
+        "tests": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "benchmark_experiments": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "validation_status": {
+          "type": "string",
+          "enum": ["MATHEMATICAL_FIXTURE_ONLY", "INTERNAL", "EXTERNAL", "NOT_VALIDATED"]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "evidence_state": {
+      "type": "string",
+      "enum": [
+        "OBSERVED",
+        "OBSERVED_PARTIAL",
+        "INFERRED",
+        "PROPOSED",
+        "VALIDATED",
+        "REJECTED",
+        "NOT_OBSERVED",
+        "NOT_VERIFIED",
+        "NOT_APPLICABLE"
+      ]
+    }
+  }
+}

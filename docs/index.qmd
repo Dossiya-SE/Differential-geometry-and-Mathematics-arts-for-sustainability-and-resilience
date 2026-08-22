@@ -1,0 +1,33 @@
+---
+title: "Research Platform"
+subtitle: "Differential Geometry and Mathematical Art for Sustainability and Resilience"
+---
+
+This website documents a domain-neutral research platform connecting evidence synthesis, precise mathematical specification, executable models, verification, mathematical art, and scholarly writing.
+
+## Current boundary
+
+The application, system boundary, hazard, geography, and demonstrator remain `NOT_SELECTED`. The platform is intentionally designed before a preferred application is chosen so that repository structure cannot prejudge the evidence-led selection.
+
+## Traceability principle
+
+Every research object must have stable identifiers and explicit links:
+
+$$
+\text{source}\longleftrightarrow\text{claim}\longleftrightarrow
+\text{mathematical object}\longleftrightarrow\text{implementation}
+\longleftrightarrow\text{test}\longleftrightarrow\text{experiment}
+\longleftrightarrow\text{figure}.
+$$
+
+These links provide provenance. They do not imply that a proposed transfer has been empirically validated.
+
+## Foundation contents
+
+- the `MSR-CA-001` provisional ten-chain research architecture;
+- machine-readable model and experiment contracts;
+- a small verified two-sphere geometry reference model;
+- separate scientific and communication validation for mathematical art;
+- automated integrity, testing, citation, documentation, and reproducibility checks.
+
+Start with the [repository architecture](architecture.qmd) and [research-integrity standard](research-integrity.qmd).

@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "model_id": "MSR-MOD-0001",
+  "version": "1.0.0",
+  "title": "Unit two-sphere geodesic reference model",
+  "record_date": "2026-08-22",
+  "status": "REFERENCE_VERIFIED",
+  "application_decision": "NOT_SELECTED",
+  "purpose": "Provide a domain-neutral differential-geometric fixture for testing model contracts, numerical invariants, experiments, and exact mathematical-art provenance.",
+  "mathematical_structure": {
+    "state_space": "S^2 = {x in R^3 : x^T x = 1}",
+    "ambient_space": "R^3",
+    "dimension": 2,
+    "ambient_dimension": 3,
+    "metric": "Riemannian metric induced by the Euclidean inner product",
+    "topology": "Subspace topology inherited from R^3"
+  },
+  "maps": [
+    {
+      "name": "exp_map",
+      "domain": "{(p,v) : p in S^2, v in T_p S^2}",
+      "codomain": "S^2",
+      "definition": "Exp_p(v) = cos(||v||)p + sinc(||v||)v",
+      "singularities": "No geometric singularity; the zero norm uses its analytic limit."
+    },
+    {
+      "name": "log_map",
+      "domain": "{(p,q) : p,q in S^2, q != -p}",
+      "codomain": "T_p S^2",
+      "definition": "Log_p(q) = theta(q - cp)/s, c = clip(p^T q,-1,1), s = ||q-cp||, theta = atan2(s,c)",
+      "singularities": "The principal direction is non-unique at q = -p."
+    },
+    {
+      "name": "distance",
+      "domain": "S^2 x S^2",
+      "codomain": "[0, pi]",
+      "definition": "d(p,q) = atan2(||q-(p^T q)p||, clip(p^T q,-1,1))"
+    }
+  ],
+  "parameters": [
+    {
+      "symbol": "R",
+      "meaning": "Sphere radius fixed by the reference model",
+      "unit": "dimensionless",
+      "admissible_set": "{1}"
+    }
+  ],
+  "assumptions": [
+    {"id": "A-001", "statement": "Inputs are finite and normalized to S^2.", "status": "OBSERVED"},
+    {"id": "A-002", "statement": "Principal logarithms exclude antipodal pairs.", "status": "OBSERVED"},
+    {"id": "A-003", "statement": "Reference calculations use binary64 arithmetic.", "status": "OBSERVED"},
+    {"id": "A-004", "statement": "The fixture has no selected application semantics.", "status": "PROPOSED"}
+  ],
+  "invariants": [
+    {"id": "INV-001", "statement": "Every returned point has Euclidean norm one.", "test": "tests/properties/test_sphere_geometry.py"},
+    {"id": "INV-002", "statement": "Logarithm vectors are tangent at their base point.", "test": "tests/properties/test_sphere_geometry.py"},
+    {"id": "INV-003", "statement": "Geodesic distance is symmetric and nonnegative.", "test": "tests/properties/test_sphere_geometry.py"},
+    {"id": "INV-004", "statement": "Exp_p(Log_p(q)) equals q away from the cut locus within tolerance.", "test": "tests/numerical/test_sphere_geodesic.py"}
+  ],
+  "numerical": {
+    "representation": "NumPy arrays of shape (3,)",
+    "precision": "IEEE 754 binary64",
+    "absolute_tolerance": 1e-12,
+    "relative_tolerance": 1e-12
+  },
+  "uncertainty": {
+    "representation": "Deterministic analytic fixture with bounded floating-point residual; no stochastic uncertainty model.",
+    "status": "OBSERVED"
+  },
+  "evidence": {
+    "citation_keys": ["docarmo1992riemannian", "miolane2020geomstats"],
+    "audit_ids": [],
+    "evidence_status": "OBSERVED",
+    "limitations": [
+      "The principal logarithm is not unique at the antipode.",
+      "The fixture does not represent sustainability, resilience, infrastructure, ecology, or human outcomes.",
+      "Internal mathematical verification is not external application validation."
+    ]
+  },
+  "implementation": {
+    "reference_language": "Python",
+    "module": "msr.geometry.sphere"
+  },
+  "verification": {
+    "tests": [
+      "tests/unit/test_sphere.py",
+      "tests/properties/test_sphere_geometry.py",
+      "tests/numerical/test_sphere_geodesic.py"
+    ],
+    "benchmark_experiments": ["MSR-EXP-0001"],
+    "validation_status": "MATHEMATICAL_FIXTURE_ONLY"
+  }
+}

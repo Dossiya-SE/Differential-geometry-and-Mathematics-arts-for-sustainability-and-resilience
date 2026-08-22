@@ -1,24 +1,27 @@
 cff-version: 1.2.0
-message: "If you use this literature-review package, cite the repository; cite the focal source paper when using Case Study 01."
-title: "Mathematics Exploration for Sustainable Resilience: Application-Scope Review and Case Study 01"
-type: dataset
+message: "Cite this research platform and cite each underlying scholarly source used in your work."
+title: "Mathematics Exploration for Sustainable Resilience: Differential Geometry and Mathematical Art for Sustainability and Resilience"
+type: software
 authors:
   - family-names: "Dakou"
     given-names: "Dossiya"
-version: "0.3.2"
+version: "0.4.0"
 date-released: "2026-08-22"
+repository-code: "https://github.com/Dossiya-SE/Differential-geometry-and-Mathematics-arts-for-sustainability-and-resilience"
+url: "https://github.com/Dossiya-SE/Differential-geometry-and-Mathematics-arts-for-sustainability-and-resilience"
+keywords:
+  - differential geometry
+  - mathematical art
+  - sustainability
+  - resilience
+  - viability
+  - reproducible research
 preferred-citation:
-  type: conference-paper
-  title: "Design for Descent: What Makes a Shape Grammar Easy to Optimize?"
+  type: software
   authors:
-    - family-names: "Kodnongbua"
-      given-names: "Milin"
-    - family-names: "Zhang"
-      given-names: "Zihan Jack"
-    - family-names: "Sharp"
-      given-names: "Nicholas"
-    - family-names: "Schulz"
-      given-names: "Adriana"
-  collection-title: "SIGGRAPH Asia 2025 Conference Papers"
-  year: 2025
-  doi: "10.1145/3757377.3764004"
+    - family-names: "Dakou"
+      given-names: "Dossiya"
+  title: "Mathematics Exploration for Sustainable Resilience: Differential Geometry and Mathematical Art for Sustainability and Resilience"
+  version: "0.4.0"
+  year: 2026
+  url: "https://github.com/Dossiya-SE/Differential-geometry-and-Mathematics-arts-for-sustainability-and-resilience"

@@ -2,68 +2,110 @@
 
 ## Differential Geometry and Mathematical Art for Sustainability and Resilience
 
-This repository-ready package develops an evidence-first literature review of mathematical methods that can represent, analyze, optimize, design, and communicate sustainable resilience.
+[![Continuous integration](https://github.com/Dossiya-SE/Differential-geometry-and-Mathematics-arts-for-sustainability-and-resilience/actions/workflows/ci.yml/badge.svg)](https://github.com/Dossiya-SE/Differential-geometry-and-Mathematics-arts-for-sustainability-and-resilience/actions/workflows/ci.yml)
+[![Documentation](https://github.com/Dossiya-SE/Differential-geometry-and-Mathematics-arts-for-sustainability-and-resilience/actions/workflows/docs.yml/badge.svg)](https://github.com/Dossiya-SE/Differential-geometry-and-Mathematics-arts-for-sustainability-and-resilience/actions/workflows/docs.yml)
 
-The review treats sustainable resilience provisionally as the **geometry and dynamics of admissible persistence, adaptation, and recovery**. The application domain, system boundary, hazard context, and demonstrator are **not yet selected**. Coupled Power-Water-Transportation-Solid-Waste infrastructure under urban flooding is retained only as one candidate among alternatives to be compared through a documented selection protocol.
+This repository is a domain-neutral research platform for investigating how differential geometry, dynamical systems, sustainability mathematics, resilience theory, and mathematical art can be connected without confusing analogy with evidence.
 
-## Current research stage
+> **Traceability rule:** every substantive claim connects to evidence; every mathematical object connects to a specification; every computation connects to tests; every figure connects to reproducible data and declared visual encodings.
 
-The project is in an exploratory evidence-synthesis stage. It will first determine which scientific problem provides the strongest defensible intersection of differential geometry, mathematical art, sustainability, and resilience. No candidate becomes the governing application until it passes the non-compensatory eligibility gates and comparative assessment defined in [`literature_review/protocol/APPLICATION_DOMAIN_SELECTION.md`](literature_review/protocol/APPLICATION_DOMAIN_SELECTION.md). The live decision state and search frame are recorded in [`literature_review/application_selection/`](literature_review/application_selection/).
+## Governing status
 
-## Phase-0 application-scope map
+| Field | Current state |
+|---|---|
+| Release | `0.4.0` — Research Platform Foundation |
+| Research phase | Phase 0 scope mapping and architecture validation |
+| Application domain | `NOT_SELECTED` |
+| System boundary | `NOT_SELECTED` |
+| Hazard or stressor | `NOT_SELECTED` |
+| Demonstrator | `NOT_SELECTED` |
+| Chain architecture | `MSR-CA-001`, `PROPOSED_NON_EXHAUSTIVE` |
 
-The first landscape review expands the search frame from 10 to 12 primary application families and decomposes it into 60 searchable subscopes. It adds Earth/climate-system dynamics and urban morphology/spatial planning, while treating digital twins, mathematical art, and finance/governance as cross-cutting layers rather than presumed application domains.
+Coupled Power-Water-Transportation-Solid-Waste infrastructure under urban flooding remains one incomplete candidate. It has no privileged role in the core software, mathematical contracts, or selection process.
+
+## Research architecture
+
+```mermaid
+flowchart TD
+    E["Literature and evidence"] --> M["Definitions, assumptions and propositions"]
+    M --> C["Executable mathematical models"]
+    C --> V["Verification and experiments"]
+    V --> A["Reproducible figures and mathematical art"]
+    A --> P["Papers, documentation and decisions"]
+```
+
+The layers are linked by identifiers, citations, schemas, tests, checksums, and provenance records. Passing through the diagram does not upgrade an `INFERRED` or `PROPOSED` statement to `OBSERVED` or `VALIDATED`.
+
+## Repository map
+
+| Area | Responsibility |
+|---|---|
+| [`literature_review/`](literature_review/) | Search protocols, evidence matrices, case studies, citations, and application selection |
+| [`mathematics/`](mathematics/) | Notation, definitions, assumptions, derivations, propositions, and model contracts |
+| [`src/msr/`](src/msr/) | Domain-neutral reference implementations |
+| [`tests/`](tests/) | Unit, property, numerical, regression, and future cross-language tests |
+| [`experiments/`](experiments/) | Registered configurations, benchmarks, and reproducible experiment records |
+| [`schemas/`](schemas/) | Machine-readable validation contracts |
+| [`art/`](art/) | Mathematical-art encoding standard and exact visual sources |
+| [`figures/`](figures/) | Source, generated, and publication-ready figures with provenance |
+| [`docs/`](docs/) | Quarto research documentation and architectural decisions |
+| [`reproducibility/`](reproducibility/) | Environments, containers, and integrity manifests |
+| [`.github/`](.github/) | Review templates, dependency policy, and automated quality gates |
+
+The complete design rationale is in [`docs/REPOSITORY_ARCHITECTURE.md`](docs/REPOSITORY_ARCHITECTURE.md).
+
+## Scientific boundaries
+
+1. Mathematical beauty is not empirical validation.
+2. Optimization is a method, not proof of implementability or benefit.
+3. A recovery trajectory is not automatically a resilience measure.
+4. Lower mass, lower cost, or sector relevance is not a sustainability assessment.
+5. Aggregate service performance is not evidence of equitable population outcomes.
+6. Evidence for one link does not establish an entire chain or its endpoint.
+7. Exact mathematical graphics and interpretive artwork have different validation requirements.
+
+These controls extend the non-conflation rules in [`literature_review/protocol/CHAIN_ARCHITECTURE.md`](literature_review/protocol/CHAIN_ARCHITECTURE.md).
+
+## Quick start
+
+Python 3.11 or later is required for the reference package.
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e '.[dev]'
+make verify
+```
+
+Run the first domain-neutral reference experiment:
+
+```bash
+make experiment
+```
+
+The experiment tests geodesic exponential/logarithmic-map consistency on the unit two-sphere. It is a mathematical verification fixture, not an application-domain result.
+
+## Evidence-first literature review
+
+The current evidence base includes a 12-family, 60-subscope application landscape and the first focal-paper case study:
 
 | Artifact | Purpose |
 |---|---|
-| [Scope review](literature_review/application_selection/scope_review_01/SCOPE_REVIEW_01.md) | Publication-style cross-domain synthesis and decision implications |
-| [Review protocol](literature_review/application_selection/scope_review_01/REVIEW_PROTOCOL.md) | Questions, PCC frame, inclusion/exclusion, coding, and limitations |
-| [Scope taxonomy](literature_review/application_selection/scope_review_01/SCOPE_TAXONOMY.csv) | 12 families and 60 searchable subscopes |
-| [Anchor evidence matrix](literature_review/application_selection/scope_review_01/ANCHOR_EVIDENCE_MATRIX.csv) | 42 curated sources coded separately for geometry, sustainability, resilience, and art |
-| [Scope-review bibliography](literature_review/application_selection/scope_review_01/scope_review_01.bib) | Machine-readable bibliography cross-walked to all 42 evidence records |
-| [Search log](literature_review/application_selection/scope_review_01/SEARCH_LOG.csv) | Exact 64-query discovery record from 2026-08-22 |
-| [Provisional ten-chain architecture](literature_review/protocol/CHAIN_ARCHITECTURE.md) | Domain-neutral physical, epistemic, resilience, decision, sustainability, institutional, equity, and mathematical-art evidence architecture |
+| [Phase-0 scope review](literature_review/application_selection/scope_review_01/SCOPE_REVIEW_01.md) | Cross-domain synthesis and bounded decision implications |
+| [Application-selection protocol](literature_review/protocol/APPLICATION_DOMAIN_SELECTION.md) | Non-compensatory gates and comparative selection rules |
+| [Decision status](literature_review/application_selection/DECISION_STATUS.yaml) | Authoritative machine-readable `NOT_SELECTED` state |
+| [Ten-chain architecture](literature_review/protocol/CHAIN_ARCHITECTURE.md) | Provisional domain-neutral extraction and synthesis architecture |
 | [Primary evidence bundle](literature_review/protocol/PRIMARY_EVIDENCE_BUNDLE.md) | Artifact provenance, inventory closure, execution, reproduction, validation, and copyright controls |
+| [Case Study MSR-CS-001](literature_review/case_studies/MSR-CS-001_design-for-descent/CASE_STUDY_01.md) | Main paper reviewed; artifact inventory, execution, and reproduction remain open |
 
-The scope synthesis uses conventional author–date citations and a complete reference list; internal audit IDs are confined to secondary traceability metadata. The principal result is a provisional **bridge deficit**: no single anchor in the Phase-0 corpus jointly supplies explicit differential geometry, quantified sustainability, quantified resilience, and a validated mathematical-art function. This finding is bounded to the mapped corpus and is not a global absence claim.
+Author–date citations are required for scholarly claims. Internal evidence identifiers remain secondary audit links and never replace academic attribution.
 
-## Review architecture
+Case-study completion is staged as `MAIN_PAPER_REVIEWED`, `ARTIFACT_INVENTORY_CLOSED`, `EXECUTION_COMPLETE`, `PARTIALLY_REPRODUCED`, `REPRODUCED`, and `INDEPENDENTLY_VALIDATED`. A later stage must not be inferred from an earlier one.
 
-The evidence base is organized into five non-exclusive study classes:
+## Contributing and review
 
-| Code | Class | Minimum requirement |
-|---|---|---|
-| D | Direct application | Explicit mathematics and a quantified sustainability or resilience outcome |
-| M | Transferable method | A rigorous mathematical or computational method with a defensible mapping to the research problem |
-| G | Geometric design | Geometry is used to generate, constrain, or optimize physical or computational form |
-| V | Visualization and mathematical art | A mathematically defined visual construction has analytical, design, or communication value |
-| C | Contextual | Supports definitions, history, policy, or domain framing |
+Changes should be proposed through a branch and pull request. Contributors must declare evidence status, mathematical assumptions, tests, figure provenance, and any effect on application selection. See [`CONTRIBUTING.md`](CONTRIBUTING.md), [`GOVERNANCE.md`](GOVERNANCE.md), and [`docs/RESEARCH_INTEGRITY.md`](docs/RESEARCH_INTEGRITY.md).
 
-Evidence statements are separated from project interpretations and proposed extensions. See [`literature_review/protocol/EVIDENCE_STATUS.md`](literature_review/protocol/EVIDENCE_STATUS.md).
+## Citation and reuse
 
-Application-domain candidates, evaluation criteria, exclusions, uncertainties, and the eventual decision must remain auditable. A visually compelling mathematical construction, prior familiarity with a domain, or one promising paper is not sufficient for selection.
-
-## Case studies
-
-| ID | Source | Classification | Status |
-|---|---|---|---|
-| [MSR-CS-001](literature_review/case_studies/MSR-CS-001_design-for-descent/CASE_STUDY_01.md) | Kodnongbua et al. (2025), *Design for Descent* | M + G + V | Main paper reviewed; artifact inventory, execution, and reproduction open |
-
-## Scientific boundary
-
-The project does not treat mathematical beauty as scientific validation. Mathematical art supports interpretation and design, while scientific claims require formal definitions, equations, auditable evidence, simulations, verification, and validation.
-
-## Reproducibility
-
-Each computational or data-dependent paper case study is required to maintain, as the audit advances:
-
-- a publication-style critical review with author–date citations;
-- a machine-readable evidence record;
-- a claim-level evidence matrix;
-- a primary-source manifest with immutable identifiers, hashes, licenses, and artifact states;
-- a validation and provenance log;
-- preregistered execution targets, commands, metrics, tolerances, and deviations before reproduction claims are made.
-
-Completion language is staged: `MAIN_PAPER_REVIEWED`, `ARTIFACT_INVENTORY_CLOSED`, `EXECUTION_COMPLETE`, `PARTIALLY_REPRODUCED`, `REPRODUCED`, and `INDEPENDENTLY_VALIDATED`. A later stage must not be inferred from an earlier one.
-
-Third-party PDFs, code, data, and model weights are not mirrored unless redistribution permission has been verified. The repository records authoritative links, immutable identifiers, checksums, licenses, and reviewer-authored audit artifacts.
+Use [`CITATION.cff`](CITATION.cff) to cite this research platform and cite every underlying scholarly source directly. Reuse permissions have not yet been granted for all repository components; consult [`LICENSES/README.md`](LICENSES/README.md) before reuse.

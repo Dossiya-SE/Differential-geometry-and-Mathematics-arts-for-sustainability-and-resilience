@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title description" data-figure-id="MSR-FIG-0001" data-model-id="MSR-MOD-0001" data-experiment-id="MSR-EXP-0001">
+  <title id="title">Domain-neutral spherical geodesic verification artifact</title>
+  <desc id="description">A unit sphere with coordinate guides, a blue projected great-circle geodesic from p to q, and an orange initial tangent arrow. The application is not selected. This is a mathematical fixture, not an empirical sustainability or resilience result.</desc>
+  <defs>
+    <radialGradient id="sphere-fill" cx="38%" cy="30%" r="72%">
+      <stop offset="0%" stop-color="#F8FBFE"/>
+      <stop offset="100%" stop-color="#DCEAF4"/>
+    </radialGradient>
+    <clipPath id="sphere-clip">
+      <circle cx="600" cy="390" r="250"/>
+    </clipPath>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#D55E00"/>
+    </marker>
+    <style>
+      .title { font: 700 34px system-ui, sans-serif; fill: #17202A; }
+      .subtitle { font: 500 19px system-ui, sans-serif; fill: #5D6D7E; }
+      .label { font: 650 22px system-ui, sans-serif; fill: #17202A; }
+      .body { font: 500 18px system-ui, sans-serif; fill: #34495E; }
+      .small { font: 500 15px system-ui, sans-serif; fill: #5D6D7E; }
+      .guide { fill: none; stroke: #8CA0AF; stroke-width: 1.5; opacity: 0.72; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#FFFFFF"/>
+  <text x="70" y="65" class="title">A verified geometric fixture before application selection</text>
+  <text x="70" y="98" class="subtitle">MSR-MOD-0001 · Unit two-sphere · MSR-EXP-0001 · application = NOT_SELECTED</text>
+
+  <g aria-label="Orthographic sphere construction">
+    <circle cx="600" cy="390" r="250" fill="url(#sphere-fill)" stroke="#17202A" stroke-width="3"/>
+    <g clip-path="url(#sphere-clip)">
+      <ellipse cx="600" cy="390" rx="250" ry="82" class="guide"/>
+      <ellipse cx="600" cy="275" rx="214" ry="54" class="guide"/>
+      <ellipse cx="600" cy="505" rx="214" ry="54" class="guide"/>
+      <ellipse cx="600" cy="390" rx="88" ry="250" class="guide"/>
+      <ellipse cx="600" cy="390" rx="250" ry="88" transform="rotate(62 600 390)" class="guide"/>
+      <polyline points="467.22,527.31 463.76,526.88 460.36,526.40 457.01,525.86 453.73,525.26 450.51,524.61 447.36,523.90 444.27,523.13 441.25,522.30 438.29,521.42 435.40,520.48 432.58,519.48 429.84,518.43 427.16,517.33 424.56,516.17 422.04,514.96 419.59,513.70 417.21,512.38 414.92,511.01 412.70,509.59 410.56,508.12 408.51,506.59 406.53,505.02 404.64,503.40 402.83,501.73 401.10,500.02 399.46,498.25 397.91,496.44 396.44,494.59 395.05,492.69 393.76,490.75 392.55,488.76 391.43,486.73 390.40,484.67 389.45,482.56 388.60,480.41 387.84,478.22 387.17,476.00 386.58,473.74 386.09,471.44 385.69,469.11 385.38,466.74 385.17,464.35 385.04,461.92 385.00,459.46 385.06,456.97 385.21,454.45 385.45,451.91 385.78,449.33 386.20,446.74 386.71,444.12 387.31,441.47 388.01,438.81 388.79,436.12 389.67,433.41 390.63,430.69 391.68,427.95 392.82,425.19 394.05,422.42 395.37,419.63 396.77,416.83 398.26,414.02 399.84,411.20 401.50,408.37 403.24,405.53 405.07,402.69 406.99,399.84 408.98,396.98 411.06,394.12 413.21,391.27 415.45,388.41 417.76,385.55 420.15,382.69 422.62,379.84 425.16,376.99 427.78,374.14 430.47,371.31 433.23,368.48 436.07,365.66 438.97,362.85 441.94,360.05 444.98,357.27 448.09,354.49 451.26,351.74 454.49,349.00 457.79,346.28 461.14,343.57 464.56,340.89 468.03,338.22 471.56,335.58 475.14,332.96 478.78,330.37 482.47,327.80 486.20,325.26 489.99,322.75 493.82,320.26 497.70,317.80 501.62,315.38 505.59,312.98 509.59,310.62 513.63,308.30 517.71,306.00 521.82,303.75 525.97,301.53 530.15,299.34 534.36,297.20 538.59,295.10 542.86,293.03 547.14,291.01 551.45,289.03 555.78,287.09 560.13,285.20 564.50,283.35 568.88,281.54 573.27,279.78 577.68,278.07 582.09,276.41 586.51,274.80 590.94,273.23 595.37,271.71 599.81,270.25 604.24,268.83 608.67,267.47 613.10,266.16 617.53,264.90 621.94,263.69 626.35,262.54 630.74,261.44 635.12,260.40 639.49,259.41 643.84,258.48 648.17,257.60 652.48,256.78 656.77,256.02 661.04,255.31 665.28,254.66 669.49,254.07 673.67,253.54 677.82,253.06 681.93,252.65 686.02,252.29 690.06,251.99 694.07,251.75 698.04,251.56 701.96,251.44 705.84,251.37 709.68,251.37 713.47,251.42 717.21,251.53 720.91,251.70 724.55,251.93 728.13,252.22 731.67,252.57 735.14,252.97 738.56,253.44 741.92,253.96 745.23,254.54 748.46,255.18 751.64,255.87 754.75,256.62 757.80,257.43" fill="none" stroke="#0072B2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <line x1="467.22" y1="527.31" x2="387.72" y2="518.31" stroke="#D55E00" stroke-width="5" marker-end="url(#arrow)"/>
+    <circle cx="467.22" cy="527.31" r="10" fill="#FFFFFF" stroke="#0072B2" stroke-width="5"/>
+    <circle cx="757.80" cy="257.43" r="10" fill="#0072B2" stroke="#FFFFFF" stroke-width="3"/>
+    <text x="435.22" y="565.31" class="label">p</text>
+    <text x="775.80" y="245.43" class="label">q</text>
+    <text x="399.72" y="514.31" class="label" fill="#D55E00">v ∈ TₚS²</text>
+    <text x="545" y="408" class="label">S²</text>
+  </g>
+
+  <g transform="translate(900 180)" aria-label="Mathematical and evidential legend">
+    <rect x="0" y="0" width="250" height="385" rx="18" fill="#F7F9FA" stroke="#CBD5DC" stroke-width="2"/>
+    <text x="24" y="44" class="label">Encoding</text>
+    <line x1="24" y1="82" x2="90" y2="82" stroke="#0072B2" stroke-width="8" stroke-linecap="round"/>
+    <text x="108" y="89" class="body">geodesic</text>
+    <line x1="24" y1="126" x2="90" y2="126" stroke="#D55E00" stroke-width="5" marker-end="url(#arrow)"/>
+    <text x="108" y="133" class="body">tangent</text>
+    <line x1="24" y1="170" x2="90" y2="170" stroke="#8CA0AF" stroke-width="2"/>
+    <text x="108" y="177" class="body">projection guide</text>
+    <line x1="24" y1="213" x2="226" y2="213" stroke="#CBD5DC"/>
+    <text x="24" y="250" class="label">Validation</text>
+    <text x="24" y="283" class="body">Mathematics: verified</text>
+    <text x="24" y="315" class="body">Communication: not evaluated</text>
+    <text x="24" y="347" class="body">Application: not selected</text>
+  </g>
+
+  <rect x="70" y="690" width="1080" height="62" rx="14" fill="#FFF4E6" stroke="#E69F00" stroke-width="2"/>
+  <text x="95" y="716" class="body">Scientific boundary</text>
+  <text x="95" y="741" class="small">This exact vector artifact verifies a geometric representation only; it is not sustainability, resilience, infrastructure, or behavioral evidence.</text>
+</svg>
