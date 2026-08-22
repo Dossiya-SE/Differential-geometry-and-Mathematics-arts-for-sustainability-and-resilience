@@ -22,13 +22,17 @@ IGNORED_PARTS = {
 }
 
 
+def _ignored(path: Path) -> bool:
+    return any(part in IGNORED_PARTS or part.endswith(".egg-info") for part in path.parts)
+
+
 def render() -> str:
     lines: list[str] = []
     for path in sorted(ROOT.rglob("*"), key=lambda item: item.relative_to(ROOT).as_posix()):
         if not path.is_file() or path == MANIFEST:
             continue
         relative = path.relative_to(ROOT)
-        if any(part in IGNORED_PARTS for part in relative.parts):
+        if _ignored(relative):
             continue
         digest = hashlib.sha256(path.read_bytes()).hexdigest()
         lines.append(f"{digest}  {relative.as_posix()}")

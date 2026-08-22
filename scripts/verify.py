@@ -57,6 +57,10 @@ IGNORED_PARTS = {
 }
 
 
+def _ignored(path: Path) -> bool:
+    return any(part in IGNORED_PARTS or part.endswith(".egg-info") for part in path.parts)
+
+
 class VerificationError(RuntimeError):
     """Raised when a repository quality gate fails."""
 
@@ -195,7 +199,7 @@ def check_internal_links() -> None:
     link_pattern = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
     failures: list[str] = []
     for path in list(ROOT.rglob("*.md")) + list(ROOT.rglob("*.qmd")):
-        if any(part in IGNORED_PARTS for part in path.parts):
+        if _ignored(path.relative_to(ROOT)):
             continue
         for raw_target in link_pattern.findall(path.read_text(encoding="utf-8")):
             target = raw_target.strip().split()[0].strip("<>")
@@ -241,7 +245,7 @@ def _manifest_files() -> list[Path]:
     for path in ROOT.rglob("*"):
         if not path.is_file() or path.name == "MANIFEST.sha256":
             continue
-        if any(part in IGNORED_PARTS for part in path.relative_to(ROOT).parts):
+        if _ignored(path.relative_to(ROOT)):
             continue
         files.append(path)
     return sorted(files, key=lambda path: path.relative_to(ROOT).as_posix())
