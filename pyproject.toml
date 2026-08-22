@@ -1,0 +1,69 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "msr-research-platform"
+version = "0.4.0"
+description = "Domain-neutral mathematical research infrastructure for sustainable resilience"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "Dossiya Dakou"}]
+keywords = ["differential geometry", "sustainability", "resilience", "mathematical art"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Mathematics",
+]
+dependencies = ["numpy>=2.0,<2.4"]
+
+[project.optional-dependencies]
+geometry = [
+  "geomstats>=2.8,<3",
+  "scipy>=1.14,<2",
+  "sympy>=1.13,<2",
+]
+autodiff = ["jax>=0.5,<1"]
+dev = [
+  "hypothesis>=6.130,<7",
+  "jsonschema>=4.23,<5",
+  "mypy>=1.15,<2",
+  "pytest>=8.3,<9",
+  "pytest-cov>=6,<7",
+  "pyyaml>=6,<7",
+  "ruff>=0.11,<1",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-config --strict-markers"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "SIM", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/generate_reference_figure.py" = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unreachable = true
+files = ["src", "scripts"]
+
+[tool.coverage.run]
+branch = true
+source = ["msr"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 85

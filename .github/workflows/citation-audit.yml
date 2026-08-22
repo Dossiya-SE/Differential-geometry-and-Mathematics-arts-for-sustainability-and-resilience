@@ -1,0 +1,29 @@
+name: Citation audit
+
+on:
+  pull_request:
+    paths:
+      - "**/*.md"
+      - "**/*.qmd"
+      - "**/*.bib"
+      - "mathematics/model_contracts/**"
+      - "scripts/audit_citations.py"
+      - ".github/workflows/citation-audit.yml"
+  schedule:
+    - cron: "43 4 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Resolve citation keys
+        run: python scripts/audit_citations.py

@@ -1,0 +1,24 @@
+---
+title: "Research Integrity"
+---
+
+## Controlled statement classes
+
+Research statements are labeled as observation, partial observation, inference, proposal, validation result, rejection, absence in the checked source, unverified dependency, or justified non-applicability.
+
+The label answers an epistemic question; it is not a quality score. `OBSERVED_PARTIAL` can be the correct and most rigorous conclusion.
+
+## Non-conflation
+
+- physical forcing is distinct from sensing and prediction;
+- structural coupling is distinct from statistical association;
+- failure, service loss, and human consequence are separate variables;
+- viability, reachability, recovery, and resilience are not synonyms;
+- technical feasibility does not establish institutional adoption;
+- mathematical form generation does not establish comprehension or decision impact.
+
+## Reproducible claims
+
+A computational claim must identify its model contract, experiment record, code version, inputs, environment, random seed where applicable, numerical tolerance, test results, and output provenance.
+
+Known failures, null results, sensitivity, and unresolved uncertainty remain visible in the research record.

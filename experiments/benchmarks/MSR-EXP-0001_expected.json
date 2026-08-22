@@ -1,0 +1,12 @@
+{
+  "experiment_id": "MSR-EXP-0001",
+  "model_id": "MSR-MOD-0001",
+  "sample_size": 512,
+  "random_seed": 20260822,
+  "metric": "maximum Euclidean round-trip residual",
+  "acceptance_operator": "<=",
+  "acceptance_threshold": 1e-12,
+  "expected_status": "PASS",
+  "result_value": null,
+  "result_note": "The environment-specific measured residual is emitted at execution time and is not hand-entered into this reference rule."
+}

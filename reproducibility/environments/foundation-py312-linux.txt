@@ -1,0 +1,24 @@
+# Observed verification environment; Linux x86_64, CPython 3.12.13, 2026-08-22.
+# This snapshot records the successful run. It is not claimed to be a universal lock.
+attrs==26.1.0
+coverage==7.15.4
+hypothesis==6.165.10
+iniconfig==2.3.0
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
+librt==0.15.0
+mypy==1.20.2
+mypy-extensions==1.1.0
+numpy==2.3.5
+packaging==26.3
+pathspec==1.1.1
+pluggy==1.6.0
+Pygments==2.21.0
+pytest==8.4.2
+pytest-cov==6.3.0
+PyYAML==6.0.3
+referencing==0.37.0
+rpds-py==2026.6.3
+ruff==0.16.4
+sortedcontainers==2.4.0
+typing_extensions==4.16.0

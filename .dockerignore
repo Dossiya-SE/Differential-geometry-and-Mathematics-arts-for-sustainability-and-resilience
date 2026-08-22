@@ -1,0 +1,15 @@
+.git
+.venv
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.quarto
+_site
+htmlcov
+node_modules
+__pycache__
+*.pyc
+data/raw
+data/processed
+data/external
+experiments/results

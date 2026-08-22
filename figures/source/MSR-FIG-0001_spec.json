@@ -1,0 +1,21 @@
+{
+  "figure_id": "MSR-FIG-0001",
+  "version": "1.0.0",
+  "model_id": "MSR-MOD-0001",
+  "experiment_id": "MSR-EXP-0001",
+  "projection": "orthographic schematic projection of a unit sphere",
+  "canvas": {"width": 1200, "height": 800},
+  "sphere": {"center_x": 600, "center_y": 390, "radius": 250},
+  "geodesic_projection": {
+    "center_x": 600,
+    "center_y": 390,
+    "radius_x": 230,
+    "radius_y": 112,
+    "rotation_degrees": -24,
+    "parameter_start": 2.45,
+    "parameter_end": 5.75,
+    "samples": 161
+  },
+  "evidence_status": "VALIDATED",
+  "application_decision": "NOT_SELECTED"
+}
