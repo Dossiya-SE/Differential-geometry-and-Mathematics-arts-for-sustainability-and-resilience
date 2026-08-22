@@ -65,6 +65,8 @@ Each candidate requires an evidence dossier containing:
 - known limitations, negative evidence, and unresolved assumptions;
 - a claim-level evidence matrix using the repository evidence statuses.
 
+Each dossier must also declare which C01–C10 mechanisms and A01–A06 cross-cutting axes from the [`MSR-CA-001` provisional chain architecture](CHAIN_ARCHITECTURE.md) are material to the candidate. This mapping is diagnostic rather than additive: a candidate is not stronger merely because it names more chains, and evidence for one link cannot be counted as evidence for a complete chain or endpoint. Chains that are not relevant must be marked `NOT_APPLICABLE` with a rationale; relevant but unsupported chains must remain `NOT_OBSERVED`, `NOT_VERIFIED`, or `UNCERTAIN` rather than being inferred from sector labels.
+
 At least two reviewers or two independent verification passes should check eligibility and scoring before final selection. Exact corpus-size and reviewer-agreement thresholds will be preregistered after the exploratory search establishes the available evidence base; they must not be chosen retrospectively to favor a candidate.
 
 ## 6. Stage I: non-compensatory eligibility gates

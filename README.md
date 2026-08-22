@@ -22,6 +22,7 @@ The first landscape review expands the search frame from 10 to 12 primary applic
 | [Anchor evidence matrix](literature_review/application_selection/scope_review_01/ANCHOR_EVIDENCE_MATRIX.csv) | 42 curated sources coded separately for geometry, sustainability, resilience, and art |
 | [Scope-review bibliography](literature_review/application_selection/scope_review_01/scope_review_01.bib) | Machine-readable bibliography cross-walked to all 42 evidence records |
 | [Search log](literature_review/application_selection/scope_review_01/SEARCH_LOG.csv) | Exact 64-query discovery record from 2026-08-22 |
+| [Provisional ten-chain architecture](literature_review/protocol/CHAIN_ARCHITECTURE.md) | Domain-neutral physical, epistemic, resilience, decision, sustainability, institutional, equity, and mathematical-art evidence architecture |
 
 The scope synthesis uses conventional author–date citations and a complete reference list; internal audit IDs are confined to secondary traceability metadata. The principal result is a provisional **bridge deficit**: no single anchor in the Phase-0 corpus jointly supplies explicit differential geometry, quantified sustainability, quantified resilience, and a validated mathematical-art function. This finding is bounded to the mapped corpus and is not a global absence claim.
 

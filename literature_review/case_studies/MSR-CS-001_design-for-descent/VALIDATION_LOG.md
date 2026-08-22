@@ -3,7 +3,7 @@
 ## Review identity
 
 - Review ID: `MSR-CS-001`
-- Review version: `0.2.0`
+- Review version: `0.2.1`
 - Verification date: `2026-08-22`
 - Reviewer: Dossiya Dakou
 - Review type: focal-paper critical transfer review
@@ -36,6 +36,8 @@
 | Supplemental material supplied | NO |
 | Source code executed | NO |
 | Numerical results independently reproduced | NO |
+| Former six-chain crosswalk replaced with the ten-chain `MSR-CA-001` mapping | PASS |
+| Case-study Markdown and YAML contain all ten unique chain identifiers | PASS |
 
 ## Claim controls
 
@@ -46,6 +48,9 @@
 5. The stratified hybrid transfer abstraction is labeled `PROPOSED`.
 6. No global absence claims are made from the focal paper.
 7. No application domain, hazard, geography, outcome, or demonstrator is selected from this focal paper.
+8. Evidence for one link is not treated as evidence for a complete chain or its endpoint.
+9. Structural weight is recorded under C08 only as partial method context; sustainability remains `NOT_OBSERVED`.
+10. Mathematical form generation under C10 is separated from untested comprehension, participation, behavioral, and decision effects.
 
 ## Unverified dependencies
 

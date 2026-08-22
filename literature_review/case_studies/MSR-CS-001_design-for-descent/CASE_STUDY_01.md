@@ -2,7 +2,7 @@
 title: "Design Grammars for Sustainable Resilience: A Critical Transfer Review of Design for Descent"
 review_id: "MSR-CS-001"
 review_author: "Dossiya Dakou"
-version: "0.2.0"
+version: "0.2.1"
 date: "2026-08-22"
 status: "Working literature-review case study"
 evidence_cutoff: "2026-08-22"
@@ -199,18 +199,22 @@ $$
 
 not `D`.
 
-## 7. Six-chain mapping
+## 7. Provisional ten-chain mapping
 
 | Project chain | Source coverage | Evidence status |
 |---|---|---|
-| Physics -> Structure -> Interfaces -> Dynamics | Structure and geometric rewrites, but no coupled-system physics | OBSERVED / partial |
-| Observe -> Identify -> Estimate -> Predict | Inverse shape fitting, but no state estimation, identifiability analysis, or UQ | OBSERVED / partial |
-| Hazard -> Failure -> Service loss -> Consequences | Not implemented | NOT_OBSERVED |
-| Recovery -> Resilience -> Reachability -> Viability | Conceptual analogy through reversibility and repairability only | INFERRED |
-| Decision -> Control -> Optimization -> Adaptation | Mixed discrete-continuous optimization is the paper's strongest direct contribution | OBSERVED / strong |
-| Service -> Population -> Equity -> Critical-service continuity | Not implemented | NOT_OBSERVED |
+| C01: Forcing → Physical laws → States and flows → Dynamics | Shape states change during optimization, but no environmental forcing or coupled-system physical dynamics is modeled | OBSERVED_PARTIAL |
+| C02: Structure → Interfaces → Coupling → Feedback and cascade propagation | Grammar structure, local geometric control, and rewrite transitions are implemented; infrastructure interfaces and cascades are not | OBSERVED_PARTIAL |
+| C03: Sensing → Data → Identification → Estimation → Uncertainty → Prediction → Validation | Target data and inverse fitting are used, but sensing, identifiability, state estimation, uncertainty quantification, and external validation are absent | OBSERVED_PARTIAL |
+| C04: Hazard or stressor → Exposure → Vulnerability → Failure or degradation → Service loss → Consequences | Not implemented | NOT_OBSERVED |
+| C05: Constraints → Admissible states → Viability kernel → Reachability → Response and recovery → Resilience → Adaptation or transformation | Reversibility and repairability motivate a conceptual transfer, but no viability kernel, recovery trajectory, or resilience outcome is implemented | INFERRED |
+| C06: Objectives and trade-offs → Decision → Intervention design → Control or optimization → Implementation → Monitoring → Learning | Formal objectives, mixed discrete-continuous optimization, ablations, and design examples are the paper's strongest contribution; deployment and adaptive monitoring are absent | OBSERVED_PARTIAL / STRONG |
+| C07: Service capacity → Availability and continuity → Population access → Critical needs → Distributional effects → Equity and well-being | Not implemented | NOT_OBSERVED |
+| C08: Resource extraction → Transformation → Stocks and flows → Emissions and waste → Life-cycle burdens → Circularity or regeneration → Sustainability | Structural weight appears as an optimization objective, but no resource-flow, life-cycle, emissions, circularity, or sustainability assessment is performed | OBSERVED_PARTIAL / SUSTAINABILITY_NOT_OBSERVED |
+| C09: Ownership and institutions → Governance → Incentives and finance → Coordination → Operations and maintenance → Adoption and legitimacy | Not implemented | NOT_OBSERVED |
+| C10: Mathematical encoding → Visual, sonic, or material form → Interpretation → Comprehension and participation → Decision influence → Evaluated impact | Mathematical encodings and visual form generation are direct; comprehension, participation, behavioral influence, and decision impact are not evaluated | OBSERVED_PARTIAL / STRONG |
 
-The paper therefore strengthens Chain V directly, with transferable elements for Chains I and IV.
+The paper therefore contributes most strongly to C06 and the form-generation portion of C10, supplies transferable partial evidence for C01–C03, and motivates only an inferred connection to C05. It does not directly establish C04, C07, C08 sustainability outcomes, or C09. This mapping uses the [`MSR-CA-001` architecture](../../protocol/CHAIN_ARCHITECTURE.md) and does not convert method relevance into sustainable-resilience evidence.
 
 ## 8. Proposed domain-neutral sustainable-resilience extension
 

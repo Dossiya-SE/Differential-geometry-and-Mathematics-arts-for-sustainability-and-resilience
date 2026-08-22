@@ -1,6 +1,6 @@
 schema_version: "1.0.0"
 record_id: "MSR-CS-001"
-review_version: "0.2.0"
+review_version: "0.2.1"
 review_date: "2026-08-22"
 review_author: "Dossiya Dakou"
 
@@ -70,6 +70,26 @@ direct_relevance:
   resilience_assessment: "NOT_OBSERVED"
   coupled_infrastructure: "NOT_OBSERVED"
   optimization: "OBSERVED_STRONG"
+
+architecture_mapping:
+  architecture_id: "MSR-CA-001"
+  architecture_version: "0.1.0"
+  mapping_status: "PROPOSED_EVIDENCE_CROSSWALK"
+  chains:
+    C01: "OBSERVED_PARTIAL"
+    C02: "OBSERVED_PARTIAL"
+    C03: "OBSERVED_PARTIAL"
+    C04: "NOT_OBSERVED"
+    C05: "INFERRED"
+    C06: "OBSERVED_PARTIAL_STRONG"
+    C07: "NOT_OBSERVED"
+    C08: "OBSERVED_PARTIAL_SUSTAINABILITY_NOT_OBSERVED"
+    C09: "NOT_OBSERVED"
+    C10: "OBSERVED_PARTIAL_STRONG"
+  strongest_direct_contributions:
+    - "C06 decision action and optimization"
+    - "C10 mathematical encoding and form generation"
+  coverage_rule: "Evidence for one link does not establish the complete chain or its endpoint"
 
 proposed_transfer:
   status: "PROPOSED"

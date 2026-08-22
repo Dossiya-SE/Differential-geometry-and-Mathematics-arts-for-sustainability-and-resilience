@@ -32,16 +32,24 @@ Selection is governed by [`protocol/APPLICATION_DOMAIN_SELECTION.md`](protocol/A
 
 The machine-readable decision state is [`application_selection/DECISION_STATUS.yaml`](application_selection/DECISION_STATUS.yaml), and the current search frame is [`application_selection/CANDIDATE_REGISTER.csv`](application_selection/CANDIDATE_REGISTER.csv).
 
-## Six-chain architecture
+## Provisional ten-chain architecture — non-exhaustive
 
-1. Physics -> Structure -> Interfaces -> Dynamics
-2. Observe -> Identify -> Estimate -> Predict
-3. Hazard -> Failure -> Service loss -> Consequences
-4. Recovery -> Resilience -> Reachability -> Viability
-5. Decision -> Control -> Optimization -> Adaptation
-6. Service -> Population -> Equity -> Critical-service continuity
+The former six-chain formulation was a useful extraction scaffold for the first case study, not a complete ontology. The number six had no special mathematical justification, several project-defining mechanisms were absent, and some sequences mixed causal stages, mathematical properties, methods, and outcomes. It is therefore superseded by ten provisional domain-neutral chains:
 
-Physical forcing, inference, and viability/decision chains must remain distinct in every extraction and synthesis.
+1. **Forcing → Physical laws → States and flows → Dynamics**
+2. **Structure → Interfaces → Coupling → Feedback and cascade propagation**
+3. **Sensing → Data → Identification → Estimation → Uncertainty → Prediction → Validation**
+4. **Hazard or stressor → Exposure → Vulnerability → Failure or degradation → Service loss → Consequences**
+5. **Constraints → Admissible states → Viability kernel → Reachability → Response and recovery → Resilience → Adaptation or transformation**
+6. **Objectives and trade-offs → Decision → Intervention design → Control or optimization → Implementation → Monitoring → Learning**
+7. **Service capacity → Availability and continuity → Population access → Critical needs → Distributional effects → Equity and well-being**
+8. **Resource extraction → Transformation → Stocks and flows → Emissions and waste → Life-cycle burdens → Circularity or regeneration → Sustainability**
+9. **Ownership and institutions → Governance → Incentives and finance → Coordination → Operations and maintenance → Adoption and legitimacy**
+10. **Mathematical encoding → Visual, sonic, or material form → Interpretation → Comprehension and participation → Decision influence → Evaluated impact**
+
+Differential geometry and topology; spatial and temporal scale; system boundaries and displaced burdens; uncertainty and evidence provenance; ethics, justice, privacy, and safety; and computational reproducibility are cross-cutting axes rather than artificial linear chains.
+
+The authoritative definitions, corrections to the earlier sequences, evidence states, non-conflation rules, and machine-readable record are in [`protocol/CHAIN_ARCHITECTURE.md`](protocol/CHAIN_ARCHITECTURE.md) and [`protocol/CHAIN_ARCHITECTURE.yaml`](protocol/CHAIN_ARCHITECTURE.yaml). The architecture remains `PROPOSED_NON_EXHAUSTIVE` and must be tested across all 12 application families. Physical forcing, inference, failure and service consequences, viability and resilience, decisions and optimization, sustainability, equity, institutional implementation, and mathematical-art effects must remain distinct in every extraction and synthesis.
 
 ## Current corpus
 
