@@ -1,20 +1,22 @@
 PYTHON ?= python3
 PYTHONPATH := src
 
-.PHONY: help verify verify-ci test lint typecheck experiment docs clean
+.PHONY: help verify verify-ci test lint typecheck mermaid experiment docs clean
 
 help:
 	@echo "MSR research-platform commands"
 	@echo "  make verify      Run the portable evidence-to-publication checks"
 	@echo "  make verify-ci   Run installed development tools plus portable checks"
 	@echo "  make test        Run the complete Python test suite"
+	@echo "  make mermaid     Parse and render all Mermaid diagrams with mmdc"
 	@echo "  make experiment  Reproduce the reference geometry experiment"
 	@echo "  make docs        Render the Quarto site or validate with Pandoc"
 
 verify:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) scripts/verify.py
+	$(PYTHON) scripts/verify_mermaid.py
 
-verify-ci: lint typecheck test
+verify-ci: lint typecheck test mermaid
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) scripts/verify.py --strict-tools
 
 test:
@@ -26,6 +28,9 @@ lint:
 
 typecheck:
 	MYPYPATH=$(PYTHONPATH) $(PYTHON) -m mypy src scripts
+
+mermaid:
+	$(PYTHON) scripts/verify_mermaid.py --require-cli
 
 experiment:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) scripts/run_reference_experiment.py --check
