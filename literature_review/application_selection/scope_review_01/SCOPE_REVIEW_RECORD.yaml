@@ -1,7 +1,7 @@
 schema_version: "1.0.0"
 review_id: "MSR-SR-001"
 title: "Application-Scope Landscape Review for Differential Geometry and Mathematical Art in Sustainable Resilience"
-version: "0.3.0"
+version: "0.3.1"
 record_date: "2026-08-22"
 review_type: "PHASE_0_LANDSCAPE_SCOPING_REVIEW"
 
@@ -14,6 +14,10 @@ method:
   search_channel: "Targeted web discovery followed by publisher or institutional verification"
   queries_executed: 64
   curated_anchor_records: 42
+  citation_style: "AUTHOR_DATE"
+  bibliography_records: 42
+  audit_ids_in_narrative: false
+  audit_id_location: "Reference-list crosswalk and evidence matrix only"
   dual_independent_screening: false
   database_exports: false
   full_text_corpus_screened: false

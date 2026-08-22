@@ -3,14 +3,14 @@
 ## 1. Record and purpose
 
 - Review ID: `MSR-SR-001`
-- Version: `0.3.0`
+- Version: `0.3.1`
 - Search date: `2026-08-22`
 - Review type: landscape scoping review and evidence map
 - Decision effect: candidate generation only; application remains `NOT_SELECTED`
 
 The purpose is to identify the breadth and structure of application domains in which differential geometry or closely related geometric mathematics could make a non-decorative contribution to sustainability and resilience, and in which mathematical art could support analysis, design, or communication through an explicit encoding.
 
-The review follows the problem-framing, transparent eligibility, charting, and reporting principles of JBI scoping-review guidance and PRISMA-ScR. It is not represented as a completed PRISMA-ScR review: this phase does not include subscription-database exports, deduplication counts, dual independent title/abstract screening, full-text screening of an enumerated corpus, risk-of-bias appraisal, or a PRISMA flow diagram.
+The review follows the problem-framing, transparent eligibility, charting, and reporting principles of JBI scoping-review guidance and PRISMA-ScR (Peters et al., 2020; Tricco et al., 2018). It is not represented as a completed PRISMA-ScR review: this phase does not include subscription-database exports, deduplication counts, dual independent title/abstract screening, full-text screening of an enumerated corpus, risk-of-bias appraisal, or a PRISMA flow diagram.
 
 ## 2. Review questions
 
@@ -136,5 +136,7 @@ Before comparative candidate assessment, the project should preregister database
 
 ## Methodological references
 
-- Tricco, A. C., et al. (2018). PRISMA Extension for Scoping Reviews (PRISMA-ScR). *Annals of Internal Medicine*, 169(7), 467–473. https://doi.org/10.7326/M18-0850
-- Peters, M. D. J., et al. (2020). Updated methodological guidance for the conduct of scoping reviews. *JBI Evidence Synthesis*, 18(10), 2119–2126. https://doi.org/10.11124/JBIES-20-00167
+- Peters, M. D. J., Marnie, C., Tricco, A. C., Pollock, D., Munn, Z., Alexander, L., McInerney, P., Godfrey, C. M., & Khalil, H. (2020). Updated methodological guidance for the conduct of scoping reviews. *JBI Evidence Synthesis, 18*(10), 2119–2126. https://doi.org/10.11124/JBIES-20-00167
+- Tricco, A. C., Lillie, E., Zarin, W., O'Brien, K. K., Colquhoun, H., Levac, D., Moher, D., Peters, M. D. J., Horsley, T., Weeks, L., Hempel, S., Akl, E. A., Chang, C., McGowan, J., Stewart, L., Hartling, L., Aldcroft, A., Wilson, M. G., Garritty, C., Lewin, S., Godfrey, C. M., Macdonald, M. T., Langlois, E. V., Soares-Weiser, K., Moriarty, J., Clifford, T., Tunçalp, Ö., & Straus, S. E. (2018). PRISMA extension for scoping reviews (PRISMA-ScR): Checklist and explanation. *Annals of Internal Medicine, 169*(7), 467–473. https://doi.org/10.7326/M18-0850
+
+The complete scope-review bibliography is maintained in [`SCOPE_REVIEW_01.md`](SCOPE_REVIEW_01.md) and [`scope_review_01.bib`](scope_review_01.bib).

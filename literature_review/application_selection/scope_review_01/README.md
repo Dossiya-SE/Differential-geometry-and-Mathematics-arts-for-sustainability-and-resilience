@@ -8,8 +8,9 @@
 - [`REVIEW_PROTOCOL.md`](REVIEW_PROTOCOL.md): review questions, scope, eligibility rules, evidence coding, and limitations.
 - [`SCOPE_TAXONOMY.csv`](SCOPE_TAXONOMY.csv): 60 searchable subscopes nested in 12 application families.
 - [`ANCHOR_EVIDENCE_MATRIX.csv`](ANCHOR_EVIDENCE_MATRIX.csv): source-level evidence map for 42 curated anchors.
+- [`scope_review_01.bib`](scope_review_01.bib): machine-readable 42-source bibliography keyed to the evidence matrix.
 - [`SEARCH_LOG.csv`](SEARCH_LOG.csv): exact discovery queries executed on 2026-08-22.
 - [`SCOPE_REVIEW_RECORD.yaml`](SCOPE_REVIEW_RECORD.yaml): machine-readable review state and non-selection decision.
 - [`VALIDATION_LOG.md`](VALIDATION_LOG.md): structural and interpretive quality checks.
 
-This review expands the search frame; it does not rank the families or select an application. `SEARCH_FAMILY`, `SEARCH_SCOPE`, and `APPLICATION_CANDIDATE` are deliberately distinct record types.
+The synthesis uses conventional author–date citations and a complete reference list. Audit IDs are secondary metadata confined to the reference crosswalk and evidence matrix. This review expands the search frame; it does not rank the families or select an application. `SEARCH_FAMILY`, `SEARCH_SCOPE`, and `APPLICATION_CANDIDATE` are deliberately distinct record types.
