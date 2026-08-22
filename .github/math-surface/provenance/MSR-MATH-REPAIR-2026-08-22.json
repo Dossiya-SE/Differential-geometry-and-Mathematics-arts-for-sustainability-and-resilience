@@ -40,7 +40,7 @@
       "archival": false,
       "before_sha256": "04b001638eda52c7d5900fbdcffa4ec4c4196bcafe5b8661f00be07b126d7f77",
       "after_delimiter_sha256": "6fdc68ce5ef8c535485b8c114c20afc5390d9329a07d4c36900e8c90875f3667",
-      "after_sha256": "9c6c3b10f208bdff7bd16831e3345df21d259ca1d20a7d01fcb72a0e4ff311c4",
+      "after_sha256": "31933c9b2525d8391591094fa2fbf71b9d63cf6295af37b20666955ae49e8a81",
       "preserved_tex_bodies": [
         {
           "line": 13,
@@ -92,11 +92,14 @@
         {
           "rule_id": "MSM006",
           "line": 65,
-          "renderer_evidence": "Unescaped underscores failed MathJax 4 and KaTeX; escaped underscores inside texttt then passed both independent renderers but failed GitHub's actual target configuration",
-          "treatment": "Render each identifier word with texttt and each underscore with the base math-mode underscore macro",
+          "renderer_evidence": "Unescaped underscores failed MathJax 4 and KaTeX; two TeX escape treatments then passed the independent renderers but failed GitHub's actual target configuration",
+          "treatment": "Use a terminal-state set symbol in the equation and enumerate the exact machine-state identifiers as Markdown code in the defining prose",
           "before_tex_sha256": "4b6bd2d2cf295281596fc5c2e086d1fe325e5686b78efe5f2411db80500879de",
-          "intermediate_tex_sha256": "a18e13215daaf198481ddfc20131898558f81be926994bc6e06a6d7363a459fc",
-          "after_tex_sha256": "c80a8547494c7902a1a1357931c68375263e498167293e1325b2eb4e87bfb178"
+          "intermediate_tex_sha256": [
+            "a18e13215daaf198481ddfc20131898558f81be926994bc6e06a6d7363a459fc",
+            "c80a8547494c7902a1a1357931c68375263e498167293e1325b2eb4e87bfb178"
+          ],
+          "after_tex_sha256": "b90933107fc4439263cd5917ceb78a68b29e8a0adb8173349a2aff0574e2b1f8"
         }
       ],
       "skipped": []
