@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "standard_id": "MSR-VIS-001",
+  "color_space": "sRGB",
+  "background": "#FFFFFF",
+  "foreground": "#17202A",
+  "muted": "#5D6D7E",
+  "chains": {
+    "C01": {"color": "#0072B2", "label": "Physical-causal"},
+    "C02": {"color": "#D55E00", "label": "Structural-interface"},
+    "C03": {"color": "#009E73", "label": "Epistemic-inference"},
+    "C04": {"color": "#CC79A7", "label": "Disturbance-consequence"},
+    "C05": {"color": "#E69F00", "label": "Viability-resilience"},
+    "C06": {"color": "#56B4E9", "label": "Decision-action-learning"},
+    "C07": {"color": "#6A3D9A", "label": "Service-equity"},
+    "C08": {"color": "#2E7D32", "label": "Sustainability-metabolism"},
+    "C09": {"color": "#8C564B", "label": "Institutional-implementation"},
+    "C10": {"color": "#6B7280", "label": "Mathematical-art impact"}
+  },
+  "evidence_lines": {
+    "OBSERVED": {"dasharray": "none", "width": 3},
+    "OBSERVED_PARTIAL": {"dasharray": "12 5", "width": 3},
+    "INFERRED": {"dasharray": "5 4", "width": 3},
+    "PROPOSED": {"dasharray": "12 4 2 4", "width": 3},
+    "VALIDATED": {"dasharray": "none", "width": 5},
+    "REJECTED": {"dasharray": "2 4", "width": 3},
+    "NOT_VERIFIED": {"dasharray": "1 5", "width": 3}
+  },
+  "typography": {
+    "family": "system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+    "minimum_body_px": 16,
+    "minimum_figure_label_px": 18
+  },
+  "accessibility": {
+    "color_is_never_sole_encoding": true,
+    "alternative_text_required": true,
+    "static_fallback_required_for_interaction": true,
+    "reduced_motion_required": true
+  }
+}

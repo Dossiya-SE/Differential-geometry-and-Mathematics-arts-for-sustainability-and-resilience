@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "figure_id": "MSR-FIG-0001",
+  "version": "1.0.0",
+  "title": "Domain-neutral spherical geodesic verification artifact",
+  "model_id": "MSR-MOD-0001",
+  "experiment_id": "MSR-EXP-0001",
+  "artifact_class": "EXPLANATORY",
+  "application_decision": "NOT_SELECTED",
+  "mathematical_validity": "VALIDATED_AGAINST_ANALYTIC_FIXTURE",
+  "communication_impact": "NOT_EVALUATED",
+  "source": "figures/source/MSR-FIG-0001_spec.json",
+  "generator": "scripts/generate_reference_figure.py",
+  "generation_command": "python scripts/generate_reference_figure.py --write",
+  "visual_mapping": {
+    "circle": "orthographic boundary of S^2",
+    "ellipses": "projected latitude and longitude guides",
+    "blue_curve": "projected great-circle geodesic segment",
+    "points_p_q": "endpoints on the selected geodesic",
+    "orange_arrow": "initial tangent direction",
+    "dashed_line": "OBSERVED_PARTIAL-style projection guide, not evidence strength in this artifact"
+  },
+  "alt_text": "A white-background vector diagram of a unit sphere with gray coordinate guides, a blue great-circle geodesic segment connecting points p and q, and an orange tangent arrow at p. Labels state that the application is not selected and that the image is a mathematical fixture, not an empirical result.",
+  "limitations": [
+    "The two-dimensional orthographic projection distorts three-dimensional distances.",
+    "The artifact explains a mathematical fixture and does not encode sustainability or resilience data.",
+    "Communication impact has not been evaluated with participants."
+  ]
+}

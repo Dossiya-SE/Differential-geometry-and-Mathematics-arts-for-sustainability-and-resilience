@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+/uv.lock
+
+# Quarto, LaTeX, and generated documentation
+/.quarto/
+/_site/
+*.aux
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.log
+*.out
+*.synctex.gz
+
+# Node and editors
+node_modules/
+.DS_Store
+.idea/
+.vscode/
+
+# Data and experiment outputs
+/data/raw/*
+/data/processed/*
+/data/external/*
+!/data/raw/.gitkeep
+!/data/processed/.gitkeep
+!/data/external/.gitkeep
+/experiments/results/
+
+# Local scratch artifacts
+*.tmp
+*.bak

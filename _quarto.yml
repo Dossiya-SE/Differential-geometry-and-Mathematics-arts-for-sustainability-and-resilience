@@ -1,0 +1,37 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - docs/*.qmd
+
+website:
+  title: "Mathematics Exploration for Sustainable Resilience"
+  repo-url: "https://github.com/Dossiya-SE/Differential-geometry-and-Mathematics-arts-for-sustainability-and-resilience"
+  repo-actions: [source, issue]
+  navbar:
+    left:
+      - href: docs/index.qmd
+        text: Home
+      - href: docs/architecture.qmd
+        text: Architecture
+      - href: docs/research-integrity.qmd
+        text: Research integrity
+      - href: docs/gallery.qmd
+        text: Mathematical art
+      - href: literature_review/README.md
+        text: Literature review
+
+format:
+  html:
+    toc: true
+    number-sections: true
+    code-copy: true
+    link-external-newwindow: true
+    theme: cosmo
+
+execute:
+  freeze: auto
+
+bibliography:
+  - literature_review/references/references.bib
+  - literature_review/application_selection/scope_review_01/scope_review_01.bib

@@ -1,0 +1,17 @@
+{
+  "name": "MSR research platform",
+  "build": {
+    "dockerfile": "../reproducibility/containers/Dockerfile",
+    "context": ".."
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "quarto.quarto"
+      ]
+    }
+  },
+  "postCreateCommand": "make verify"
+}

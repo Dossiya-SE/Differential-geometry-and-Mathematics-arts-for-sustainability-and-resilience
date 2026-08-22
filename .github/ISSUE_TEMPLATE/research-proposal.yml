@@ -1,0 +1,42 @@
+name: Research proposal
+description: Propose a bounded evidence, mathematics, experiment, or mathematical-art contribution.
+title: "research: "
+labels: [research-proposal]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Research question
+      description: State one bounded and falsifiable question.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and citations
+      description: Identify primary sources, evidence status, and important negative evidence.
+    validations:
+      required: true
+  - type: textarea
+    id: mathematics
+    attributes:
+      label: Mathematical objects and assumptions
+      description: State domains, codomains, units, constraints, and proposed tests.
+    validations:
+      required: true
+  - type: dropdown
+    id: selection
+    attributes:
+      label: Application-selection effect
+      options:
+        - None; application remains NOT_SELECTED
+        - Candidate-feasibility evidence only
+        - Protected selection decision requiring the governing protocol
+    validations:
+      required: true
+  - type: textarea
+    id: limitations
+    attributes:
+      label: Limitations and failure conditions
+    validations:
+      required: true

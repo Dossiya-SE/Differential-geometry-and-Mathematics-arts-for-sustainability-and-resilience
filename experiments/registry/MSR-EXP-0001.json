@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "MSR-EXP-0001",
+  "version": "1.0.0",
+  "record_date": "2026-08-22",
+  "title": "Two-sphere exponential-logarithm round-trip verification",
+  "status": "REFERENCE_VERIFIED",
+  "model_id": "MSR-MOD-0001",
+  "model_version": "1.0.0",
+  "application_decision": "NOT_SELECTED",
+  "research_question": "Does the binary64 reference implementation satisfy the declared exponential-logarithm round-trip tolerance away from the spherical cut locus?",
+  "acceptance_rule": {
+    "metric": "maximum Euclidean norm of Exp_p(Log_p(q)) - q",
+    "operator": "<=",
+    "threshold": 1e-12
+  },
+  "execution": {
+    "entry_point": "python scripts/run_reference_experiment.py --check",
+    "deterministic": true,
+    "random_seed": 20260822,
+    "precision": "IEEE 754 binary64",
+    "environment": "pyproject.toml and reproducibility/containers/Dockerfile"
+  },
+  "inputs": [
+    {
+      "id": "MSR-EXP-0001-INPUT-01",
+      "type": "deterministically generated point pairs on S^2",
+      "sample_size": 512,
+      "exclusion": "pairs within 1e-6 radians of the antipodal cut locus"
+    }
+  ],
+  "parameters": {
+    "sample_size": 512,
+    "cut_locus_margin_radians": 1e-6,
+    "absolute_tolerance": 1e-12
+  },
+  "outputs": [
+    {
+      "id": "MSR-EXP-0001-SUMMARY",
+      "path": "experiments/benchmarks/MSR-EXP-0001_expected.json",
+      "media_type": "application/json",
+      "sha256": null
+    },
+    {
+      "id": "MSR-FIG-0001",
+      "path": "figures/generated/MSR-FIG-0001_sphere-geodesic.svg",
+      "media_type": "image/svg+xml",
+      "sha256": null
+    }
+  ],
+  "verification": {
+    "tests": [
+      "tests/properties/test_sphere_geometry.py",
+      "tests/numerical/test_sphere_geodesic.py"
+    ],
+    "result_status": "PASS",
+    "independent_review": "NOT_COMPLETED"
+  },
+  "limitations": [
+    "The sample is deterministic but finite and excludes the cut locus by design.",
+    "The result verifies an analytic mathematical fixture, not a sustainable-resilience application.",
+    "Independent reproduction remains outstanding."
+  ]
+}
