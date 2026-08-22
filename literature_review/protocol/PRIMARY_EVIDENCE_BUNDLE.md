@@ -65,8 +65,11 @@ Let $A_i^*$ be the set of artifacts required by the registered claims and experi
 $$
 R_{\mathrm{inv}}(s)=1
 \quad\text{iff}\quad
-s\in\{\texttt{INSPECTED},\texttt{NOT\_APPLICABLE},\texttt{NOT\_FOUND\_AFTER\_SEARCH},
-\texttt{ACCESS\_RESTRICTED},\texttt{LICENSE\_RESTRICTED}\}.
+s\in\{\texttt{INSPECTED},
+\texttt{NOT}\_\texttt{APPLICABLE},
+\texttt{NOT}\_\texttt{FOUND}\_\texttt{AFTER}\_\texttt{SEARCH},
+\texttt{ACCESS}\_\texttt{RESTRICTED},
+\texttt{LICENSE}\_\texttt{RESTRICTED}\}.
 $$
 
 The inventory is closed only when
