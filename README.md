@@ -60,6 +60,8 @@ The layers are linked by identifiers, citations, schemas, tests, checksums, and 
 
 The platform foundation is specified in [`docs/REPOSITORY_ARCHITECTURE.md`](docs/REPOSITORY_ARCHITECTURE.md). The full scientific workflow is specified in [`docs/SCIENTIFIC_RESEARCH_LIFECYCLE.md`](docs/SCIENTIFIC_RESEARCH_LIFECYCLE.md).
 
+The mathematics-publication controls are demonstrated with an immutable mixed-surface fixture, retained audit evidence, explicit limitations, and reproducible hashes in the [`end-to-end mathematics-surface audit`](docs/audits/math-surfaces/END_TO_END_DEMO.md).
+
 ## Scientific boundaries
 
 1. Mathematical beauty is not empirical validation.

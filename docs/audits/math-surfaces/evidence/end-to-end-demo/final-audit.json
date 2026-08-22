@@ -1,0 +1,33 @@
+{
+  "summary": {
+    "tool": "engineer-math-surfaces",
+    "version": "1.3.0",
+    "commit_sha": "6503de2006c7d08994e8e08c6bd0a55515e5be4e",
+    "scanned_files": 7,
+    "affected_files": 1,
+    "total_findings": 1,
+    "by_rule": {
+      "MSM001": 1
+    },
+    "by_confidence": {
+      "REVIEW": 1
+    }
+  },
+  "findings": [
+    {
+      "rule_id": "MSM001",
+      "path": "archive/2024-verbatim.md",
+      "line": 3,
+      "column": 53,
+      "end_line": 3,
+      "end_column": 61,
+      "severity": "warning",
+      "confidence": "REVIEW",
+      "surface": "github-markdown",
+      "archival": true,
+      "fixable": false,
+      "message": "Legacy inline delimiter on GitHub Markdown",
+      "snippet": "The original report wrote the expression exactly as \\(a+b=c\\). This quotation is preserved verbatim for provenance."
+    }
+  ]
+}

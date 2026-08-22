@@ -1,0 +1,72 @@
+[
+  {
+    "path": "README.md",
+    "line": 5,
+    "display": false,
+    "syntax": "dollar",
+    "tex": "x(t) = [p(t), w(t), r(t)]^\\top"
+  },
+  {
+    "path": "README.md",
+    "line": 9,
+    "display": true,
+    "syntax": "double-dollar",
+    "tex": "\\dot{x}(t) = A x(t) + B u(t) + H \\eta(t)."
+  },
+  {
+    "path": "README.md",
+    "line": 16,
+    "display": true,
+    "syntax": "math-fence",
+    "tex": "G_i^{\\mathrm{release}}\n=\nG_i^{\\mathrm{service}} \\land G_i^{\\mathrm{equity}}"
+  },
+  {
+    "path": "README.md",
+    "line": 21,
+    "display": false,
+    "syntax": "dollar",
+    "tex": "R \\in [0,1]"
+  },
+  {
+    "path": "README.md",
+    "line": 23,
+    "display": false,
+    "syntax": "dollar",
+    "tex": "\\dot{u}(t)=-Kx(t)"
+  },
+  {
+    "path": "docs/MATH_SURFACE_OWNERSHIP.md",
+    "line": 20,
+    "display": true,
+    "syntax": "math-fence",
+    "tex": "G_{\\mathrm{release}}\n=\nG_{\\mathrm{syntax}}\n\\land G_{\\mathrm{semantic}}\n\\land G_{\\mathrm{render}}\n\\land G_{\\mathrm{provenance}}."
+  },
+  {
+    "path": "docs/model.md",
+    "line": 3,
+    "display": false,
+    "syntax": "dollar",
+    "tex": "\\mathcal{K}=\\{x:h_j(x)\\ge 0,\\ j=1,\\ldots,m\\}"
+  },
+  {
+    "path": "docs/model.md",
+    "line": 7,
+    "display": true,
+    "syntax": "double-dollar",
+    "tex": "\\forall x\\in\\partial\\mathcal{K},\\quad \\exists u\\in\\mathcal{U}:\\quad \\nabla h_j(x)^\\top f(x,u)\\ge 0."
+  },
+  {
+    "path": "docs/model.md",
+    "line": 11,
+    "display": false,
+    "syntax": "dollar",
+    "tex": "\\Delta R = R_{\\mathrm{post}}-R_{\\mathrm{pre}}"
+  },
+  {
+    "path": "site/model.mdx",
+    "line": 5,
+    "display": false,
+    "syntax": "dollar",
+    "tex": "V(x) \\leq V_{\\max}"
+  }
+]

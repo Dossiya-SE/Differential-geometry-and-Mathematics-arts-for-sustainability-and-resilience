@@ -150,5 +150,33 @@
       "skipped": []
     }
   ],
-  "changed_files": 3
+  "changed_files": 3,
+  "structural_verification": {
+    "oracle": "cmark-gfm 0.29.0.gfm.13",
+    "oracle_commit": "587a12bb54d95ac37241377e6ddc93ea0e45439b",
+    "automatic_repairs": [
+      {
+        "path": "docs/SCIENTIFIC_RESEARCH_LIFECYCLE.md",
+        "result": "PASS",
+        "normalized_nodes_preserved": 278
+      },
+      {
+        "path": "literature_review/case_studies/MSR-CS-001_design-for-descent/CASE_STUDY_01.md",
+        "result": "PASS",
+        "normalized_nodes_preserved": 782
+      },
+      {
+        "path": "literature_review/protocol/PRIMARY_EVIDENCE_BUNDLE.md",
+        "stage": "automatic-delimiter-and-container-repair",
+        "result": "PASS",
+        "normalized_nodes_preserved": 354
+      }
+    ],
+    "manual_repair_review": {
+      "path": "literature_review/protocol/PRIMARY_EVIDENCE_BUNDLE.md",
+      "result": "EXPECTED_STRUCTURAL_DELTA_DETECTED",
+      "reason": "The reviewed MSM006 treatment adds a defining prose paragraph with exact machine identifiers represented as Markdown code",
+      "disposition": "AUTHORIZED_MANUAL_REVIEW"
+    }
+  }
 }

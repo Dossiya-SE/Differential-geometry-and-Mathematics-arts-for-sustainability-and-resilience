@@ -24,6 +24,20 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Build pinned cmark-gfm structural oracle
+        run: |
+          git clone --depth 1 --branch 0.29.0.gfm.13 https://github.com/github/cmark-gfm.git .math-surface-tools/cmark-gfm
+          test "$(git -C .math-surface-tools/cmark-gfm rev-parse HEAD)" = "587a12bb54d95ac37241377e6ddc93ea0e45439b"
+          cmake -S .math-surface-tools/cmark-gfm -B .math-surface-tools/cmark-gfm/build \
+            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMARK_TESTS=OFF -DCMARK_SHARED=OFF
+          cmake --build .math-surface-tools/cmark-gfm/build --parallel 2
+
+      - name: Run deterministic scanner and structure tests
+        working-directory: .github/math-surface
+        env:
+          CMARK_GFM: ${{ github.workspace }}/.math-surface-tools/cmark-gfm/build/src/cmark-gfm
+        run: python3 -m unittest -v test_math_surface.py
+
       - name: Generate reproducible findings
         run: |
           python3 .github/math-surface/math_surface.py audit . --format sarif --output math-surface.sarif --fail-on none
