@@ -42,5 +42,7 @@ jobs:
           sudo chmod +x /usr/local/bin/mmdc
       - name: Record Mermaid CLI version
         run: mmdc --version
+      - name: Record workflow integrity hash
+        run: sha256sum .github/workflows/ci.yml
       - name: Run complete verification
         run: make verify-ci
