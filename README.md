@@ -23,6 +23,7 @@ The first landscape review expands the search frame from 10 to 12 primary applic
 | [Scope-review bibliography](literature_review/application_selection/scope_review_01/scope_review_01.bib) | Machine-readable bibliography cross-walked to all 42 evidence records |
 | [Search log](literature_review/application_selection/scope_review_01/SEARCH_LOG.csv) | Exact 64-query discovery record from 2026-08-22 |
 | [Provisional ten-chain architecture](literature_review/protocol/CHAIN_ARCHITECTURE.md) | Domain-neutral physical, epistemic, resilience, decision, sustainability, institutional, equity, and mathematical-art evidence architecture |
+| [Primary evidence bundle](literature_review/protocol/PRIMARY_EVIDENCE_BUNDLE.md) | Artifact provenance, inventory closure, execution, reproduction, validation, and copyright controls |
 
 The scope synthesis uses conventional author–date citations and a complete reference list; internal audit IDs are confined to secondary traceability metadata. The principal result is a provisional **bridge deficit**: no single anchor in the Phase-0 corpus jointly supplies explicit differential geometry, quantified sustainability, quantified resilience, and a validated mathematical-art function. This finding is bounded to the mapped corpus and is not a global absence claim.
 
@@ -46,7 +47,7 @@ Application-domain candidates, evaluation criteria, exclusions, uncertainties, a
 
 | ID | Source | Classification | Status |
 |---|---|---|---|
-| [MSR-CS-001](literature_review/case_studies/MSR-CS-001_design-for-descent/CASE_STUDY_01.md) | Kodnongbua et al. (2025), *Design for Descent* | M + G + V | Verified main-paper review |
+| [MSR-CS-001](literature_review/case_studies/MSR-CS-001_design-for-descent/CASE_STUDY_01.md) | Kodnongbua et al. (2025), *Design for Descent* | M + G + V | Main paper reviewed; artifact inventory, execution, and reproduction open |
 
 ## Scientific boundary
 
@@ -54,12 +55,15 @@ The project does not treat mathematical beauty as scientific validation. Mathema
 
 ## Reproducibility
 
-Each paper case-study folder contains:
+Each computational or data-dependent paper case study is required to maintain, as the audit advances:
 
-- a publication-style critical review;
+- a publication-style critical review with author–date citations;
 - a machine-readable evidence record;
 - a claim-level evidence matrix;
+- a primary-source manifest with immutable identifiers, hashes, licenses, and artifact states;
 - a validation and provenance log;
-- traceable references.
+- preregistered execution targets, commands, metrics, tolerances, and deviations before reproduction claims are made.
 
-The source PDF is not redistributed in this package. The persistent DOI and source checksum are recorded instead.
+Completion language is staged: `MAIN_PAPER_REVIEWED`, `ARTIFACT_INVENTORY_CLOSED`, `EXECUTION_COMPLETE`, `PARTIALLY_REPRODUCED`, `REPRODUCED`, and `INDEPENDENTLY_VALIDATED`. A later stage must not be inferred from an earlier one.
+
+Third-party PDFs, code, data, and model weights are not mirrored unless redistribution permission has been verified. The repository records authoritative links, immutable identifiers, checksums, licenses, and reviewer-authored audit artifacts.
