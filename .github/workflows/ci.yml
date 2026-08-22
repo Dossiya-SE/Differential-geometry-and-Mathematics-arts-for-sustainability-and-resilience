@@ -12,7 +12,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -26,5 +26,23 @@ jobs:
       - uses: quarto-dev/quarto-actions/setup@v2
       - name: Install research and verification dependencies
         run: python -m pip install --upgrade pip && python -m pip install -e '.[dev]'
+      - name: Install pinned Mermaid CLI container wrapper
+        run: |
+          docker pull ghcr.io/mermaid-js/mermaid-cli/mermaid-cli@sha256:29077c6bd02f14bdfdd5fee552d9c00fe68d4fab3cd84952d21e2d1faf2fadaf
+          sudo tee /usr/local/bin/mmdc >/dev/null <<'EOF'
+          #!/usr/bin/env bash
+          set -euo pipefail
+          exec docker run --rm \
+            -u "$(id -u):$(id -g)" \
+            -v "$PWD:$PWD" \
+            -v /tmp:/tmp \
+            -w "$PWD" \
+            ghcr.io/mermaid-js/mermaid-cli/mermaid-cli@sha256:29077c6bd02f14bdfdd5fee552d9c00fe68d4fab3cd84952d21e2d1faf2fadaf "$@"
+          EOF
+          sudo chmod +x /usr/local/bin/mmdc
+      - name: Record Mermaid CLI version
+        run: mmdc --version
+      - name: Record workflow integrity hash
+        run: sha256sum .github/workflows/ci.yml
       - name: Run complete verification
         run: make verify-ci
