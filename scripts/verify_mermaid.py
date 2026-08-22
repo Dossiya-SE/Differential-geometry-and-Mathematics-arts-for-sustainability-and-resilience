@@ -33,7 +33,9 @@ class MermaidVerificationError(RuntimeError):
 
 
 def _ignored(path: Path) -> bool:
-    return any(part in IGNORED_PARTS or part.endswith(".egg-info") for part in path.parts)
+    return any(
+        part in IGNORED_PARTS or part.endswith(".egg-info") for part in path.parts
+    )
 
 
 def _markdown_blocks() -> list[tuple[str, str]]:
@@ -45,7 +47,9 @@ def _markdown_blocks() -> list[tuple[str, str]]:
             continue
         text = source.read_text(encoding="utf-8")
         for index, block in enumerate(MERMAID_FENCE.findall(text), start=1):
-            diagrams.append((f"{relative.as_posix()}#mermaid-{index}", block.strip() + "\n"))
+            diagrams.append(
+                (f"{relative.as_posix()}#mermaid-{index}", block.strip() + "\n")
+            )
     return diagrams
 
 
@@ -55,20 +59,32 @@ def _standalone_sources() -> list[tuple[str, str]]:
         relative = source.relative_to(ROOT)
         if _ignored(relative):
             continue
-        diagrams.append((relative.as_posix(), source.read_text(encoding="utf-8").strip() + "\n"))
+        diagrams.append(
+            (
+                relative.as_posix(),
+                source.read_text(encoding="utf-8").strip() + "\n",
+            )
+        )
     return diagrams
 
 
 def check_lifecycle_source_sync() -> None:
     if not LIFECYCLE_DOC.is_file():
-        raise MermaidVerificationError(f"missing lifecycle document: {LIFECYCLE_DOC.relative_to(ROOT)}")
+        raise MermaidVerificationError(
+            f"missing lifecycle document: {LIFECYCLE_DOC.relative_to(ROOT)}"
+        )
     if not LIFECYCLE_SOURCE.is_file():
         raise MermaidVerificationError(
             f"missing lifecycle Mermaid source: {LIFECYCLE_SOURCE.relative_to(ROOT)}"
         )
 
     authoritative = LIFECYCLE_SOURCE.read_text(encoding="utf-8").strip()
-    embedded = [block.strip() for block in MERMAID_FENCE.findall(LIFECYCLE_DOC.read_text(encoding="utf-8"))]
+    embedded = [
+        block.strip()
+        for block in MERMAID_FENCE.findall(
+            LIFECYCLE_DOC.read_text(encoding="utf-8")
+        )
+    ]
     if authoritative not in embedded:
         raise MermaidVerificationError(
             "the authoritative MSR-RA-002 .mmd source and embedded lifecycle diagram have drifted"
@@ -76,10 +92,14 @@ def check_lifecycle_source_sync() -> None:
 
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     if not MERMAID_FENCE.search(readme):
-        raise MermaidVerificationError("README.md must retain the executive Mermaid architecture")
+        raise MermaidVerificationError(
+            "README.md must retain the executive Mermaid architecture"
+        )
 
 
-def _render_one(mmdc: str, label: str, source: str, workdir: Path, index: int) -> None:
+def _render_one(
+    mmdc: str, label: str, source: str, workdir: Path, index: int
+) -> None:
     input_path = workdir / f"diagram-{index:03d}.mmd"
     output_path = workdir / f"diagram-{index:03d}.svg"
     input_path.write_text(source, encoding="utf-8")
@@ -93,20 +113,31 @@ def _render_one(mmdc: str, label: str, source: str, workdir: Path, index: int) -
     )
     if completed.returncode != 0:
         details = (completed.stderr or completed.stdout).strip()
-        raise MermaidVerificationError(f"Mermaid render failed for {label}: {details}")
+        raise MermaidVerificationError(
+            f"Mermaid render failed for {label}: {details}"
+        )
     if not output_path.is_file() or output_path.stat().st_size < 100:
-        raise MermaidVerificationError(f"Mermaid render produced no usable SVG for {label}")
+        raise MermaidVerificationError(
+            f"Mermaid render produced no usable SVG for {label}"
+        )
     rendered = output_path.read_text(encoding="utf-8")
     if "<svg" not in rendered or "</svg>" not in rendered:
-        raise MermaidVerificationError(f"Mermaid render is not a complete SVG for {label}")
+        raise MermaidVerificationError(
+            f"Mermaid render is not a complete SVG for {label}"
+        )
 
 
 def check_renderability(*, require_cli: bool) -> int:
     mmdc = shutil.which("mmdc")
     if mmdc is None:
         if require_cli:
-            raise MermaidVerificationError("mmdc is required; install @mermaid-js/mermaid-cli")
-        print("SKIP  Mermaid rendering (mmdc not installed); source-integrity checks still passed")
+            raise MermaidVerificationError(
+                "mmdc is required; install @mermaid-js/mermaid-cli"
+            )
+        print(
+            "SKIP  Mermaid rendering (mmdc not installed); "
+            "source-integrity checks still passed"
+        )
         return 0
 
     diagrams = _standalone_sources() + _markdown_blocks()
