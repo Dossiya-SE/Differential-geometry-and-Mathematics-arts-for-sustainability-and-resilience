@@ -13,7 +13,17 @@ This protocol prevents statements made by source authors, reviewer interpretatio
 | `EXTERNAL` | Supported by an independently verified source or dataset | Must cite the independent evidence directly |
 | `PROPOSED` | A new construct, mapping, hypothesis, model, or demonstrator introduced by this project | Is not evidence and cannot be attributed to the reviewed source |
 | `NOT_OBSERVED` | A searched-for concept or result was not found in the reviewed material | Applies only to the reviewed material; it is not a global absence claim |
-| `NOT_VERIFIED` | The source states that an artifact or result exists, but it has not been independently inspected or executed | Cannot support a reproducibility claim |
+| `NOT_VERIFIED` | The source states that an artifact or result exists, but it has not been independently inspected or executed | Cannot support a reproducibility claim; use the artifact protocol for a more precise acquisition or execution state |
+
+## Status-system boundary
+
+The vocabulary above classifies **scientific statements**. It does not classify acquisition or reproduction progress. Artifact states such as `IDENTIFIED`, `OBTAINED`, `INSPECTED`, `NOT_APPLICABLE`, and `NOT_FOUND_AFTER_SEARCH`, and execution states such as `EXECUTED` and `REPRODUCED`, are defined separately in [`PRIMARY_EVIDENCE_BUNDLE.md`](PRIMARY_EVIDENCE_BUNDLE.md).
+
+Examples:
+
+- a source-level claim can be `OBSERVED` in a paper while the code artifact remains `UNASSESSED`;
+- a repository can be `INSPECTED` at metadata level while its numerical results remain `NOT_STARTED` for reproduction;
+- an executed program can produce output without reproducing the paper's result.
 
 ## Directness rules
 
@@ -33,4 +43,3 @@ Every substantive case-study claim should contain:
 - direct or transferable relationship to the review question;
 - limitation or boundary condition;
 - source identifier.
-
