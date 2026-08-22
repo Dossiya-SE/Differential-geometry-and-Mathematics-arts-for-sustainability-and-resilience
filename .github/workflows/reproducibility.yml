@@ -14,7 +14,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
@@ -24,7 +24,7 @@ jobs:
         run: python scripts/run_reference_experiment.py --check | tee MSR-EXP-0001-result.json
       - name: Run numerical and property tests
         run: python -m pytest -q tests/properties tests/numerical
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: MSR-EXP-0001-${{ github.sha }}
           path: MSR-EXP-0001-result.json

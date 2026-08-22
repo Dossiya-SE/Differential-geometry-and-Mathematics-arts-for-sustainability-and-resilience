@@ -18,7 +18,7 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Topic :: Scientific/Engineering :: Mathematics",
 ]
-dependencies = ["numpy>=2.0,<2.4"]
+dependencies = ["numpy>=2.0,<2.5"]
 
 [project.optional-dependencies]
 geometry = [
@@ -30,9 +30,9 @@ autodiff = ["jax>=0.5,<1"]
 dev = [
   "hypothesis>=6.130,<7",
   "jsonschema>=4.23,<5",
-  "mypy>=1.15,<2",
-  "pytest>=8.3,<9",
-  "pytest-cov>=6,<7",
+  "mypy>=1.15,<3",
+  "pytest>=8.3,<10",
+  "pytest-cov>=6,<8",
   "pyyaml>=6,<7",
   "ruff>=0.11,<1",
 ]
