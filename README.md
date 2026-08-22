@@ -20,10 +20,13 @@ This repository is a domain-neutral research platform for investigating how diff
 | Hazard or stressor | `NOT_SELECTED` |
 | Demonstrator | `NOT_SELECTED` |
 | Chain architecture | `MSR-CA-001`, `PROPOSED_NON_EXHAUSTIVE` |
+| Scientific lifecycle | `MSR-RA-002`, `PROPOSED_ACTIVE_REVIEW` |
 
 Coupled Power-Water-Transportation-Solid-Waste infrastructure under urban flooding remains one incomplete candidate. It has no privileged role in the core software, mathematical contracts, or selection process.
 
 ## Research architecture
+
+The compact executive architecture is:
 
 ```mermaid
 flowchart TD
@@ -32,7 +35,10 @@ flowchart TD
     C --> V["Verification and experiments"]
     V --> A["Reproducible figures and mathematical art"]
     A --> P["Papers, documentation and decisions"]
+    P -. "new questions, gaps and falsification" .-> E
 ```
+
+This six-node view is intentionally compressed. The authoritative end-to-end workflow is [`MSR-RA-002 — Scientific Research Lifecycle`](docs/SCIENTIFIC_RESEARCH_LIFECYCLE.md), rendered natively with Mermaid and covering primary-source acquisition, independent focal-paper reconstruction, equation-to-code traceability, reproduction, stress testing, independent validation, cross-paper mathematical synthesis, sustainable-resilience transfer falsification, mathematical art, publication, and feedback to new evidence.
 
 The layers are linked by identifiers, citations, schemas, tests, checksums, and provenance records. Passing through the diagram does not upgrade an `INFERRED` or `PROPOSED` statement to `OBSERVED` or `VALIDATED`.
 
@@ -48,11 +54,11 @@ The layers are linked by identifiers, citations, schemas, tests, checksums, and 
 | [`schemas/`](schemas/) | Machine-readable validation contracts |
 | [`art/`](art/) | Mathematical-art encoding standard and exact visual sources |
 | [`figures/`](figures/) | Source, generated, and publication-ready figures with provenance |
-| [`docs/`](docs/) | Quarto research documentation and architectural decisions |
+| [`docs/`](docs/) | Quarto research documentation, `MSR-RA-001`, `MSR-RA-002`, and architectural decisions |
 | [`reproducibility/`](reproducibility/) | Environments, containers, and integrity manifests |
 | [`.github/`](.github/) | Review templates, dependency policy, and automated quality gates |
 
-The complete design rationale is in [`docs/REPOSITORY_ARCHITECTURE.md`](docs/REPOSITORY_ARCHITECTURE.md).
+The platform foundation is specified in [`docs/REPOSITORY_ARCHITECTURE.md`](docs/REPOSITORY_ARCHITECTURE.md). The full scientific workflow is specified in [`docs/SCIENTIFIC_RESEARCH_LIFECYCLE.md`](docs/SCIENTIFIC_RESEARCH_LIFECYCLE.md).
 
 ## Scientific boundaries
 
@@ -96,6 +102,7 @@ The current evidence base includes a 12-family, 60-subscope application landscap
 | [Decision status](literature_review/application_selection/DECISION_STATUS.yaml) | Authoritative machine-readable `NOT_SELECTED` state |
 | [Ten-chain architecture](literature_review/protocol/CHAIN_ARCHITECTURE.md) | Provisional domain-neutral extraction and synthesis architecture |
 | [Primary evidence bundle](literature_review/protocol/PRIMARY_EVIDENCE_BUNDLE.md) | Artifact provenance, inventory closure, execution, reproduction, validation, and copyright controls |
+| [Scientific research lifecycle](docs/SCIENTIFIC_RESEARCH_LIFECYCLE.md) | Seven-phase gated workflow from source acquisition through sustainable-resilience transfer and publication |
 | [Case Study MSR-CS-001](literature_review/case_studies/MSR-CS-001_design-for-descent/CASE_STUDY_01.md) | Main paper reviewed; artifact inventory, execution, and reproduction remain open |
 
 Author–date citations are required for scholarly claims. Internal evidence identifiers remain secondary audit links and never replace academic attribution.
