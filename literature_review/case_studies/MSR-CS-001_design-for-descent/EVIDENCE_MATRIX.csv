@@ -18,5 +18,4 @@ MSR-CS-001-E016,"Full-text review","No carbon, energy, resource, economic, socia
 MSR-CS-001-E017,"Full-text review","No climate hazard, service-loss, recovery, viability, or resilience metric was found.",NOT_OBSERVED,Direct,"Resilience boundary","Applies only to this paper"
 MSR-CS-001-E018,"Section 7","The authors report hyperparameter, rewrite-distribution, theoretical, and application limitations.",OBSERVED,Direct,"Validity assessment","Supplemental analyses were not supplied"
 MSR-CS-001-E019,"Section 1","The paper states that code is available through a GitHub repository.",OBSERVED,Direct,"Reproducibility claim","Repository contents were not executed or audited"
-MSR-CS-001-E020,"Review synthesis","The source formalism can be extended to a stratified hybrid infrastructure state space with mode rewrites and continuous P-W-T-SW dynamics.",PROPOSED,Transfer,"Core research bridge","Not demonstrated or endorsed by the source authors"
-
+MSR-CS-001-E020,"Review synthesis","The source formalism motivates exploration of domain-neutral stratified hybrid state spaces combining discrete rewrites, continuous dynamics, admissibility constraints, and optional intrinsic metrics.",PROPOSED,Transfer,"Candidate research bridge","Not demonstrated or endorsed by the source authors; does not select an application domain"

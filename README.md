@@ -4,7 +4,11 @@
 
 This repository-ready package develops an evidence-first literature review of mathematical methods that can represent, analyze, optimize, design, and communicate sustainable resilience.
 
-The review treats sustainable resilience as the **geometry and dynamics of admissible persistence and recovery**. Its principal engineering demonstrator is a coupled Power-Water-Transportation-Solid-Waste (P-W-T-SW) system under urban flooding, with dynamic physical, informational, operational, and financial interfaces.
+The review treats sustainable resilience provisionally as the **geometry and dynamics of admissible persistence, adaptation, and recovery**. The application domain, system boundary, hazard context, and demonstrator are **not yet selected**. Coupled Power-Water-Transportation-Solid-Waste infrastructure under urban flooding is retained only as one candidate among alternatives to be compared through a documented selection protocol.
+
+## Current research stage
+
+The project is in an exploratory evidence-synthesis stage. It will first determine which scientific problem provides the strongest defensible intersection of differential geometry, mathematical art, sustainability, and resilience. No candidate becomes the governing application until it passes the non-compensatory eligibility gates and comparative assessment defined in [`literature_review/protocol/APPLICATION_DOMAIN_SELECTION.md`](literature_review/protocol/APPLICATION_DOMAIN_SELECTION.md). The live decision state and search frame are recorded in [`literature_review/application_selection/`](literature_review/application_selection/).
 
 ## Review architecture
 
@@ -19,6 +23,8 @@ The evidence base is organized into five non-exclusive study classes:
 | C | Contextual | Supports definitions, history, policy, or domain framing |
 
 Evidence statements are separated from project interpretations and proposed extensions. See [`literature_review/protocol/EVIDENCE_STATUS.md`](literature_review/protocol/EVIDENCE_STATUS.md).
+
+Application-domain candidates, evaluation criteria, exclusions, uncertainties, and the eventual decision must remain auditable. A visually compelling mathematical construction, prior familiarity with a domain, or one promising paper is not sufficient for selection.
 
 ## Case studies
 
@@ -41,4 +47,3 @@ Each case-study folder contains:
 - traceable references.
 
 The source PDF is not redistributed in this package. The persistent DOI and source checksum are recorded instead.
-

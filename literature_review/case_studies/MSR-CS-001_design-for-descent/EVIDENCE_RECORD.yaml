@@ -1,6 +1,6 @@
 schema_version: "1.0.0"
 record_id: "MSR-CS-001"
-review_version: "0.1.0"
+review_version: "0.2.0"
 review_date: "2026-08-22"
 review_author: "Dossiya Dakou"
 
@@ -73,10 +73,11 @@ direct_relevance:
 
 proposed_transfer:
   status: "PROPOSED"
-  state_space: "Stratified hybrid P-W-T-SW infrastructure state space"
-  hazard_demonstrator: "Urban flooding with solid-waste blockage feedback"
-  outcome: "Safe and equitable critical-service continuity"
-  extension: "Discrete rewrites across modes plus continuous dynamics and optional intrinsic metrics within strata"
+  application_selection_status: "NOT_SELECTED"
+  state_space: "Domain-neutral stratified hybrid state space"
+  extension: "Discrete rewrites across configurations plus continuous dynamics, admissibility constraints, and optional intrinsic metrics within strata"
+  selection_requirement: "Compare candidate applications using the repository application-domain selection protocol before freezing a system, hazard, outcome, scale, geography, or demonstrator"
+  candidate_note: "Coupled P-W-T-SW infrastructure under urban flooding is one candidate only and has no privileged status"
 
 validity_limits:
   - "Main paper only; supplement not supplied"
@@ -84,5 +85,5 @@ validity_limits:
   - "No independent numerical reproduction"
   - "No quantified sustainability outcome"
   - "No hazard, recovery, viability, equity, or service-continuity model"
-  - "Proposed infrastructure mapping is not a source-paper result"
-
+  - "The domain-neutral transfer abstraction is not a source-paper result"
+  - "No application domain or demonstrator has been selected"

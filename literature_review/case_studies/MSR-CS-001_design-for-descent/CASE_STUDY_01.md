@@ -2,7 +2,7 @@
 title: "Design Grammars for Sustainable Resilience: A Critical Transfer Review of Design for Descent"
 review_id: "MSR-CS-001"
 review_author: "Dossiya Dakou"
-version: "0.1.0"
+version: "0.2.0"
 date: "2026-08-22"
 status: "Working literature-review case study"
 evidence_cutoff: "2026-08-22"
@@ -15,9 +15,9 @@ primary_source_status: "OBSERVED - complete 11-page main paper"
 
 ### Abstract
 
-This case study critically examines Kodnongbua et al.'s *Design for Descent* as the first paper in the literature review for **Mathematics Exploration for Sustainable Resilience: Differential Geometry and Mathematical Art for Sustainability and Resilience**. The source introduces Stochastic Rewrite Descent (SRD), a mixed discrete-continuous optimization method for shape grammars, and identifies reversibility, jump continuity, local geometric control, and repairability as properties that make grammar-defined design spaces more amenable to gradient-based optimization. Full-text extraction, equation verification, table inspection, and visual review show strong direct contributions to procedural geometry, inverse design, topology optimization, and mathematical art. The paper does not directly implement differential geometry, sustainability assessment, climate hazards, infrastructure resilience, critical-service continuity, equity, or uncertainty quantification. It is therefore classified as a transferable mathematical method, geometric-design study, and visualization study (`M + G + V`), not a direct sustainable-resilience application. Building on its verified formalism, this review proposes a stratified hybrid state space in which discrete infrastructure configurations are connected by rewrite maps and each continuous stratum carries physically justified dynamics, admissibility constraints, and potentially a Riemannian metric. This extension is explicitly labeled `PROPOSED`. The central finding is that sustainable-resilience optimization requires not only a capable optimizer but also a representation designed for feasible intervention, correction, adaptation, and verification.
+This case study critically examines Kodnongbua et al.'s *Design for Descent* as the first paper in the literature review for **Mathematics Exploration for Sustainable Resilience: Differential Geometry and Mathematical Art for Sustainability and Resilience**. The source introduces Stochastic Rewrite Descent (SRD), a mixed discrete-continuous optimization method for shape grammars, and identifies reversibility, jump continuity, local geometric control, and repairability as properties that make grammar-defined design spaces more amenable to gradient-based optimization. Full-text extraction, equation verification, table inspection, and visual review show strong direct contributions to procedural geometry, inverse design, topology optimization, and mathematical art. The paper does not directly implement differential geometry, sustainability assessment, climate hazards, infrastructure resilience, critical-service continuity, equity, or uncertainty quantification. It is therefore classified as a transferable mathematical method, geometric-design study, and visualization study (`M + G + V`), not a direct sustainable-resilience application. Building on its verified formalism, this review proposes only a domain-neutral research abstraction: discrete configurations connected by rewrite maps, with continuous state strata carrying justified dynamics, admissibility constraints, and possibly intrinsic metrics. It does not select an application system or demonstrator. The extension is explicitly labeled `PROPOSED`. The central finding is that sustainable-resilience optimization requires not only a capable optimizer but also a representation designed for feasible intervention, correction, adaptation, and verification.
 
-**Keywords:** shape grammar; mixed discrete-continuous optimization; stochastic rewrite descent; procedural geometry; mathematical art; sustainable resilience; viability; hybrid infrastructure; topology optimization; differential geometry
+**Keywords:** shape grammar; mixed discrete-continuous optimization; stochastic rewrite descent; procedural geometry; mathematical art; sustainable resilience; viability; hybrid systems; topology optimization; differential geometry
 
 ## 1. Introduction
 
@@ -39,7 +39,7 @@ This review has three objectives:
 
 **RQ3.** Does the paper directly use differential geometry or quantify sustainability and resilience?
 
-**RQ4.** How can its mixed discrete-continuous representation be transferred to coupled Power-Water-Transportation-Solid-Waste infrastructure?
+**RQ4.** What domain-neutral mathematical elements may be transferable to sustainable-resilience problems, and what evidence is required before choosing an application domain?
 
 **RQ5.** How can its procedural forms support mathematical art without becoming misleading scientific evidence?
 
@@ -203,7 +203,7 @@ not `D`.
 
 | Project chain | Source coverage | Evidence status |
 |---|---|---|
-| Physics -> Structure -> Interfaces -> Dynamics | Structure and geometric rewrites, but no coupled infrastructure physics | OBSERVED / partial |
+| Physics -> Structure -> Interfaces -> Dynamics | Structure and geometric rewrites, but no coupled-system physics | OBSERVED / partial |
 | Observe -> Identify -> Estimate -> Predict | Inverse shape fitting, but no state estimation, identifiability analysis, or UQ | OBSERVED / partial |
 | Hazard -> Failure -> Service loss -> Consequences | Not implemented | NOT_OBSERVED |
 | Recovery -> Resilience -> Reachability -> Viability | Conceptual analogy through reversibility and repairability only | INFERRED |
@@ -212,11 +212,11 @@ not `D`.
 
 The paper therefore strengthens Chain V directly, with transferable elements for Chains I and IV.
 
-## 8. Proposed sustainable-resilience extension
+## 8. Proposed domain-neutral sustainable-resilience extension
 
-This section is `PROPOSED`. It is not part of Kodnongbua et al.'s contribution.
+This section is `PROPOSED`. It is not part of Kodnongbua et al.'s contribution and does not select an application domain. Any named system must first pass the repository's application-domain exploration and selection protocol.
 
-### 8.1 Stratified hybrid infrastructure state space
+### 8.1 Stratified hybrid state space
 
 Define
 
@@ -227,17 +227,17 @@ $$
 \{\sigma\}\times\mathcal M_\sigma,
 $$
 
-where $\sigma$ represents a discrete infrastructure topology or operating mode and $\mathcal M_\sigma$ contains continuous Power-Water-Transportation-Solid-Waste states for that mode.
+where $\sigma$ represents a discrete configuration, topology, regime, or operating mode and $\mathcal M_\sigma$ contains the continuous states admitted under that configuration. The physical meaning of $\sigma$, $\mathcal M_\sigma$, and their dimensions must be defined separately for every candidate application.
 
-Examples of discrete rewrites include:
+Candidate rewrite classes may include:
 
-- opening or closing a valve;
-- isolating a failed component;
-- activating backup generation;
-- rerouting transportation flow;
-- clearing a solid-waste drainage blockage;
-- changing pump or storage configurations;
-- activating a temporary cross-sector service pathway.
+- addition, removal, activation, or isolation of a component;
+- switching between operating regimes;
+- reconfiguration of a network, boundary, material form, or control pathway;
+- repair, replacement, substitution, or adaptive transformation;
+- creation or removal of a feasible connection.
+
+These classes are abstract. Their admissibility, directionality, cost, physical consequences, and reversibility must be established from domain evidence rather than assumed from the grammar analogy.
 
 Continuous dynamics within one mode may be written as
 
@@ -245,11 +245,11 @@ $$
 \dot Y=f_\sigma(Y,u,\eta,t),
 $$
 
-subject to physical conservation, capacity, operational, environmental, safety, and equity constraints.
+subject to the conservation laws, constitutive relations, capacities, operational rules, environmental limits, safety requirements, and distributional constraints justified for the selected domain.
 
 ### 8.2 Intrinsic metric within each stratum
 
-Where scientifically justified, each continuous stratum may carry a metric
+Where scientifically justified for a candidate application, each continuous stratum may carry a metric
 
 $$
 g_{\sigma,Y}(v,w)=v^{\mathsf T}G_\sigma(Y)w.
@@ -267,7 +267,7 @@ K_\sigma(t)
 \left\{
 Y\in\mathcal M_\sigma:
 \begin{array}{l}
-Q_{\mathrm{critical}}(Y,t)\ge Q_{\min},\\
+Q_{\mathrm{essential}}(Y,t)\ge Q_{\min},\\
 C_{\mathrm{carbon}}(Y,t)\le B_{\mathrm{carbon}},\\
 C_{\mathrm{resource}}(Y,t)\le B_{\mathrm{resource}},\\
 I_{\mathrm{equity}}(Y,t)\le B_{\mathrm{equity}},\\
@@ -296,39 +296,36 @@ subject to dynamics, admissibility, uncertainty, and non-anticipative control re
 
 | Source principle | Proposed sustainable-resilience interpretation | Required safeguard |
 |---|---|---|
-| Reversibility | Complementary corrective or alternative operating actions | Do not confuse with physical or thermodynamic reversibility |
-| Jump continuity | Bounded instantaneous critical-service change following a mode switch | Verify the bound under coupled dynamics |
-| Local geometric control | Targeted intervention with sparse intended effects | Quantify unintended cross-sector propagation |
+| Reversibility | Complementary corrective, adaptive, or alternative transformations | Do not confuse with physical or thermodynamic reversibility |
+| Jump continuity | Bounded instantaneous change in a defined performance variable after a rewrite | Verify the bound under the selected system dynamics |
+| Local geometric control | Targeted change with spatially, functionally, or structurally limited intended effects | Quantify unintended nonlocal propagation |
 | Repairability | An admissible operator returning soft violations to feasibility | Hard safety constraints must remain invariant |
 | Redundancy | Multiple viable representations and recovery pathways | Account for cost, carbon, resources, and operational burden |
 
-A service-level jump condition can be written as
+A performance-level jump condition can be written as
 
 $$
 \left\|
-Q(Y)-Q\!\left(\rho(Y)\right)
+P(Y)-P\!\left(\rho(Y)\right)
 \right\|_W
-\le \varepsilon_Q.
+\le \varepsilon_P.
 $$
 
 This proposed inequality must be validated against physical dynamics and service data; it is not established by the source paper.
 
-## 9. Mathematical-art demonstrator
+## 9. Mathematical-art exploration
 
-`PROPOSED` - The paper's tree grammar motivates an evidence-preserving visualization of coupled infrastructure recovery:
+`PROPOSED` - The paper's procedural geometry motivates a domain-neutral visual grammar for comparing candidate sustainable-resilience systems. Before application selection, the visual vocabulary should encode only formal constructs shared across candidates:
 
-- trunk: shared urban resource and governance foundation;
-- gold branches: electric-power pathways;
-- blue branches: water pathways;
-- grey branches: transportation pathways;
-- green branches: solid-waste and drainage pathways;
-- branch width: verified capacity or service flow;
-- leaf density: population receiving critical service;
-- missing leaves: unserved population;
-- boundary color: viability margin or constraint proximity;
-- successive rewrites: intervention, adaptation, and recovery operations.
+- separate visual strata: discrete configurations or regimes;
+- position within a stratum: continuous state coordinates or a declared embedding;
+- paths: observed, simulated, or proposed transitions;
+- boundary contours: admissibility or viability constraints;
+- distance, width, color, and opacity: defined variables with units or explicit normalization;
+- rewrite glyphs: intervention, adaptation, repair, or structural change;
+- uncertainty bands or ensembles: epistemic or aleatory uncertainty, kept distinct.
 
-The visual is scientific only if each property is tied to a defined variable, unit, normalization rule, uncertainty statement, and data provenance. Otherwise, it remains interpretive mathematical art.
+The visual is scientific only if each property is tied to a defined variable, unit, normalization rule, uncertainty statement, and data provenance. Otherwise, it remains interpretive mathematical art. Domain-specific colors, symbols, and narratives will be designed only after application selection.
 
 ## 10. Limitations and validity threats
 
@@ -354,7 +351,7 @@ The visual is scientific only if each property is tied to a defined variable, un
 
 The following are `PROPOSED` and require future testing.
 
-**P1 - Representation proposition.** A hybrid infrastructure grammar satisfying appropriately adapted reversibility, bounded jumps, local control, and safe repairability will yield better feasible-solution discovery than a representation lacking these properties.
+**P1 - Representation proposition.** A hybrid sustainable-resilience grammar satisfying appropriately adapted reversibility, bounded jumps, local control, and safe repairability will yield better feasible-solution discovery than a representation lacking these properties.
 
 **P2 - Service continuity proposition.** Explicit bounds on service changes across rewrites will reduce control-induced critical-service loss during recovery optimization.
 
@@ -362,13 +359,13 @@ The following are `PROPOSED` and require future testing.
 
 **P4 - Path-diversity proposition.** Redundant recovery representations will improve robustness to blocked or failed interventions, but only when their additional economic, environmental, and operational burdens are included.
 
-**P5 - Geometry proposition.** A physically justified metric within each continuous infrastructure stratum will change the ranking of recovery paths relative to unweighted Euclidean distance.
+**P5 - Geometry proposition.** A physically justified metric within each continuous state stratum will change the ranking of recovery or adaptation paths relative to unweighted Euclidean distance.
 
 ## 12. Conclusion
 
 Kodnongbua et al. demonstrate that the design of a search representation can be as important as the optimization algorithm. Their evidence supports four useful grammar guidelines across image-fitting, generative, and structural examples. The paper is a strong source for procedural geometry, mathematical art, and mixed discrete-continuous inverse design. It does not directly establish differential-geometric, sustainability, or resilience claims.
 
-Its legitimate contribution to this project is therefore methodological. It motivates a hybrid grammar-manifold research program in which discrete infrastructure changes and continuous controlled dynamics are optimized together under physical, critical-service, environmental, resource, safety, and equity constraints. That integration remains to be formally developed, numerically verified, and empirically validated.
+Its legitimate contribution to this project is therefore methodological. It motivates exploration of hybrid grammar-geometric models in which discrete changes and continuous dynamics are considered together under application-specific physical, functional, environmental, resource, safety, and equity constraints. It does not determine which application should be chosen. That decision requires comparative evidence across candidate domains, after which the selected integration must be formally developed, numerically verified, and empirically validated.
 
 ## Data and artifact availability
 
@@ -382,4 +379,3 @@ Its legitimate contribution to this project is therefore methodological. It moti
 ## References
 
 Kodnongbua, M., Zhang, Z. J., Sharp, N., and Schulz, A. (2025). Design for Descent: What Makes a Shape Grammar Easy to Optimize? *SIGGRAPH Asia 2025 Conference Papers*, 1-11. https://doi.org/10.1145/3757377.3764004
-

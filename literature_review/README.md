@@ -8,13 +8,21 @@ The review investigates how differential geometry, geometric dynamics, optimizat
 2. **Design** - generate and optimize materially efficient, adaptive, and resilient structures and interventions.
 3. **Communication** - create mathematically faithful visual representations of complex resilience phenomena.
 
-## Frozen application context
+## Open application-domain exploration
 
-- System: coupled Power-Water-Transportation-Solid-Waste infrastructure.
-- Hazard demonstrator: urban flooding, including solid-waste blockage and drainage feedback.
-- Mathematical identity: sustainability-constrained viability and recovery geometry.
-- Hamilton-Jacobi methods: computation and characterization tools, not the sole identity of the project.
-- Engineering outcome: safe and equitable critical-service continuity.
+The application domain is not frozen. The review must explore and compare multiple candidate systems before selecting a system boundary, hazard or stressor, outcome, scale, geography, and demonstrator. Coupled Power-Water-Transportation-Solid-Waste infrastructure under urban flooding is a candidate only; it has no privileged status.
+
+The following are provisional research constructs rather than final commitments:
+
+- sustainable resilience as admissible persistence, adaptation, and recovery;
+- differential-geometric or stratified representations of constrained state spaces;
+- mathematical art as a formally mapped analytical, design, or communication layer;
+- viability, reachability, critical-function continuity, and equitable outcomes as possible endpoints;
+- Hamilton-Jacobi methods as possible computational tools rather than a predetermined project identity.
+
+Selection is governed by [`protocol/APPLICATION_DOMAIN_SELECTION.md`](protocol/APPLICATION_DOMAIN_SELECTION.md). Until that process is completed, reviews must use domain-neutral formulations or label named applications as `CANDIDATE` and project mappings as `PROPOSED`.
+
+The machine-readable decision state is [`application_selection/DECISION_STATUS.yaml`](application_selection/DECISION_STATUS.yaml), and the current search frame is [`application_selection/CANDIDATE_REGISTER.csv`](application_selection/CANDIDATE_REGISTER.csv).
 
 ## Six-chain architecture
 
@@ -31,3 +39,4 @@ Physical forcing, inference, and viability/decision chains must remain distinct 
 
 The current corpus contains one fully reviewed case-study paper. A study's inclusion does not imply that it directly validates the complete sustainable-resilience framework.
 
+One transferable-method paper cannot determine the final application domain. Corpus expansion must include direct-application studies, theoretical foundations, validation studies, and relevant contextual evidence across competing candidate domains.

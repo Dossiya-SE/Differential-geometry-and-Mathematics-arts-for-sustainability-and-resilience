@@ -3,7 +3,7 @@
 ## Review identity
 
 - Review ID: `MSR-CS-001`
-- Review version: `0.1.0`
+- Review version: `0.2.0`
 - Verification date: `2026-08-22`
 - Reviewer: Dossiya Dakou
 - Review type: focal-paper critical transfer review
@@ -43,10 +43,10 @@
 2. The words *geometry*, *topology optimization*, and *shape space* are not treated as evidence of differential geometry.
 3. Structural weight reduction is not treated as a complete sustainability assessment.
 4. Computational repairability is not treated as physical infrastructure recoverability.
-5. The P-W-T-SW grammar-manifold formulation is labeled `PROPOSED`.
+5. The stratified hybrid transfer abstraction is labeled `PROPOSED`.
 6. No global absence claims are made from the focal paper.
+7. No application domain, hazard, geography, outcome, or demonstrator is selected from this focal paper.
 
 ## Unverified dependencies
 
 The main paper refers to supplemental Algorithms 1 and 2, Appendix A, Appendix D, additional figures and tables, and an external code repository. These artifacts require separate acquisition and audit before reproducibility status can be upgraded.
-

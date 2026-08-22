@@ -1,0 +1,39 @@
+schema_version: "1.0.0"
+record_date: "2026-08-22"
+project: "Mathematics Exploration for Sustainable Resilience"
+
+decision:
+  application_domain: "NOT_SELECTED"
+  system_boundary: "NOT_SELECTED"
+  hazard_or_stressor: "NOT_SELECTED"
+  sustainability_outcome: "NOT_SELECTED"
+  resilience_outcome: "NOT_SELECTED"
+  spatial_scale: "NOT_SELECTED"
+  temporal_scale: "NOT_SELECTED"
+  geography: "NOT_SELECTED"
+  demonstrator: "NOT_SELECTED"
+
+process:
+  phase: "EXPLORATORY_CANDIDATE_GENERATION"
+  governing_protocol: "../protocol/APPLICATION_DOMAIN_SELECTION.md"
+  eligibility_screening: "NOT_STARTED"
+  comparative_scoring: "NOT_STARTED"
+  weights: "NOT_DEFINED"
+  uncertainty_analysis: "NOT_STARTED"
+  feasibility_prototypes: "NOT_STARTED"
+  independent_check: "NOT_STARTED"
+  selection_memo: "NOT_CREATED"
+
+prior_working_candidate:
+  label: "Coupled P-W-T-SW infrastructure under urban flooding"
+  status: "INCOMPLETE_UNSCREENED_CANDIDATE"
+  privilege: false
+  selection_effect: "NONE"
+
+controls:
+  - "No focal paper may determine the application domain by itself"
+  - "Search families are not application candidates"
+  - "All eligibility gates are non-compensatory"
+  - "Criteria and any weights must be frozen before final comparative scoring"
+  - "Source evidence, reviewer inference, and project proposals must remain separated"
+  - "NO_SELECTION is valid when no candidate satisfies the decision rule"
