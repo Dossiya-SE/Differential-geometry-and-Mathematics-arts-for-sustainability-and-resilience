@@ -1,0 +1,28 @@
+name: Temporary manifest synchronization
+
+on:
+  push:
+    branches: [ci/validate-mermaid]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ci/validate-mermaid
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Regenerate manifest and remove temporary workflow
+        run: |
+          git rm .github/workflows/_manifest_sync_temp.yml
+          python scripts/generate_manifest.py --write
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add MANIFEST.sha256
+          git commit -m "chore: synchronize integrity manifest"
+          git push origin HEAD:ci/validate-mermaid
