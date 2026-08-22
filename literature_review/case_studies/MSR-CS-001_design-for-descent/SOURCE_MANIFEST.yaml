@@ -1,0 +1,132 @@
+schema_version: "1.0.0"
+manifest_id: "MSR-CS-001-SOURCES"
+review_id: "MSR-CS-001"
+cutoff_date: "2026-08-22"
+protocol: "literature_review/protocol/PRIMARY_EVIDENCE_BUNDLE.md"
+case_status: "MAIN_PAPER_REVIEWED__ARTIFACT_INVENTORY_OPEN__EXECUTION_NOT_STARTED"
+
+identity:
+  title: "Design for Descent: What Makes a Shape Grammar Easy to Optimize?"
+  authors:
+    - "Milin Kodnongbua"
+    - "Zihan Jack Zhang"
+    - "Nicholas Sharp"
+    - "Adriana Schulz"
+  year: 2025
+  venue: "SIGGRAPH Asia 2025 Conference Papers"
+  doi: "10.1145/3757377.3764004"
+  publisher_url: "https://dl.acm.org/doi/10.1145/3757377.3764004"
+  official_project_url: "https://www.computationaldesign.group/publications/design-for-descent"
+
+artifacts:
+  main_paper:
+    required_for: ["source_claim_extraction", "method_review"]
+    lifecycle_status: "INSPECTED"
+    inspection_scope: "all 11 main-paper pages; selected equations, tables, figures, limitations, and conclusion"
+    official_url: "https://www.computationaldesign.group/assets/papers/SIGA-2025-D4Descent.pdf"
+    pages: 11
+    bytes: 5873001
+    sha256: "9b61925d981edf9173aa58045bf90e44488e09e5ded1c692085f75a9e0812314"
+    license_reported_in_paper: "CC BY-NC 4.0"
+    redistributed_here: false
+
+  supplement:
+    required_for:
+      - "supplemental Theorem A.1"
+      - "supplemental Algorithms 1 and 2"
+      - "supplemental Appendix D"
+      - "supplemental figures and tables referenced by the main paper"
+    lifecycle_status: "NOT_FOUND_AFTER_SEARCH"
+    searched_on: "2026-08-22"
+    searched_locations:
+      - "official project page"
+      - "official main-paper PDF"
+      - "ACM DOI and full-article landing pages"
+      - "official code repository root and documented links"
+    basis: "The main paper refers to supplemental content, but no supplement asset was located in the recorded search. This is not a claim that the supplement is non-public or nonexistent."
+
+  code:
+    required_for: ["algorithm audit", "implementation crosswalk", "numerical reproduction"]
+    lifecycle_status: "INSPECTED"
+    inspection_scope: "repository identity, top-level structure, README, dependency specification, lock file presence, Python version, configuration and data directory presence; implementation semantics not yet audited"
+    official_url: "https://github.com/milmillin/d4descent"
+    provenance_basis:
+      - "linked by the official project page"
+      - "stated in the main paper"
+    default_branch: "main"
+    commit: "a66b729517a67b95330126bda7f84bb66a352aca"
+    tree: "7e5ba7cf9f541da09b236f4fc6eb71a28eb8ee5b"
+    commit_date: "2025-09-24"
+    observed_paths:
+      - ".python-version"
+      - "pyproject.toml"
+      - "uv.lock"
+      - "configs/"
+      - "data/"
+      - "runs/"
+      - "scripts/"
+      - "src/"
+    license_statement_location: "README.md at the pinned commit"
+    license_statement_observed: "CC BY-NC 4.0"
+    standalone_license_file_observed: false
+    redistributed_here: false
+
+  data:
+    required_for: ["target-image benchmarks", "selected reproduction experiments"]
+    lifecycle_status: "IDENTIFIED"
+    identified_location: "official code repository data/ directory at the pinned commit"
+    observed_subdirectories:
+      - "data/arclines/"
+      - "data/pngs/"
+    inspection_scope: "directory presence only; file-level inventory, provenance, licenses, and hashes remain open"
+    source_dependency_reported_in_paper: "SketchGraph-derived targets were hand-selected into benchmark subsets"
+    redistributed_here: false
+
+  models:
+    lifecycle_status: "UNASSESSED"
+    applicability: "experiment_specific"
+    note: "The text-conditioned SDS path has diffusion-model dependencies. Exact pretrained model identifiers, weights, access conditions, and hashes remain unresolved. Other experiments may justify NOT_APPLICABLE separately."
+
+environment:
+  lifecycle_status: "IDENTIFIED"
+  build_status: "NOT_STARTED"
+  runtime_observed: "Python 3.12"
+  package_manager_observed: "uv"
+  dependency_files_observed:
+    - "pyproject.toml"
+    - "uv.lock"
+  selected_dependencies_observed:
+    - "torch>=2.8.0"
+    - "torchvision>=0.23.0"
+    - "diffusers>=0.35.1"
+    - "transformers>=4.56.2"
+    - "confify from https://github.com/milmillin/confify.git"
+  hardware_requirements: "UNASSESSED"
+  external_model_access: "UNASSESSED"
+
+reported_benchmark_counts:
+  evidence_type: "reported_in_main_paper_not_acquired_dataset_inventory"
+  one_component: 128
+  donut: 25
+  two_component: 23
+
+execution:
+  status: "NOT_STARTED"
+  environment_built: false
+  source_code_executed: false
+  target_results_registered: false
+  numerical_results_reproduced: false
+  independent_stress_tests_run: false
+
+open_requirements:
+  - "Locate or obtain the supplement, or document a later terminal access state."
+  - "Complete a file-level code-to-equation and algorithm crosswalk."
+  - "Inventory data files, provenance, licenses, and hashes per target experiment."
+  - "Resolve model checkpoints and access requirements for SDS experiments."
+  - "Declare reproduction targets, metrics, tolerances, seeds, and hardware before execution."
+  - "Build the pinned environment, execute registered commands, compare results, and retain logs."
+
+redistribution_policy:
+  manifest_only: true
+  third_party_payloads_committed: false
+  rule: "Record authoritative links, immutable identifiers, hashes, licenses, and reviewer-authored audit artifacts; do not mirror third-party payloads without verified redistribution permission."

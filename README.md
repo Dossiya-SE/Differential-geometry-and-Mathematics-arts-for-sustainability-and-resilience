@@ -95,9 +95,12 @@ The current evidence base includes a 12-family, 60-subscope application landscap
 | [Application-selection protocol](literature_review/protocol/APPLICATION_DOMAIN_SELECTION.md) | Non-compensatory gates and comparative selection rules |
 | [Decision status](literature_review/application_selection/DECISION_STATUS.yaml) | Authoritative machine-readable `NOT_SELECTED` state |
 | [Ten-chain architecture](literature_review/protocol/CHAIN_ARCHITECTURE.md) | Provisional domain-neutral extraction and synthesis architecture |
-| [Case Study MSR-CS-001](literature_review/case_studies/MSR-CS-001_design-for-descent/CASE_STUDY_01.md) | Critical transfer review of *Design for Descent* |
+| [Primary evidence bundle](literature_review/protocol/PRIMARY_EVIDENCE_BUNDLE.md) | Artifact provenance, inventory closure, execution, reproduction, validation, and copyright controls |
+| [Case Study MSR-CS-001](literature_review/case_studies/MSR-CS-001_design-for-descent/CASE_STUDY_01.md) | Main paper reviewed; artifact inventory, execution, and reproduction remain open |
 
 Author–date citations are required for scholarly claims. Internal evidence identifiers remain secondary audit links and never replace academic attribution.
+
+Case-study completion is staged as `MAIN_PAPER_REVIEWED`, `ARTIFACT_INVENTORY_CLOSED`, `EXECUTION_COMPLETE`, `PARTIALLY_REPRODUCED`, `REPRODUCED`, and `INDEPENDENTLY_VALIDATED`. A later stage must not be inferred from an earlier one.
 
 ## Contributing and review
 

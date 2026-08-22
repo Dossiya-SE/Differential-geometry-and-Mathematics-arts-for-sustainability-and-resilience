@@ -51,8 +51,14 @@ Differential geometry and topology; spatial and temporal scale; system boundarie
 
 The authoritative definitions, corrections to the earlier sequences, evidence states, non-conflation rules, and machine-readable record are in [`protocol/CHAIN_ARCHITECTURE.md`](protocol/CHAIN_ARCHITECTURE.md) and [`protocol/CHAIN_ARCHITECTURE.yaml`](protocol/CHAIN_ARCHITECTURE.yaml). The architecture remains `PROPOSED_NON_EXHAUSTIVE` and must be tested across all 12 application families. Physical forcing, inference, failure and service consequences, viability and resilience, decisions and optimization, sustainability, equity, institutional implementation, and mathematical-art effects must remain distinct in every extraction and synthesis.
 
+## Primary evidence and reproduction controls
+
+[`protocol/PRIMARY_EVIDENCE_BUNDLE.md`](protocol/PRIMARY_EVIDENCE_BUNDLE.md) separates source identity, artifact acquisition, environment specification, experiment registration, execution, reproduction, and independent validation. Its Boolean artifact gate establishes only that every claim-critical artifact has a documented lifecycle outcome; it does not certify that the paper has been reproduced.
+
+Scientific-claim statuses such as `OBSERVED` and `INFERRED` must not be used as artifact-acquisition or execution statuses. Conversely, an `INSPECTED` repository or an `EXECUTED` command does not establish agreement with a published numerical result.
+
 ## Current corpus
 
-The current corpus contains one fully reviewed case-study paper. A study's inclusion does not imply that it directly validates the complete sustainable-resilience framework.
+The current corpus contains one case study whose main paper has been reviewed. Its artifact inventory, implementation-level audit, execution, and reproduction remain open. Inclusion does not imply direct validation of the complete sustainable-resilience framework.
 
 One transferable-method paper cannot determine the final application domain. Corpus expansion must include direct-application studies, theoretical foundations, validation studies, and relevant contextual evidence across competing candidate domains.

@@ -1,8 +1,10 @@
-schema_version: "1.0.0"
+schema_version: "1.1.0"
 record_id: "MSR-CS-001"
-review_version: "0.2.1"
+review_version: "0.3.0"
 review_date: "2026-08-22"
 review_author: "Dossiya Dakou"
+case_status: "MAIN_PAPER_REVIEWED__ARTIFACT_INVENTORY_OPEN__EXECUTION_NOT_STARTED"
+source_manifest: "SOURCE_MANIFEST.yaml"
 
 source:
   title: "Design for Descent: What Makes a Shape Grammar Easy to Optimize?"
@@ -17,9 +19,32 @@ source:
   pages: 11
   license_reported: "Creative Commons Attribution-NonCommercial 4.0 International"
   pdf_sha256: "9b61925d981edf9173aa58045bf90e44488e09e5ded1c692085f75a9e0812314"
-  main_text_status: "OBSERVED"
-  supplement_status: "NOT_VERIFIED"
-  code_status: "NOT_VERIFIED"
+  main_text_evidence_status: "OBSERVED"
+
+artifact_summary:
+  main_paper:
+    lifecycle_status: "INSPECTED"
+    inspection_scope: "all 11 main-paper pages with targeted visual and equation inspection"
+  supplement:
+    lifecycle_status: "NOT_FOUND_AFTER_SEARCH"
+    note: "Referenced by the main paper; no asset located in the documented 2026-08-22 search."
+  code:
+    lifecycle_status: "INSPECTED"
+    inspection_scope: "identity, provenance, top-level structure, dependency specification, and selected metadata only"
+    repository: "https://github.com/milmillin/d4descent"
+    commit: "a66b729517a67b95330126bda7f84bb66a352aca"
+    execution_status: "NOT_STARTED"
+  data:
+    lifecycle_status: "IDENTIFIED"
+    inspection_scope: "official repository data-directory presence only"
+  models:
+    lifecycle_status: "UNASSESSED"
+    applicability: "experiment_specific"
+  environment:
+    lifecycle_status: "IDENTIFIED"
+    build_status: "NOT_STARTED"
+  reproduction:
+    status: "NOT_STARTED"
 
 classification:
   direct_application_D: false
@@ -57,10 +82,11 @@ observed_applications:
   - "Cantilever topology optimization"
   - "MBB-beam topology optimization"
 
-datasets:
-  one_component_count: 128
-  donut_count: 25
-  two_component_count: 23
+reported_benchmark_counts:
+  evidence_type: "reported_in_main_paper_not_acquired_dataset_inventory"
+  one_component: 128
+  donut: 25
+  two_component: 23
 
 direct_relevance:
   differential_geometry: "NOT_OBSERVED"
@@ -100,10 +126,11 @@ proposed_transfer:
   candidate_note: "Coupled P-W-T-SW infrastructure under urban flooding is one candidate only and has no privileged status"
 
 validity_limits:
-  - "Main paper only; supplement not supplied"
-  - "Code stated but not executed"
-  - "No independent numerical reproduction"
-  - "No quantified sustainability outcome"
-  - "No hazard, recovery, viability, equity, or service-continuity model"
+  - "The supplement was not located in the documented search"
+  - "Official code metadata and structure were inspected, but implementation semantics were not audited"
+  - "The environment was not built and source code was not executed"
+  - "No numerical result was independently reproduced"
+  - "No quantified sustainability outcome was observed"
+  - "No hazard, recovery, viability, equity, or service-continuity model was observed"
   - "The domain-neutral transfer abstraction is not a source-paper result"
   - "No application domain or demonstrator has been selected"
