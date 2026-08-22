@@ -1,0 +1,60 @@
+{
+  "tool": "engineer-math-surfaces",
+  "version": "1.3.0",
+  "commit_sha": "ca2029c660b3bfd3b55736b638cd26828c0f18f8",
+  "applied": true,
+  "files": [
+    {
+      "path": "README.md",
+      "surface": "github-markdown",
+      "archival": false,
+      "before_sha256": "438dd63c2964f954aeb3a88c0fd4af96b1aa2ad63222ff0644dd68cd4776d4c2",
+      "after_sha256": "40168c086b737b35eda3a9ba3c7c6211e0430a7c89a40112a3bd6d5a561f1c11",
+      "preserved_tex_bodies": [
+        {
+          "line": 5,
+          "display": false,
+          "tex_sha256": "8db49c8bf0798af9c285966f159a621a3b713d367a57b0ccf1520c8020965596"
+        },
+        {
+          "line": 9,
+          "display": true,
+          "tex_sha256": "196c77f3d2d107508de92c8e6fb051097d817b459df6ed2247b2d137e59c86ef"
+        }
+      ],
+      "preserved_collision_bodies": [
+        {
+          "line": 15,
+          "display": true,
+          "rule_id": "MSM010",
+          "before_tex_sha256": "f4dfc991f907c9a891657cc914ccd39252d8d201e2e41b709ee1a667e865ea72",
+          "after_tex_sha256": "f4dfc991f907c9a891657cc914ccd39252d8d201e2e41b709ee1a667e865ea72",
+          "byte_identical": true
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "path": "docs/model.md",
+      "surface": "github-markdown",
+      "archival": false,
+      "before_sha256": "aadb3201541cedb77f4a04542ca5085648239cbccd0e91e5aa31d0d8651fe140",
+      "after_sha256": "583549849cfed30c4761621d87b126843711de63f0f8f503d553b6358721ddbd",
+      "preserved_tex_bodies": [
+        {
+          "line": 3,
+          "display": false,
+          "tex_sha256": "a72f7fd514edb2b2485e58924980b0e1284670cc3230b5966ad350fe41db5fc4"
+        },
+        {
+          "line": 7,
+          "display": true,
+          "tex_sha256": "3d2dbb2ab0687bb87db98507990bd863500992e008324a875708ba57cb3398ec"
+        }
+      ],
+      "preserved_collision_bodies": [],
+      "skipped": []
+    }
+  ],
+  "changed_files": 2
+}

@@ -1,0 +1,91 @@
+{
+  "formulas": 10,
+  "requireMode": "both",
+  "mathjaxAvailable": true,
+  "mathjaxVersion": "4.1.3",
+  "katexAvailable": true,
+  "katexVersion": "0.18.4",
+  "failures": 0,
+  "results": [
+    {
+      "path": "README.md",
+      "line": 5,
+      "display": false,
+      "texSha256": "8db49c8bf0798af9c285966f159a621a3b713d367a57b0ccf1520c8020965596",
+      "mathjax": "PASS",
+      "katex": "PASS"
+    },
+    {
+      "path": "README.md",
+      "line": 9,
+      "display": true,
+      "texSha256": "3dbd39a731a88fd5e05c50222185c428b5c5a4a3f5ab163678d12c9cbc89c898",
+      "mathjax": "PASS",
+      "katex": "PASS"
+    },
+    {
+      "path": "README.md",
+      "line": 16,
+      "display": true,
+      "texSha256": "40ffb505d5a7b1e2167b06a9c2bf66a65f678ebef0f7a6218d33aeae75bbc587",
+      "mathjax": "PASS",
+      "katex": "PASS"
+    },
+    {
+      "path": "README.md",
+      "line": 21,
+      "display": false,
+      "texSha256": "4fd19ce03ec6248d1356eae774c553982e93283e2506d2121355c2832eda2393",
+      "mathjax": "PASS",
+      "katex": "PASS"
+    },
+    {
+      "path": "README.md",
+      "line": 23,
+      "display": false,
+      "texSha256": "f30c64557db3933d58d9be85c6e71041a656368ca6341fd692daf100fd1f79ff",
+      "mathjax": "PASS",
+      "katex": "PASS"
+    },
+    {
+      "path": "docs/MATH_SURFACE_OWNERSHIP.md",
+      "line": 20,
+      "display": true,
+      "texSha256": "38c99006f058680629ce09042eb9bdf7f04a688964bfbfdcf8c587cd2a01f635",
+      "mathjax": "PASS",
+      "katex": "PASS"
+    },
+    {
+      "path": "docs/model.md",
+      "line": 3,
+      "display": false,
+      "texSha256": "a72f7fd514edb2b2485e58924980b0e1284670cc3230b5966ad350fe41db5fc4",
+      "mathjax": "PASS",
+      "katex": "PASS"
+    },
+    {
+      "path": "docs/model.md",
+      "line": 7,
+      "display": true,
+      "texSha256": "d393ac5ed544babbf14daa7eacfaeb15c12ef8521f5df0bcb1ad1436637cd0b7",
+      "mathjax": "PASS",
+      "katex": "PASS"
+    },
+    {
+      "path": "docs/model.md",
+      "line": 11,
+      "display": false,
+      "texSha256": "37ac165d7161188d3cc4a6a237711f79fd1820eca63538375e37918f95cb2be9",
+      "mathjax": "PASS",
+      "katex": "PASS"
+    },
+    {
+      "path": "site/model.mdx",
+      "line": 5,
+      "display": false,
+      "texSha256": "7a02b704b6c1907f46a9abf184c2c9de61c60d9655688bb8d06ba233490593ac",
+      "mathjax": "PASS",
+      "katex": "PASS"
+    }
+  ]
+}

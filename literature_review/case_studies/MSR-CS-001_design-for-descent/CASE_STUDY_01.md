@@ -75,12 +75,12 @@ where $V$ is a finite set of geometric primitives, $\Sigma$ is the formal parame
 
 Each design contains a discrete structure $s$ and a continuous parameter vector $p\in\mathbb{R}^{d(s)}$. The full design space is
 
-$$
+```math
 \mathcal X
 =
 \bigsqcup_{s\in S}
 \{s\}\times\mathbb{R}^{d(s)}.
-$$
+```
 
 Because the dimension $d(s)$ can change after a rewrite, this is a transdimensional disjoint union of continuous parameter spaces. The source informally discusses the changing geometry of this space, but does not equip it with a Riemannian metric or prove that the union is a smooth manifold.
 
@@ -88,12 +88,12 @@ Because the dimension $d(s)$ can change after a rewrite, this is a transdimensio
 
 `OBSERVED` - The source formulates
 
-$$
+```math
 (s^*,p^*)
 =
 \arg\min_{\substack{s\in S\\p\in\mathbb{R}^{d(s)}}}
 \left[f\!\left(I(s,p)\right)+g(s,p)\right],
-$$
+```
 
 where $I$ is a differentiable rendering or representation map, $f$ is a differentiable objective, and $g$ may be a non-differentiable objective such as structural simplicity.
 
@@ -224,12 +224,12 @@ This section is `PROPOSED`. It is not part of Kodnongbua et al.'s contribution a
 
 Define
 
-$$
+```math
 \mathcal X_{\mathrm{SR}}
 =
 \bigsqcup_{\sigma\in\mathscr S}
 \{\sigma\}\times\mathcal M_\sigma,
-$$
+```
 
 where $\sigma$ represents a discrete configuration, topology, regime, or operating mode and $\mathcal M_\sigma$ contains the continuous states admitted under that configuration. The physical meaning of $\sigma$, $\mathcal M_\sigma$, and their dimensions must be defined separately for every candidate application.
 
@@ -265,7 +265,7 @@ The metric must be dimensionally coherent or constructed from explicit nondimens
 
 Define
 
-$$
+```math
 K_\sigma(t)
 =
 \left\{
@@ -278,7 +278,7 @@ I_{\mathrm{equity}}(Y,t)\le B_{\mathrm{equity}},\\
 h_{\mathrm{safety}}(Y,t)\ge0
 \end{array}
 \right\}.
-$$
+```
 
 The design problem becomes multi-objective:
 
