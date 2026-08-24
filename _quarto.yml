@@ -14,6 +14,8 @@ website:
         text: Home
       - href: docs/architecture.qmd
         text: Architecture
+      - href: docs/learning.qmd
+        text: Learning laboratory
       - href: docs/research-integrity.qmd
         text: Research integrity
       - href: docs/gallery.qmd
