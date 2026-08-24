@@ -3,7 +3,6 @@ from __future__ import annotations
 import argparse
 import json
 
-from .controller import audit_release, render_release, reproduce_bundle
 from .environment import doctor
 
 
@@ -30,16 +29,22 @@ def main():
 
     args = p.parse_args()
 
-    if args.command == "render":
-        result = render_release(args.request, args.outdir)
-    elif args.command == "build":
-        result = render_release("render_requests/Research_Framework_V4.yaml", args.outdir)
-    elif args.command == "reproduce":
-        result = reproduce_bundle(args.bundle)
-    elif args.command == "audit":
-        result = audit_release(args.outdir)
-    else:
+    if args.command == "doctor":
         result = doctor(require_notebook=args.notebook)
+    else:
+        # Import rendering dependencies lazily so `framework doctor` can
+        # diagnose a missing native Cairo runtime instead of crashing while
+        # importing the controller.
+        from .controller import audit_release, render_release, reproduce_bundle
+
+        if args.command == "render":
+            result = render_release(args.request, args.outdir)
+        elif args.command == "build":
+            result = render_release("render_requests/Research_Framework_V4.yaml", args.outdir)
+        elif args.command == "reproduce":
+            result = reproduce_bundle(args.bundle)
+        else:
+            result = audit_release(args.outdir)
 
     print(json.dumps(result, indent=2, sort_keys=True))
 
