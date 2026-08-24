@@ -36,13 +36,13 @@ The local target includes macOS on Apple Silicon with Python 3.13. The important
 Use the deterministic bootstrap:
 
 ```bash
-./scripts/bootstrap_macos.sh
+bash scripts/bootstrap_macos.sh
 ```
 
 Then launch Jupyter with:
 
 ```bash
-./scripts/launch_jupyter_macos.sh
+bash scripts/launch_jupyter_macos.sh
 ```
 
 The launcher executes `.venv/bin/python -m notebook` directly. This prevents an existing Conda/base installation, shell alias, or cached `jupyter` command from silently starting a different Python environment.
