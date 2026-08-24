@@ -13,26 +13,64 @@ on:
   workflow_dispatch:
 
 jobs:
-  studio-quality-gate:
+  web-quality-gate:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: frameworks/research-framework-visual/studio
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+
       - name: Install pinned studio dependencies
         run: npm install --no-audit --no-fund
+
       - name: Run mathematical Visual IR tests
         run: npm run test
-      - name: Build production UI
-        run: npm run build
+
+      - name: Build production web UI
+        run: npm run build:web
+
       - name: Validate Python adapter syntax
         run: python -m py_compile python/visual_ir_adapter.py
-      - name: Upload production UI
+
+      - name: Upload web production UI
         uses: actions/upload-artifact@v4
         with:
-          name: mathematical-visual-design-studio
+          name: mathematical-visual-design-studio-web
           path: frameworks/research-framework-visual/studio/dist/
+
+  native-macos-gui:
+    runs-on: macos-14
+    needs: web-quality-gate
+    defaults:
+      run:
+        working-directory: frameworks/research-framework-visual/studio
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install pinned studio dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Check native Rust/Tauri shell
+        run: npm run desktop:check
+
+      - name: Build native macOS DMG
+        run: npm run gui:build -- --bundles dmg
+
+      - name: Upload installable macOS GUI
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathematical-visual-design-studio-macos-dmg
+          path: frameworks/research-framework-visual/studio/src-tauri/target/release/bundle/dmg/*.dmg
+          if-no-files-found: error

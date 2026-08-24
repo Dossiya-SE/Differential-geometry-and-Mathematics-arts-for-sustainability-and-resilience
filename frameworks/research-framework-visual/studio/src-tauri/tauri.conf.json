@@ -1,0 +1,38 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Mathematical Visual Design Studio",
+  "version": "0.2.0",
+  "identifier": "io.github.dossiyase.mvsstudio",
+  "build": {
+    "beforeDevCommand": "npm run dev:web",
+    "devUrl": "http://localhost:5173",
+    "beforeBuildCommand": "npm run build:web",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Mathematical Visual Design Studio",
+        "width": 1500,
+        "height": 980,
+        "minWidth": 1100,
+        "minHeight": 720,
+        "center": true,
+        "resizable": true,
+        "fullscreen": false,
+        "decorations": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; connect-src 'self' ipc: http://ipc.localhost https://ipc.localhost; img-src 'self' asset: data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "category": "Education",
+    "shortDescription": "Mathematical visual engineering desktop studio",
+    "longDescription": "A native desktop GUI for governed mathematical and scientific visual design from a common Visual IR."
+  }
+}

@@ -1,0 +1,13 @@
+[package]
+name = "mathematical-visual-design-studio"
+version = "0.2.0"
+description = "Native desktop GUI for governed mathematical and scientific visual engineering"
+authors = ["Dossiya-SE"]
+edition = "2021"
+rust-version = "1.77.2"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
