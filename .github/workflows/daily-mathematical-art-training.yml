@@ -1,0 +1,96 @@
+name: Daily mathematical art training
+
+on:
+  schedule:
+    # GitHub Actions cron is UTC. 00:00 UTC = 08:00 Asia/Singapore.
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: daily-mathematical-art-training
+  cancel-in-progress: false
+
+jobs:
+  create-training-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create one rigorous daily training issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TZ: Asia/Singapore
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          training_date="$(date +%F)"
+          start_date="2026-08-25"
+          day_index="$(( ( $(date -d "$training_date" +%s) - $(date -d "$start_date" +%s) ) / 86400 + 1 ))"
+          if (( day_index < 1 )); then
+            day_index=1
+          fi
+
+          title="[Training] Mathematical Art — ${training_date}"
+
+          # Guard against duplicate issues if the workflow is re-run on the same day.
+          existing_count="$(
+            gh issue list \
+              --repo "$GH_REPO" \
+              --state all \
+              --limit 100 \
+              --json title \
+            | python -c 'import json, os, sys; title=os.environ["TITLE"]; print(sum(1 for item in json.load(sys.stdin) if item.get("title") == title))'
+          )"
+
+          if [[ "$existing_count" != "0" ]]; then
+            echo "Daily training issue already exists: $title"
+            exit 0
+          fi
+
+          body_file="$(mktemp)"
+          cat > "$body_file" <<EOF
+          ## Daily mathematical-art training
+
+          **Architecture:** \`MSR-LA-001\`  
+          **Training day:** \`${day_index}\`  
+          **Date:** \`${training_date}\` (Asia/Singapore)  
+          **Primary guide:** \`docs/learning.qmd\`
+
+          ### Continuity rule
+
+          Continue from the most recent completed training experiment or proficiency gate. Do not restart earlier material unless a failed prerequisite requires repair. If no prior training issue is complete, begin with \`MATART-001\`.
+
+          ### Required work
+
+          - [ ] Identify the latest completed experiment/gate and state the next target.
+          - [ ] Write the mathematical objective before coding.
+          - [ ] State the domain, range/bounds, expected symmetries, extrema or limiting behaviour, and parameter roles.
+          - [ ] Predict the qualitative visual result before rendering.
+          - [ ] Implement the mathematics with the smallest appropriate stack.
+          - [ ] Add or update deterministic tests for shape, finiteness, bounds, invariants, failure cases, and reproducibility where applicable.
+          - [ ] Render only after the mathematical and numerical checks pass.
+          - [ ] Register the experiment under \`experiments/learning/\` with equations, parameters, tests, output, interpretation, and limitations.
+          - [ ] Classify the result as \`mathematical-art\`, \`mathematical-visualization\`, or \`scientific-visualization\` and justify the classification.
+          - [ ] Record PASS/FAIL for the active proficiency gate and state the exact next training action.
+
+          ### Minimum evidence before closing
+
+          1. Equation(s) or geometric object are explicit.
+          2. Code is committed and reproducible.
+          3. Tests pass for the claimed numerical invariants.
+          4. The rendered output can be regenerated from the recorded parameters.
+          5. Interpretation distinguishes visual appearance from physical/scientific validity.
+
+          ### Governing rule
+
+          Mathematics must generate or govern the visual. Complexity must come from interpretable composition, geometry, dynamics, or a validated scientific model rather than unexplained parameter search.
+          EOF
+
+          TITLE="$title" gh issue create \
+            --repo "$GH_REPO" \
+            --title "$title" \
+            --body-file "$body_file"
