@@ -35,6 +35,7 @@ jobs:
           fi
 
           title="[Training] Mathematical Art — ${training_date}"
+          export TITLE="$title"
 
           # Guard against duplicate issues if the workflow is re-run on the same day.
           existing_count="$(
@@ -90,7 +91,7 @@ jobs:
           Mathematics must generate or govern the visual. Complexity must come from interpretable composition, geometry, dynamics, or a validated scientific model rather than unexplained parameter search.
           EOF
 
-          TITLE="$title" gh issue create \
+          gh issue create \
             --repo "$GH_REPO" \
             --title "$title" \
             --body-file "$body_file"
