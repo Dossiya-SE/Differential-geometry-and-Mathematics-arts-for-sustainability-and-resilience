@@ -1,0 +1,41 @@
+name: Temporary learning manifest hashes
+
+on:
+  push:
+    branches:
+      - feat/mathematical-visualization-learning-lab
+
+permissions:
+  contents: read
+
+jobs:
+  hashes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compute changed-file SHA-256 values
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+
+          paths = [
+              "README.md",
+              "_quarto.yml",
+              "pyproject.toml",
+              "docs/learning.qmd",
+              "experiments/learning/README.md",
+              "experiments/learning/01_equation_to_pixel/MATART_001.md",
+              "experiments/learning/01_equation_to_pixel/matart_001_radial_ring.py",
+              "src/msr/visualization/__init__.py",
+              "src/msr/visualization/fields.py",
+              "tests/unit/test_visualization_fields.py",
+          ]
+          print("BEGIN_LEARNING_HASHES")
+          for relative in paths:
+              data = Path(relative).read_bytes()
+              digest = hashlib.sha256(data).hexdigest()
+              print(f"{digest}  {relative}")
+          print("END_LEARNING_HASHES")
+          PY
