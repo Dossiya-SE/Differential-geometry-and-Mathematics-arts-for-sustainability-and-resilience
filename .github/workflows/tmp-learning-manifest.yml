@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - feat/mathematical-visualization-learning-lab
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
