@@ -1,0 +1,23 @@
+canvas:
+  width: 1800
+  height: 1200
+  title: "A Mathematical–Computational Framework for Rigorous Scientific Research"
+  subtitle: "From Real-World Problem to Bounded Conclusion"
+
+stages:
+  - {id: 1, title: "Real Problem", color: "#7a4fd6", body: "Define the system, phenomenon and decision that matters."}
+  - {id: 2, title: "Evidence", color: "#3273dc", body: "Collect and weight multiple sources of empirical information."}
+  - {id: 3, title: "Gap Architecture", color: "#2b8cff", body: "Map multi-dimensional gaps that limit current knowledge and practice."}
+  - {id: 4, title: "Research Question", color: "#26b3a6", body: "Converge gaps and evidence into a stable, answerable question."}
+  - {id: 5, title: "System & Assumptions", color: "#44b649", body: "Define states, controls, disturbances, parameters and constraints."}
+  - {id: 6, title: "Mathematical Formulation", color: "#34c06b", body: "Express the system as differential/algebraic equations and constraints."}
+  - {id: 7, title: "Computation", color: "#d7a22a", body: "Discretize and solve the model using numerical methods."}
+  - {id: 8, title: "Verification", color: "#dfae2d", body: "Did we solve the equations correctly?"}
+  - {id: 9, title: "Calibration", color: "#e08f2c", body: "Estimate parameters by fitting model to observations."}
+  - {id: 10, title: "Validation", color: "#e25b37", body: "Does the model represent reality adequately for its purpose?"}
+  - {id: 11, title: "Sensitivity Analysis", color: "#8554df", body: "Which parameters most influence the outcome?"}
+  - {id: 12, title: "Uncertainty Quantification", color: "#3f80ff", body: "Quantify and propagate uncertainty."}
+  - {id: 13, title: "Comparison", color: "#36c0b0", body: "Compare the approach to alternatives."}
+  - {id: 14, title: "Scientific Results", color: "#56c547", body: "Extract validated patterns and insights."}
+  - {id: 15, title: "Industrial Implication", color: "#e2a739", body: "Translate results into decisions and real-world value."}
+  - {id: 16, title: "Limitations & Bounded Conclusion", color: "#f05047", body: "Acknowledge boundaries and state only what is supported."}

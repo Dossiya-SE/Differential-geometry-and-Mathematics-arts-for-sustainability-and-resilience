@@ -1,0 +1,60 @@
+name: render-research-framework
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'frameworks/research-framework-visual/**'
+      - '.github/workflows/render-research-framework.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'frameworks/research-framework-visual/**'
+      - '.github/workflows/render-research-framework.yml'
+  workflow_dispatch:
+    inputs:
+      export_quality:
+        description: 'Export quality label'
+        required: true
+        default: 'publication'
+        type: choice
+        options: [draft, publication, 4k, 8k]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frameworks/research-framework-visual
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .[dev]
+      - name: Run tests
+        run: pytest -q
+      - name: Build framework exports
+        run: python -m framework build
+      - name: Validate artifact contract
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('exports/validation.json')
+          data = json.loads(p.read_text())
+          assert data['stages'] == 16
+          assert data['png_exists'] and data['pdf_exists'] and data['svg_exists']
+          print('PASS — framework artifact contract')
+          PY
+      - name: Upload framework exports
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-framework-visual-${{ github.sha }}
+          path: frameworks/research-framework-visual/exports/
+          if-no-files-found: error
