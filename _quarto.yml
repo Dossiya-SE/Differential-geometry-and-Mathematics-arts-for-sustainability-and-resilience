@@ -16,6 +16,8 @@ website:
         text: Architecture
       - href: docs/learning.qmd
         text: Learning laboratory
+      - href: docs/toolchain.qmd
+        text: Toolchain
       - href: docs/aurora-scientific-visualization.qmd
         text: Aurora lab
       - href: docs/research-integrity.qmd
