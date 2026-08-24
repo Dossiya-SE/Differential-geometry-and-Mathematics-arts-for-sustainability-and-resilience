@@ -46,5 +46,5 @@ Render:
   $VENV_PYTHON -m framework render --request render_requests/Research_Framework_V4.yaml
 
 Launch Jupyter without Conda/base leakage:
-  $ROOT/scripts/launch_jupyter_macos.sh
+  bash $ROOT/scripts/launch_jupyter_macos.sh
 EOF
