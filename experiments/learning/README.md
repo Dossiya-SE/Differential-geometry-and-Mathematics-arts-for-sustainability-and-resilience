@@ -38,10 +38,16 @@ The numbering identifies the foundational 100-experiment sequence. Later differe
 ```text
 experiments/learning/
 ├── README.md
-└── 01_equation_to_pixel/
-    ├── MATART_001.md
-    └── matart_001_radial_ring.py
+├── 01_equation_to_pixel/
+│   ├── MATART_001.md
+│   └── matart_001_radial_ring.py
+└── studies/
+    └── aurora_uvkq/
+        ├── README.md
+        └── render_uvkq.py
 ```
+
+The `studies/` directory contains controlled analyses of supplied mathematical visuals. These are learning studies, not entries in the numbered 100-experiment sequence unless separately registered.
 
 Future families should be added only when their mathematical objective is clear.
 
@@ -89,3 +95,14 @@ pytest tests/unit/test_visualization_fields.py -q
 ```
 
 Before changing a parameter, write down the expected visual change. Compare the prediction with the render and record any mismatch.
+
+## Controlled equation study: aurora UVKQ
+
+The supplied aurora equation sheet is studied progressively through only the visible `U`, `V_nu`, `K_s`, and `Q_s` definitions. Run:
+
+```bash
+pytest tests/unit/test_aurora_uvkq.py -q
+python experiments/learning/studies/aurora_uvkq/render_uvkq.py
+```
+
+The study explicitly separates equation transcription, analytic predictions, numerical safeguards near the rational singular line, diagnostic rendering, and scientific-boundary statements.
