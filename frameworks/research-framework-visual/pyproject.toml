@@ -4,15 +4,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "research-framework-visual"
-version = "0.1.0"
-description = "Automated rendering pipeline for a mathematical-computational research framework poster"
+version = "0.4.0"
+description = "Governed scientific rendering pipeline for a mathematical-computational research framework"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-  "matplotlib>=3.8",
-  "numpy>=1.26",
+  "CairoSVG>=2.7",
   "Pillow>=10.0",
-  "PyYAML>=6.0"
+  "PyYAML>=6.0",
+  "python-pptx>=0.6.23"
 ]
 
 [project.optional-dependencies]

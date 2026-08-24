@@ -1,35 +1,33 @@
-# Research Framework Visual
+# Research Framework Visual — V4 Governed Renderer
 
-Automated mathematical–computational framework renderer integrated into this repository.
+This module implements a fail-closed scientific-rendering controller.
 
-## Purpose
+Governing chain:
 
-This module provides a reproducible pipeline for:
+`request -> research specification -> mathematical objects -> computation -> verification -> rendering -> audit -> editable release`
 
-- declarative research-framework specifications;
-- mathematical/scientific panel generation;
-- SVG, PNG, and PDF export;
-- automated validation;
-- GitHub Actions rendering;
-- future visual-regression testing against approved baselines.
+An accepted render produces:
 
-## Local use
+- `poster_EDITABLE.svg` — canonical visual master
+- `poster_EDITABLE.pptx` — convenience-editable derivative
+- `poster.png`
+- `poster.pdf`
+- `render_request.yaml`
+- `equations.tex`
+- `research_data.json`
+- `manifest.json`
+- `qa_report.json`
+- `SOURCE_BUNDLE.zip`
+
+Run:
 
 ```bash
-cd frameworks/research-framework-visual
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
 python -m pip install -e .[dev]
-python -m framework build
+python -m framework render --request render_requests/Research_Framework_V4.yaml
+python -m framework reproduce --bundle exports/SOURCE_BUNDLE.zip
+python -m framework audit --outdir exports
 ```
 
-Outputs are written to `exports/`.
+`RENDER_PASS` is prohibited if a required artifact, scientific/mathematical/visual gate, provenance gate, or source-only reproduction gate fails.
 
-## Scientific boundary
-
-The current miniature plots are deterministic illustrative placeholders. They must be replaced with real evidence, computation, calibration, validation, sensitivity, uncertainty, and comparison outputs before they are presented as empirical research results.
-
-## Automation
-
-The repository workflow `.github/workflows/render-research-framework.yml` runs tests, builds the framework, validates the artifact contract, and uploads exports as a GitHub Actions artifact.
+The current research data are explicitly `ILLUSTRATIVE`; they are not observational evidence.
