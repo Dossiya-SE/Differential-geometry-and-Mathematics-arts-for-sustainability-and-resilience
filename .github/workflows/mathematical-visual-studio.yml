@@ -1,0 +1,38 @@
+name: mathematical-visual-studio
+
+on:
+  push:
+    branches: [main, feat/mathematical-visualization-learning-lab]
+    paths:
+      - 'frameworks/research-framework-visual/studio/**'
+      - '.github/workflows/mathematical-visual-studio.yml'
+  pull_request:
+    paths:
+      - 'frameworks/research-framework-visual/studio/**'
+      - '.github/workflows/mathematical-visual-studio.yml'
+  workflow_dispatch:
+
+jobs:
+  studio-quality-gate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frameworks/research-framework-visual/studio
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned studio dependencies
+        run: npm install --no-audit --no-fund
+      - name: Run mathematical Visual IR tests
+        run: npm run test
+      - name: Build production UI
+        run: npm run build
+      - name: Validate Python adapter syntax
+        run: python -m py_compile python/visual_ir_adapter.py
+      - name: Upload production UI
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathematical-visual-design-studio
+          path: frameworks/research-framework-visual/studio/dist/
