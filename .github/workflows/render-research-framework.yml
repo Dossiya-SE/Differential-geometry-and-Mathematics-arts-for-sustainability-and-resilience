@@ -20,7 +20,54 @@ on:
         type: string
 
 jobs:
+  compatibility:
+    name: compatibility-${{ matrix.name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: ubuntu-py311-core
+            os: ubuntu-latest
+            python: '3.11'
+            extras: 'dev'
+            doctor_args: '--strict'
+          - name: macos-py313-notebook
+            os: macos-latest
+            python: '3.13'
+            extras: 'dev,notebook'
+            doctor_args: '--strict --notebook'
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: frameworks/research-framework-visual
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install native Cairo on macOS
+        if: runner.os == 'macOS'
+        run: |
+          brew list cairo >/dev/null 2>&1 || brew install cairo
+          brew list libffi >/dev/null 2>&1 || brew install libffi
+
+      - name: Install compatibility profile
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[${{ matrix.extras }}]"
+
+      - name: Audit runtime identity and dependencies
+        run: python -m framework doctor ${{ matrix.doctor_args }}
+
+      - name: Run controller and environment tests
+        run: pytest -q
+
   governed-render:
+    needs: compatibility
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -38,6 +85,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e .[dev]
+
+      - name: Audit governed-render runtime
+        run: python -m framework doctor --strict
 
       - name: Run controller tests
         run: pytest -q
