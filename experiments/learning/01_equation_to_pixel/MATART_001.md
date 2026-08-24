@@ -22,52 +22,52 @@ This experiment makes no claim that the image represents a physical system.
 
 The continuous domain is
 
-\[
+$$
 \Omega=[-3,3]\times[-3,3].
-\]
+$$
 
 The default discretization uses a uniform `1200 x 1200` Cartesian grid.
 
 ## Governing coordinates
 
-\[
+$$
 r(x,y)=\sqrt{x^2+y^2},
 \qquad
 \theta(x,y)=\operatorname{atan2}(y,x).
-\]
+$$
 
 ## Annular localization
 
-\[
+$$
 A(r)=\exp[-\alpha(r-r_0)^2],
-\]
+$$
 
 with default parameters
 
-\[
+$$
 r_0=1.5,
 \qquad
 \alpha=12.
-\]
+$$
 
 Analytically,
 
-\[
+$$
 A(r_0)=1,
 \qquad
 0<A(r)\le 1.
-\]
+$$
 
 ## Oscillatory phase field
 
-\[
+$$
 \phi(r,\theta)=
 k_\theta\theta+k_r r+\beta\sin(m\theta),
-\]
+$$
 
 with
 
-\[
+$$
 k_\theta=10,
 \quad
 k_r=7,
@@ -75,41 +75,41 @@ k_r=7,
 \beta=2,
 \quad
 m=3.
-\]
+$$
 
 The normalized wave field is
 
-\[
+$$
 W(r,\theta)=\frac{1+\sin\phi(r,\theta)}{2},
-\]
+$$
 
 so
 
-\[
+$$
 0\le W\le1.
-\]
+$$
 
 ## RGB construction
 
 A central localization field is
 
-\[
+$$
 C(r)=e^{-3r^2}.
-\]
+$$
 
 Before clipping, the colour channels are
 
-\[
+$$
 R=0.15+0.85AW,
-\]
+$$
 
-\[
+$$
 G=0.05+0.45A,
-\]
+$$
 
-\[
+$$
 B=0.15+0.80A(1-W)+0.35C.
-\]
+$$
 
 The final image applies channel-wise clipping to `[0,1]`.
 
