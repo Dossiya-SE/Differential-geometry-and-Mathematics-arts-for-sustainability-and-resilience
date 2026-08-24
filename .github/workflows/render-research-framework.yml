@@ -31,7 +31,7 @@ jobs:
             python: '3.11'
             extras: 'dev'
             doctor_args: '--strict'
-          - name: macos-py313-notebook
+          - name: macos-arm64-py313-notebook
             os: macos-latest
             python: '3.13'
             extras: 'dev,notebook'
@@ -49,11 +49,17 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
 
-      - name: Install native Cairo on macOS
+      - name: Install and expose native Cairo on macOS
         if: runner.os == 'macOS'
         run: |
           brew list cairo >/dev/null 2>&1 || brew install cairo
           brew list libffi >/dev/null 2>&1 || brew install libffi
+          CAIRO_PREFIX="$(brew --prefix cairo)"
+          LIBFFI_PREFIX="$(brew --prefix libffi)"
+          echo "DYLD_FALLBACK_LIBRARY_PATH=$CAIRO_PREFIX/lib:/opt/homebrew/lib" >> "$GITHUB_ENV"
+          echo "PKG_CONFIG_PATH=$CAIRO_PREFIX/lib/pkgconfig:$LIBFFI_PREFIX/lib/pkgconfig" >> "$GITHUB_ENV"
+          echo "LDFLAGS=-L$CAIRO_PREFIX/lib -L$LIBFFI_PREFIX/lib" >> "$GITHUB_ENV"
+          echo "CPPFLAGS=-I$CAIRO_PREFIX/include -I$LIBFFI_PREFIX/include" >> "$GITHUB_ENV"
 
       - name: Install compatibility profile
         run: |
