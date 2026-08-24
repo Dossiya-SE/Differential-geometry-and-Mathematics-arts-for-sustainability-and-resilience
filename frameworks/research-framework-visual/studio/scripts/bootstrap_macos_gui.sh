@@ -27,12 +27,13 @@ printf 'Cargo: %s\n' "$(cargo --version)"
 printf 'Xcode tools: %s\n' "$(xcode-select -p)"
 
 npm install --no-audit --no-fund
+npm run gui:icons
 npm run check
 npm run desktop:check
 
 cat <<'EOF'
 
-PASS — desktop GUI prerequisites and source checks completed.
+PASS — desktop GUI prerequisites, icon generation, and source checks completed.
 
 Development native GUI:
   npm run gui

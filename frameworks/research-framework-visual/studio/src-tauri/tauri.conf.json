@@ -33,6 +33,13 @@
     "targets": "all",
     "category": "Education",
     "shortDescription": "Mathematical visual engineering desktop studio",
-    "longDescription": "A native desktop GUI for governed mathematical and scientific visual design from a common Visual IR."
+    "longDescription": "A native desktop GUI for governed mathematical and scientific visual design from a common Visual IR.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
   }
 }
