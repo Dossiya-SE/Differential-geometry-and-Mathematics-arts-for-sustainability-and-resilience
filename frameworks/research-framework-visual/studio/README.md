@@ -1,28 +1,55 @@
-# Mathematical Visual Design Studio — V0.2 Desktop GUI
+# Mathematical Visual Design Studio — V0.3 Native Compute GUI
 
 A governed mathematical/scientific visual engineering application built around a common Visual IR.
 
-The application now has two presentation modes:
+The installed macOS application is designed for normal desktop use: open it from Applications, create or inspect mathematical visuals, run supported mathematical code, inspect runtime readiness, and use managed scientific Python profiles without working in Terminal during ordinary use.
 
-- **Native desktop GUI** — Tauri 2 + Rust system shell around the React/TypeScript/Three.js studio.
-- **Web preview** — Vite development server for browser-only iteration.
+## Native application architecture
 
-The native application opens in its own operating-system window. It does not require the user to work inside a browser once the desktop bundle is installed.
+- **Tauri 2 + Rust** — native macOS GUI shell and controlled local-runtime bridge.
+- **React + TypeScript** — interactive studio interface.
+- **Three.js + WebGL + GLSL** — live mathematical geometry/rendering.
+- **KaTeX** — mathematical typography.
+- **Visual IR 0.1.0** — canonical mathematical-object boundary.
 
-## Implemented
+## Native Compute Lab
 
-- React + TypeScript GUI
-- Tauri 2 native desktop shell
-- common Visual IR 0.1.0
-- Three.js/WebGL differential-geometry live canvas
-- generated Python / TypeScript / GLSL / LaTeX source views from the same object
-- scientific validation gates for a curvature-coded torus
-- Python adapter for downstream scientific computation
-- epistemic status preserved in the object model
-- macOS `.dmg` build path
-- GitHub Actions native macOS build and artifact upload
+The installed GUI now includes a runtime manager and code console.
 
-The demonstrator uses the regular torus
+Executable directly in the native application:
+
+- Python
+- JavaScript / Node.js
+- Julia, when installed
+
+Runtime discovery also reports:
+
+- Blender
+- Manim
+- Tectonic
+- FFmpeg
+- Graphviz
+- Asymptote
+
+The studio shows the executable path, version, stdout, stderr and exit status instead of hiding which runtime produced a result.
+
+## One-click scientific Python profiles
+
+The GUI can create an application-owned Python environment under macOS Application Support and install profiles without requiring normal Terminal use.
+
+- **Core Scientific** — NumPy, SciPy, SymPy, Matplotlib, Pillow, NetworkX, pandas, Plotly.
+- **Geometry / VTK** — Core + PyVista + VTK.
+- **Advanced / JAX** — Geometry + JAX.
+- **Animation / Manim** — Core + Manim Python package.
+- **Full Python Lab** — Geometry + JAX + Manim.
+
+Some animation/cinematic engines can still require native external components such as FFmpeg, Cairo/Pango, Blender, Julia or Asymptote. The Runtime Manager marks those dependencies READY or NOT FOUND. They are adapter targets rather than silently assumed dependencies.
+
+See `ENGINE_ARCHITECTURE.md` for the full toolchain and security boundary.
+
+## Current mathematical demonstrator
+
+The application currently renders the regular torus
 
 `X(u,v)=((R+r cos v) cos u,(R+r cos v) sin u,r sin v)`
 
@@ -30,11 +57,11 @@ with analytic Gaussian curvature
 
 `K(v)=cos(v)/(r(R+r cos(v)))`.
 
-Validation checks `R > r > 0`, finite sampled curvature, and metric regularity `EG-F^2 > 0`. The object remains explicitly `ILLUSTRATIVE`; rendering quality does not convert it into empirical evidence.
+Validation checks `R > r > 0`, finite sampled curvature, and metric regularity `EG-F^2 > 0`. The object remains explicitly `ILLUSTRATIVE`; execution or rendering quality does not convert it into empirical evidence.
 
-## macOS: first-time setup
+## macOS development setup
 
-Requirements:
+Requirements for source development:
 
 - macOS
 - Node.js 22+
@@ -45,17 +72,10 @@ Run:
 
 ```bash
 bash scripts/bootstrap_macos_gui.sh
-```
-
-## Open the native GUI during development
-
-```bash
 npm run gui
 ```
 
-Tauri starts the Vite frontend and opens **Mathematical Visual Design Studio** in its own native application window.
-
-## Build an installable macOS application
+## Build the installable macOS application
 
 ```bash
 npm run gui:build -- --bundles dmg
@@ -67,9 +87,9 @@ The installer is generated under:
 src-tauri/target/release/bundle/dmg/
 ```
 
-Open the `.dmg`, then drag **Mathematical Visual Design Studio** into Applications.
+Open the `.dmg`, drag **Mathematical Visual Design Studio** into Applications, then use it as a normal Mac application.
 
-Unsigned development builds can trigger macOS Gatekeeper warnings. Production distribution should add Apple Developer signing and notarization rather than bypassing Gatekeeper.
+Unsigned development builds can trigger macOS Gatekeeper warnings. Production distribution should add Apple Developer signing and notarization.
 
 ## Browser-only development
 
@@ -78,6 +98,8 @@ npm install
 npm run check
 npm run dev
 ```
+
+Native code execution is deliberately unavailable in browser preview mode.
 
 ## Quality commands
 
@@ -91,22 +113,25 @@ npm run check
 ## Architecture
 
 ```text
-React / TypeScript GUI
+Native macOS Application
         |
         v
-Common Visual IR
+Tauri 2 / Rust runtime bridge
         |
-   +----+-------------------+
-   |                        |
-Three.js/WebGL          Python adapter
-   |                        |
-Live geometry           scientific compute
-   |
-Tauri 2 / Rust
-   |
-Native macOS window + installable bundle
+        +----------------------+---------------------+
+        |                      |                     |
+React / TypeScript         Local runtimes       Managed Python
+        |                  Python/Node/Julia     scientific env
+        v                      |                     |
+Common Visual IR -------------+---------------------+
+        |
+        +----------------------+---------------------+
+        |                      |                     |
+Three.js/WebGL/GLSL       Scientific Python      External adapters
+live geometry             NumPy/SciPy/SymPy      Blender/Manim/etc.
+        |
+        v
+Validation + governed export
 ```
 
-Tauri is only the desktop application shell. Mathematical meaning remains in the Visual IR and scientific engines, keeping rendering, computation, and GUI concerns separated.
-
-Future adapters remain: PyVista/VTK, Manim, Blender, TikZ/Asymptote, WGSL/WebGPU, Julia/Makie, and Rust/WASM.
+The next adapter layer is designed for PyVista/VTK scene exchange, Manim animation generation, Blender/Geometry Nodes, TikZ/Tectonic, Asymptote, Julia/Makie, WGSL/WebGPU and Rust/WASM while preserving one canonical Visual IR.
