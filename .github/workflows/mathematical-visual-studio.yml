@@ -28,7 +28,13 @@ jobs:
       - name: Install pinned studio dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Run mathematical Visual IR tests
+      - name: Verify architecture-foundation dependency identities
+        run: npm ls --depth=0 @xyflow/react@12.11.3 ajv@8.20.0 elkjs@0.12.0 vega-lite@6.4.3
+
+      - name: Run Visual IR v1 architecture conformance
+        run: npm run foundation:check
+
+      - name: Run complete mathematical Visual IR tests
         run: npm run test
 
       - name: Build production web UI
@@ -61,6 +67,9 @@ jobs:
 
       - name: Install pinned studio dependencies
         run: npm install --no-audit --no-fund
+
+      - name: Run Visual IR v1 architecture conformance on macOS
+        run: npm run foundation:check
 
       - name: Generate native application icon set
         run: npm run gui:icons

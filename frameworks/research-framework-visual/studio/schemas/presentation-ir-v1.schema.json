@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mvs.local/schema/presentation-ir-v1.schema.json",
+  "title": "MVS Presentation IR v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "objects", "renderPolicy"],
+  "properties": {
+    "schema": { "const": "mvs.presentation-ir/1.0" },
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "semanticRef", "visible", "layer"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "semanticRef": { "type": "string", "minLength": 1 },
+          "visible": { "type": "boolean" },
+          "layer": { "enum": ["precision-2d", "dense-2d", "interactive-3d", "overlay"] },
+          "encoding": { "type": "object", "additionalProperties": { "type": ["string", "number", "boolean"] } }
+        }
+      }
+    },
+    "renderPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["preview2d", "preview3d", "scientific3d", "publication", "gpuPreference"],
+      "properties": {
+        "preview2d": { "const": "svg" },
+        "preview3d": { "const": "threejs" },
+        "scientific3d": { "const": "vtk" },
+        "publication": { "enum": ["svg", "pdf"] },
+        "gpuPreference": { "const": "webgpu-with-webgl2-fallback" }
+      }
+    }
+  }
+}
