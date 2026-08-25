@@ -41,7 +41,7 @@ jobs:
         run: npm run build:web
 
       - name: Validate Python adapter syntax
-        run: python -m py_compile python/visual_ir_adapter.py
+        run: python -m py_compile python/visual_ir_adapter.py python/scientific_core_worker.py
 
       - name: Upload web production UI
         uses: actions/upload-artifact@v4
@@ -49,9 +49,61 @@ jobs:
           name: mathematical-visual-design-studio-web
           path: frameworks/research-framework-visual/studio/dist/
 
+  scientific-core-engine:
+    name: scientific-core-engine (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-14]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: frameworks/research-framework-visual/studio
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: frameworks/research-framework-visual/studio/python/scientific-core-requirements.txt
+
+      - name: Install frozen free/open scientific core
+        run: python -m pip install --disable-pip-version-check -r python/scientific-core-requirements.txt
+
+      - name: Verify exact scientific engine identities
+        run: |
+          python - <<'PY'
+          import importlib.metadata
+          expected = {
+              "numpy": "2.5.2",
+              "scipy": "1.18.0",
+              "sympy": "1.14.0",
+              "geomstats": "2.8.0",
+              "networkx": "3.6.1",
+              "ortools": "9.15.6755",
+          }
+          actual = {name: importlib.metadata.version(name) for name in expected}
+          if actual != expected:
+              raise SystemExit(f"dependency identity mismatch: {actual!r}")
+          print(actual)
+          PY
+
+      - name: Compile governed scientific worker
+        run: python -m py_compile python/scientific_core_worker.py
+
+      - name: Run scientific engine conformance repeatedly
+        shell: bash
+        run: |
+          set -euo pipefail
+          for pass in 1 2 3; do
+            echo "Scientific Core conformance pass ${pass}/3"
+            python -m unittest discover -s python/tests -p 'test_scientific_core_worker.py' -v
+          done
+
   native-macos-gui:
     runs-on: macos-14
-    needs: web-quality-gate
+    needs: [web-quality-gate, scientific-core-engine]
     defaults:
       run:
         working-directory: frameworks/research-framework-visual/studio

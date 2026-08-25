@@ -1,0 +1,8 @@
+# MVS Scientific Core Engine v0.1
+# Python 3.12 baseline. Versions are frozen for reproducible engine-pack CI.
+numpy==2.5.2
+scipy==1.18.0
+sympy==1.14.0
+geomstats==2.8.0
+networkx==3.6.1
+ortools==9.15.6755
