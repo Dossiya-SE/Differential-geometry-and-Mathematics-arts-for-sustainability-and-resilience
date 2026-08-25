@@ -6,6 +6,7 @@ import type { ParametricSurfaceIR } from './visual-ir';
 import { validateIR } from './validation';
 import { generateCode } from './codegen';
 import { LiveCanvas } from './components/LiveCanvas';
+import { RuntimeLab } from './components/RuntimeLab';
 
 type CodeTab = 'python' | 'typescript' | 'glsl' | 'latex';
 
@@ -46,13 +47,13 @@ export default function App() {
         <aside className="project-panel panel">
           <h2>Project</h2>
           <div className="tree-item active">◉ {ir.name}</div>
-          {['Equations', 'Geometry', 'Fields', 'Camera', 'Lighting', 'Labels', 'Animation'].map((item) => (
+          {['Equations', 'Geometry', 'Fields', 'Camera', 'Lighting', 'Labels', 'Animation', 'Compute Lab'].map((item) => (
             <div className="tree-item child" key={item}>└ {item}</div>
           ))}
 
           <h3>Pipeline</h3>
           <div className="node-stack">
-            {['Domain', 'Equation', 'Surface', 'Curvature', 'Color Map', 'Camera', 'Renderer'].map((node, index) => (
+            {['Domain', 'Equation', 'Surface', 'Curvature', 'Color Map', 'Camera', 'Renderer', 'Validation'].map((node, index) => (
               <div className="node" key={node}>
                 <span>{index + 1}</span>{node}
               </div>
@@ -119,6 +120,8 @@ export default function App() {
         </div>
         <pre><code>{code[tab]}</code></pre>
       </section>
+
+      <RuntimeLab />
 
       <footer className="validation-panel panel">
         <div className="validation-grid">
