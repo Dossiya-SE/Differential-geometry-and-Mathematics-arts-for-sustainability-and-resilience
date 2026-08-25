@@ -2,6 +2,7 @@
 
 use serde::{Deserialize, Serialize};
 use std::env;
+use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -34,10 +35,18 @@ struct ExecutionResult {
     stderr: String,
 }
 
+fn managed_python_root() -> Option<PathBuf> {
+    env::var_os("HOME").map(|home| {
+        PathBuf::from(home)
+            .join("Library/Application Support/io.github.dossiyase.mvsstudio/runtime/python")
+    })
+}
+
 fn candidate_dirs() -> Vec<PathBuf> {
-    let mut dirs: Vec<PathBuf> = env::var_os("PATH")
-        .map(|value| env::split_paths(&value).collect())
-        .unwrap_or_default();
+    let mut dirs: Vec<PathBuf> = Vec::new();
+    if let Some(root) = managed_python_root() {
+        dirs.push(root.join("bin"));
+    }
 
     for candidate in [
         "/opt/homebrew/bin",
@@ -56,8 +65,13 @@ fn candidate_dirs() -> Vec<PathBuf> {
         dirs.push(home.join("miniconda3/bin"));
     }
 
-    dirs.sort();
-    dirs.dedup();
+    if let Some(value) = env::var_os("PATH") {
+        for dir in env::split_paths(&value) {
+            if !dirs.contains(&dir) {
+                dirs.push(dir);
+            }
+        }
+    }
     dirs
 }
 
@@ -136,8 +150,6 @@ async fn execute_code(request: ExecutionRequest) -> Result<ExecutionResult, Stri
         let mut command = Command::new(&executable);
         command.args(args);
         command.arg(&request.code);
-        command.env("PYTHONNOUSERSITE", "0");
-
         let output = command
             .output()
             .map_err(|error| format!("Failed to launch {}: {error}", executable.display()))?;
@@ -200,12 +212,93 @@ async fn python_package_inventory() -> Result<Vec<RuntimeInfo>, String> {
     .map_err(|error| format!("Python inventory task failed: {error}"))?
 }
 
+#[tauri::command]
+async fn install_python_profile(profile: String) -> Result<String, String> {
+    tauri::async_runtime::spawn_blocking(move || {
+        let root = managed_python_root().ok_or_else(|| "HOME is not available.".to_string())?;
+        let managed_python = root.join("bin/python3");
+
+        if !managed_python.is_file() {
+            let system_python = ["/opt/homebrew/bin/python3", "/usr/local/bin/python3", "/usr/bin/python3"]
+                .iter()
+                .map(PathBuf::from)
+                .find(|path| path.is_file())
+                .or_else(|| resolve_executable(&["python3", "python"]))
+                .ok_or_else(|| "Python 3 is required to create the managed scientific runtime.".to_string())?;
+            if let Some(parent) = root.parent() {
+                fs::create_dir_all(parent).map_err(|error| format!("Cannot create runtime directory: {error}"))?;
+            }
+            let status = Command::new(system_python)
+                .args(["-m", "venv"])
+                .arg(&root)
+                .status()
+                .map_err(|error| format!("Failed to create managed Python environment: {error}"))?;
+            if !status.success() {
+                return Err("Python virtual-environment creation failed.".to_string());
+            }
+        }
+
+        let core = [
+            "numpy>=2,<3", "scipy>=1,<2", "sympy>=1,<2", "matplotlib>=3,<4",
+            "pillow>=10", "networkx>=3,<4", "pandas>=2,<3", "plotly>=5,<7",
+        ];
+        let geometry = ["pyvista>=0.44,<1", "vtk>=9,<10"];
+        let accelerated = ["jax>=0.5,<1"];
+        let animation = ["manim>=0.19,<1"];
+
+        let mut packages: Vec<&str> = core.to_vec();
+        match profile.as_str() {
+            "core" => {}
+            "geometry" => packages.extend(geometry),
+            "advanced" => {
+                packages.extend(geometry);
+                packages.extend(accelerated);
+            }
+            "animation" => {
+                packages.extend(animation);
+            }
+            "full" => {
+                packages.extend(geometry);
+                packages.extend(accelerated);
+                packages.extend(animation);
+            }
+            other => return Err(format!("Unknown Python profile: {other}")),
+        }
+
+        let upgrade = Command::new(&managed_python)
+            .args(["-m", "pip", "install", "--upgrade", "pip", "setuptools", "wheel"])
+            .output()
+            .map_err(|error| format!("Failed to prepare pip: {error}"))?;
+        if !upgrade.status.success() {
+            return Err(String::from_utf8_lossy(&upgrade.stderr).to_string());
+        }
+
+        let mut command = Command::new(&managed_python);
+        command.args(["-m", "pip", "install"]);
+        command.args(packages);
+        let output = command
+            .output()
+            .map_err(|error| format!("Package installation failed to start: {error}"))?;
+        if !output.status.success() {
+            return Err(String::from_utf8_lossy(&output.stderr).to_string());
+        }
+
+        Ok(format!(
+            "Installed the {profile} scientific profile into {}",
+            root.display()
+        ))
+    })
+    .await
+    .map_err(|error| format!("Python installation task failed: {error}"))?
+}
+
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             runtime_inventory,
             execute_code,
-            python_package_inventory
+            python_package_inventory,
+            install_python_profile
         ])
         .run(tauri::generate_context!())
         .expect("error while running Mathematical Visual Design Studio");
