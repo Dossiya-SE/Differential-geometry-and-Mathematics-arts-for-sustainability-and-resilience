@@ -10,22 +10,30 @@ type RuntimeInfo = {
   role: string;
 };
 
+type ArtifactInfo = {
+  name: string;
+  kind: string;
+  sizeBytes: number;
+};
+
 type ExecutionResult = {
   language: string;
   executable: string;
+  workspace: string;
   success: boolean;
   exitCode?: number | null;
   stdout: string;
   stderr: string;
+  artifacts: ArtifactInfo[];
 };
 
 type ExecutableLanguage = 'python' | 'javascript' | 'julia';
 type PythonProfile = 'core' | 'geometry' | 'advanced' | 'animation' | 'full';
 
 const STARTER_CODE: Record<ExecutableLanguage, string> = {
-  python: `import math\nR, r = 2.0, 0.72\nfor i in range(5):\n    v = 2 * math.pi * i / 5\n    K = math.cos(v) / (r * (R + r * math.cos(v)))\n    print(f"v={v:.3f}, K={K:.6f}")`,
-  javascript: `const R = 2.0, r = 0.72;\nfor (let i = 0; i < 5; i++) {\n  const v = 2 * Math.PI * i / 5;\n  const K = Math.cos(v) / (r * (R + r * Math.cos(v)));\n  console.log({ v, K });\n}`,
-  julia: `R, r = 2.0, 0.72\nfor i in 0:4\n    v = 2π * i / 5\n    K = cos(v) / (r * (R + r * cos(v)))\n    println("v=$(round(v, digits=3)), K=$(round(K, digits=6))")\nend`,
+  python: `import math\nfrom pathlib import Path\n\nW, H = 900, 600\npoints = []\nfor i in range(721):\n    t = 2 * math.pi * i / 720\n    r = 180 + 54 * math.sin(5 * t)\n    x = W/2 + r * math.cos(t)\n    y = H/2 + r * math.sin(t)\n    points.append(f"{x:.2f},{y:.2f}")\npolyline = " ".join(points)\nsvg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">\n<rect width="100%" height="100%" fill="#03070d"/>\n<polyline points="{polyline}" fill="none" stroke="#38bdf8" stroke-width="3"/>\n<circle cx="{W/2}" cy="{H/2}" r="4" fill="#e2f3ff"/>\n</svg>'''\nPath("mvs_output.svg").write_text(svg, encoding="utf-8")\nprint("Created mvs_output.svg in the studio workspace")`,
+  javascript: `const fs = require('fs');\nconst W = 900, H = 600;\nconst points = [];\nfor (let i = 0; i <= 720; i++) {\n  const t = 2 * Math.PI * i / 720;\n  const r = 180 + 54 * Math.sin(5 * t);\n  points.push(\`${'${'}(W/2+r*Math.cos(t)).toFixed(2)},${'${'}(H/2+r*Math.sin(t)).toFixed(2)}\`);\n}\nconst svg = \`<svg xmlns="http://www.w3.org/2000/svg" width="${'${'}W}" height="${'${'}H}"><rect width="100%" height="100%" fill="#03070d"/><polyline points="${'${'}points.join(' ')}" fill="none" stroke="#38bdf8" stroke-width="3"/></svg>\`;\nfs.writeFileSync('mvs_output.svg', svg);\nconsole.log('Created mvs_output.svg in the studio workspace');`,
+  julia: `W, H = 900, 600\npts = String[]\nfor i in 0:720\n    t = 2π * i / 720\n    r = 180 + 54sin(5t)\n    x = W/2 + r*cos(t)\n    y = H/2 + r*sin(t)\n    push!(pts, "$(round(x,digits=2)),$(round(y,digits=2))")\nend\nsvg = "<svg xmlns='http://www.w3.org/2000/svg' width='900' height='600'><rect width='100%' height='100%' fill='#03070d'/><polyline points='$(join(pts," "))' fill='none' stroke='#38bdf8' stroke-width='3'/></svg>"\nwrite("mvs_output.svg", svg)\nprintln("Created mvs_output.svg in the studio workspace")`,
 };
 
 const PROFILE_LABELS: Record<PythonProfile, string> = {
@@ -53,6 +61,8 @@ export function RuntimeLab() {
   const [running, setRunning] = useState(false);
   const [scanning, setScanning] = useState(false);
   const [installing, setInstalling] = useState<PythonProfile | null>(null);
+  const [previewData, setPreviewData] = useState<string>('');
+  const [previewName, setPreviewName] = useState<string>('');
 
   const executable = useMemo(
     () => runtimes.find((runtime) => runtime.id === (language === 'javascript' ? 'node' : language)),
@@ -87,6 +97,8 @@ export function RuntimeLab() {
     setResult(null);
     setError('');
     setMessage('');
+    setPreviewData('');
+    setPreviewName('');
   };
 
   const runCode = async () => {
@@ -95,15 +107,34 @@ export function RuntimeLab() {
     setError('');
     setMessage('');
     setResult(null);
+    setPreviewData('');
+    setPreviewName('');
     try {
       const execution = await invoke<ExecutionResult>('execute_code', {
         request: { language, code },
       });
       setResult(execution);
+      const firstPreview = execution.artifacts.find((artifact) => ['svg', 'png', 'jpeg', 'webp'].includes(artifact.kind));
+      if (firstPreview) {
+        const data = await invoke<string>('read_workspace_artifact', { name: firstPreview.name });
+        setPreviewData(data);
+        setPreviewName(firstPreview.name);
+      }
     } catch (cause) {
       setError(String(cause));
     } finally {
       setRunning(false);
+    }
+  };
+
+  const openArtifact = async (artifact: ArtifactInfo) => {
+    if (!['svg', 'png', 'jpeg', 'webp'].includes(artifact.kind)) return;
+    try {
+      const data = await invoke<string>('read_workspace_artifact', { name: artifact.name });
+      setPreviewData(data);
+      setPreviewName(artifact.name);
+    } catch (cause) {
+      setError(String(cause));
     }
   };
 
@@ -129,7 +160,7 @@ export function RuntimeLab() {
       <div className="runtime-heading">
         <div>
           <span className="eyebrow">Native Compute Lab</span>
-          <h2>Run mathematical code and manage scientific engines inside the application</h2>
+          <h2>Run mathematical code, generate visual artifacts, and manage scientific engines inside the application</h2>
         </div>
         <button className="runtime-action" onClick={() => void scan()} disabled={!desktop || scanning}>
           {scanning ? 'Scanning…' : 'Scan tools'}
@@ -203,7 +234,7 @@ export function RuntimeLab() {
                 ))}
               </div>
               <button className="run-button" onClick={() => void runCode()} disabled={running || !executable?.installed}>
-                {running ? 'Running…' : 'Run code'}
+                {running ? 'Running…' : 'Run + render'}
               </button>
             </div>
 
@@ -217,7 +248,7 @@ export function RuntimeLab() {
 
             <div className="runtime-console">
               <div className="console-title">
-                <span>Output</span>
+                <span>Execution output</span>
                 {executable && <code>{executable.installed ? executable.path : `${language} runtime missing`}</code>}
               </div>
               {message && <div className="console-message">{message}</div>}
@@ -227,12 +258,34 @@ export function RuntimeLab() {
                   {result.stdout && <pre>{result.stdout}</pre>}
                   {result.stderr && <pre className="console-error">{result.stderr}</pre>}
                   <div className={`execution-status ${result.success ? 'pass' : 'fail'}`}>
-                    {result.success ? 'PASS' : 'FAIL'} · exit {result.exitCode ?? 'unknown'}
+                    {result.success ? 'PASS' : 'FAIL'} · exit {result.exitCode ?? 'unknown'} · workspace {result.workspace}
                   </div>
                 </>
               )}
-              {!error && !message && !result && <span className="runtime-muted">Run code to see stdout, stderr and execution status.</span>}
+              {!error && !message && !result && <span className="runtime-muted">Run code to see stdout, stderr, artifacts and execution status.</span>}
             </div>
+
+            {result && result.artifacts.length > 0 && (
+              <div className="artifact-panel">
+                <div className="artifact-list">
+                  <h3>Generated design artifacts</h3>
+                  {result.artifacts.map((artifact) => (
+                    <button
+                      className={`artifact-item ${previewName === artifact.name ? 'active' : ''}`}
+                      key={artifact.name}
+                      onClick={() => void openArtifact(artifact)}
+                      disabled={!['svg', 'png', 'jpeg', 'webp'].includes(artifact.kind)}
+                    >
+                      <strong>{artifact.name}</strong>
+                      <span>{artifact.kind.toUpperCase()} · {(artifact.sizeBytes / 1024).toFixed(1)} kB</span>
+                    </button>
+                  ))}
+                </div>
+                <div className="artifact-preview">
+                  {previewData ? <img src={previewData} alt={`Generated artifact ${previewName}`} /> : <span>No image preview available.</span>}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
