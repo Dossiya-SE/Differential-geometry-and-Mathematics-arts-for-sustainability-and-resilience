@@ -1,10 +1,16 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use base64::engine::general_purpose::STANDARD as BASE64;
+use base64::Engine;
 use serde::{Deserialize, Serialize};
 use std::env;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
+
+const APP_SUPPORT_ID: &str = "io.github.dossiyase.mvsstudio";
+const MAX_CODE_BYTES: usize = 200_000;
+const MAX_PREVIEW_BYTES: u64 = 20 * 1024 * 1024;
 
 #[derive(Debug, Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -15,6 +21,14 @@ struct RuntimeInfo {
     path: Option<String>,
     version: Option<String>,
     role: String,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct ArtifactInfo {
+    name: String,
+    kind: String,
+    size_bytes: u64,
 }
 
 #[derive(Debug, Deserialize)]
@@ -29,23 +43,45 @@ struct ExecutionRequest {
 struct ExecutionResult {
     language: String,
     executable: String,
+    workspace: String,
     success: bool,
     exit_code: Option<i32>,
     stdout: String,
     stderr: String,
+    artifacts: Vec<ArtifactInfo>,
+}
+
+fn app_support_root() -> Option<PathBuf> {
+    env::var_os("HOME").map(|home| {
+        PathBuf::from(home)
+            .join("Library/Application Support")
+            .join(APP_SUPPORT_ID)
+    })
 }
 
 fn managed_python_root() -> Option<PathBuf> {
-    env::var_os("HOME").map(|home| {
-        PathBuf::from(home)
-            .join("Library/Application Support/io.github.dossiyase.mvsstudio/runtime/python")
-    })
+    app_support_root().map(|root| root.join("runtime/python"))
+}
+
+fn workspace_root() -> Result<PathBuf, String> {
+    let root = app_support_root()
+        .ok_or_else(|| "HOME is not available; cannot resolve the application workspace.".to_string())?
+        .join("workspace");
+    fs::create_dir_all(&root)
+        .map_err(|error| format!("Cannot create application workspace: {error}"))?;
+    Ok(root)
+}
+
+fn push_unique(dirs: &mut Vec<PathBuf>, path: PathBuf) {
+    if !dirs.contains(&path) {
+        dirs.push(path);
+    }
 }
 
 fn candidate_dirs() -> Vec<PathBuf> {
     let mut dirs: Vec<PathBuf> = Vec::new();
     if let Some(root) = managed_python_root() {
-        dirs.push(root.join("bin"));
+        push_unique(&mut dirs, root.join("bin"));
     }
 
     for candidate in [
@@ -55,21 +91,19 @@ fn candidate_dirs() -> Vec<PathBuf> {
         "/bin",
         "/opt/anaconda3/bin",
     ] {
-        dirs.push(PathBuf::from(candidate));
+        push_unique(&mut dirs, PathBuf::from(candidate));
     }
 
     if let Some(home) = env::var_os("HOME") {
         let home = PathBuf::from(home);
-        dirs.push(home.join(".cargo/bin"));
-        dirs.push(home.join(".local/bin"));
-        dirs.push(home.join("miniconda3/bin"));
+        push_unique(&mut dirs, home.join(".cargo/bin"));
+        push_unique(&mut dirs, home.join(".local/bin"));
+        push_unique(&mut dirs, home.join("miniconda3/bin"));
     }
 
     if let Some(value) = env::var_os("PATH") {
         for dir in env::split_paths(&value) {
-            if !dirs.contains(&dir) {
-                dirs.push(dir);
-            }
+            push_unique(&mut dirs, dir);
         }
     }
     dirs
@@ -115,6 +149,52 @@ fn runtime(id: &str, label: &str, names: &[&str], role: &str) -> RuntimeInfo {
     }
 }
 
+fn artifact_kind(path: &Path) -> Option<&'static str> {
+    match path.extension()?.to_string_lossy().to_ascii_lowercase().as_str() {
+        "svg" => Some("svg"),
+        "png" => Some("png"),
+        "jpg" | "jpeg" => Some("jpeg"),
+        "webp" => Some("webp"),
+        "pdf" => Some("pdf"),
+        "json" => Some("json"),
+        "csv" => Some("csv"),
+        _ => None,
+    }
+}
+
+fn artifact_inventory(root: &Path) -> Vec<ArtifactInfo> {
+    let mut artifacts = Vec::new();
+    let Ok(entries) = fs::read_dir(root) else {
+        return artifacts;
+    };
+    for entry in entries.flatten() {
+        let path = entry.path();
+        if !path.is_file() {
+            continue;
+        }
+        let Some(kind) = artifact_kind(&path) else {
+            continue;
+        };
+        let Ok(metadata) = entry.metadata() else {
+            continue;
+        };
+        artifacts.push(ArtifactInfo {
+            name: entry.file_name().to_string_lossy().to_string(),
+            kind: kind.to_string(),
+            size_bytes: metadata.len(),
+        });
+    }
+    artifacts.sort_by(|a, b| a.name.cmp(&b.name));
+    artifacts
+}
+
+fn safe_workspace_file(name: &str) -> Result<PathBuf, String> {
+    if name.is_empty() || name.contains('/') || name.contains('\\') || name == "." || name == ".." {
+        return Err("Invalid workspace artifact name.".to_string());
+    }
+    Ok(workspace_root()?.join(name))
+}
+
 #[tauri::command]
 fn runtime_inventory() -> Vec<RuntimeInfo> {
     vec![
@@ -131,8 +211,36 @@ fn runtime_inventory() -> Vec<RuntimeInfo> {
 }
 
 #[tauri::command]
+fn workspace_artifacts() -> Result<Vec<ArtifactInfo>, String> {
+    let root = workspace_root()?;
+    Ok(artifact_inventory(&root))
+}
+
+#[tauri::command]
+fn read_workspace_artifact(name: String) -> Result<String, String> {
+    let path = safe_workspace_file(&name)?;
+    if !path.is_file() {
+        return Err("Workspace artifact does not exist.".to_string());
+    }
+    let metadata = fs::metadata(&path).map_err(|error| format!("Cannot inspect artifact: {error}"))?;
+    if metadata.len() > MAX_PREVIEW_BYTES {
+        return Err("Artifact exceeds the 20 MB in-app preview limit.".to_string());
+    }
+    let kind = artifact_kind(&path).ok_or_else(|| "Unsupported preview format.".to_string())?;
+    let mime = match kind {
+        "svg" => "image/svg+xml",
+        "png" => "image/png",
+        "jpeg" => "image/jpeg",
+        "webp" => "image/webp",
+        _ => return Err("This artifact is exportable but not previewable as an image.".to_string()),
+    };
+    let bytes = fs::read(&path).map_err(|error| format!("Cannot read artifact: {error}"))?;
+    Ok(format!("data:{mime};base64,{}", BASE64.encode(bytes)))
+}
+
+#[tauri::command]
 async fn execute_code(request: ExecutionRequest) -> Result<ExecutionResult, String> {
-    if request.code.len() > 200_000 {
+    if request.code.len() > MAX_CODE_BYTES {
         return Err("Code payload exceeds the 200 kB local execution limit.".to_string());
     }
 
@@ -146,10 +254,12 @@ async fn execute_code(request: ExecutionRequest) -> Result<ExecutionResult, Stri
 
         let executable = resolve_executable(names)
             .ok_or_else(|| format!("Required runtime is not installed for {}.", request.language))?;
+        let workspace = workspace_root()?;
 
         let mut command = Command::new(&executable);
         command.args(args);
         command.arg(&request.code);
+        command.current_dir(&workspace);
         let output = command
             .output()
             .map_err(|error| format!("Failed to launch {}: {error}", executable.display()))?;
@@ -157,10 +267,12 @@ async fn execute_code(request: ExecutionRequest) -> Result<ExecutionResult, Stri
         Ok(ExecutionResult {
             language: request.language,
             executable: executable.to_string_lossy().to_string(),
+            workspace: workspace.to_string_lossy().to_string(),
             success: output.status.success(),
             exit_code: output.status.code(),
             stdout: String::from_utf8_lossy(&output.stdout).to_string(),
             stderr: String::from_utf8_lossy(&output.stderr).to_string(),
+            artifacts: artifact_inventory(&workspace),
         })
     })
     .await
@@ -221,7 +333,7 @@ async fn install_python_profile(profile: String) -> Result<String, String> {
         if !managed_python.is_file() {
             let system_python = ["/opt/homebrew/bin/python3", "/usr/local/bin/python3", "/usr/bin/python3"]
                 .iter()
-                .map(PathBuf::from)
+                .map(|path| PathBuf::from(*path))
                 .find(|path| path.is_file())
                 .or_else(|| resolve_executable(&["python3", "python"]))
                 .ok_or_else(|| "Python 3 is required to create the managed scientific runtime.".to_string())?;
@@ -254,9 +366,7 @@ async fn install_python_profile(profile: String) -> Result<String, String> {
                 packages.extend(geometry);
                 packages.extend(accelerated);
             }
-            "animation" => {
-                packages.extend(animation);
-            }
+            "animation" => packages.extend(animation),
             "full" => {
                 packages.extend(geometry);
                 packages.extend(accelerated);
@@ -296,6 +406,8 @@ fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             runtime_inventory,
+            workspace_artifacts,
+            read_workspace_artifact,
             execute_code,
             python_package_inventory,
             install_python_profile
