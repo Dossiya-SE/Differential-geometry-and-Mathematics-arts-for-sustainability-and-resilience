@@ -20,11 +20,20 @@ type ExecutionResult = {
 };
 
 type ExecutableLanguage = 'python' | 'javascript' | 'julia';
+type PythonProfile = 'core' | 'geometry' | 'advanced' | 'animation' | 'full';
 
 const STARTER_CODE: Record<ExecutableLanguage, string> = {
   python: `import math\nR, r = 2.0, 0.72\nfor i in range(5):\n    v = 2 * math.pi * i / 5\n    K = math.cos(v) / (r * (R + r * math.cos(v)))\n    print(f"v={v:.3f}, K={K:.6f}")`,
   javascript: `const R = 2.0, r = 0.72;\nfor (let i = 0; i < 5; i++) {\n  const v = 2 * Math.PI * i / 5;\n  const K = Math.cos(v) / (r * (R + r * Math.cos(v)));\n  console.log({ v, K });\n}`,
   julia: `R, r = 2.0, 0.72\nfor i in 0:4\n    v = 2π * i / 5\n    K = cos(v) / (r * (R + r * cos(v)))\n    println("v=$(round(v, digits=3)), K=$(round(K, digits=6))")\nend`,
+};
+
+const PROFILE_LABELS: Record<PythonProfile, string> = {
+  core: 'Core Scientific',
+  geometry: 'Geometry / VTK',
+  advanced: 'Advanced / JAX',
+  animation: 'Animation / Manim',
+  full: 'Full Python Lab',
 };
 
 function isDesktopRuntime(): boolean {
@@ -40,8 +49,10 @@ export function RuntimeLab() {
   const [code, setCode] = useState(STARTER_CODE.python);
   const [result, setResult] = useState<ExecutionResult | null>(null);
   const [error, setError] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
   const [running, setRunning] = useState(false);
   const [scanning, setScanning] = useState(false);
+  const [installing, setInstalling] = useState<PythonProfile | null>(null);
 
   const executable = useMemo(
     () => runtimes.find((runtime) => runtime.id === (language === 'javascript' ? 'node' : language)),
@@ -75,12 +86,14 @@ export function RuntimeLab() {
     setCode(STARTER_CODE[next]);
     setResult(null);
     setError('');
+    setMessage('');
   };
 
   const runCode = async () => {
     if (!desktop || running) return;
     setRunning(true);
     setError('');
+    setMessage('');
     setResult(null);
     try {
       const execution = await invoke<ExecutionResult>('execute_code', {
@@ -94,12 +107,29 @@ export function RuntimeLab() {
     }
   };
 
+  const installProfile = async (profile: PythonProfile) => {
+    if (!desktop || installing) return;
+    setInstalling(profile);
+    setError('');
+    setMessage(`Installing ${PROFILE_LABELS[profile]}… this can take several minutes.`);
+    try {
+      const response = await invoke<string>('install_python_profile', { profile });
+      setMessage(response);
+      await scan();
+    } catch (cause) {
+      setMessage('');
+      setError(String(cause));
+    } finally {
+      setInstalling(null);
+    }
+  };
+
   return (
     <section className="runtime-panel panel">
       <div className="runtime-heading">
         <div>
           <span className="eyebrow">Native Compute Lab</span>
-          <h2>Run mathematical code inside the application</h2>
+          <h2>Run mathematical code and manage scientific engines inside the application</h2>
         </div>
         <button className="runtime-action" onClick={() => void scan()} disabled={!desktop || scanning}>
           {scanning ? 'Scanning…' : 'Scan tools'}
@@ -125,6 +155,28 @@ export function RuntimeLab() {
                   {runtime.version && <code>{runtime.version}</code>}
                   {runtime.path && <small>{runtime.path}</small>}
                 </div>
+              ))}
+            </div>
+
+            <h3>One-click managed Python profiles</h3>
+            <div className="profile-grid">
+              {(Object.keys(PROFILE_LABELS) as PythonProfile[]).map((profile) => (
+                <button
+                  key={profile}
+                  className="profile-button"
+                  onClick={() => void installProfile(profile)}
+                  disabled={Boolean(installing)}
+                >
+                  <strong>{PROFILE_LABELS[profile]}</strong>
+                  <span>
+                    {profile === 'core' && 'NumPy · SciPy · SymPy · Matplotlib · pandas · NetworkX · Plotly'}
+                    {profile === 'geometry' && 'Core + PyVista + VTK'}
+                    {profile === 'advanced' && 'Geometry + JAX automatic differentiation'}
+                    {profile === 'animation' && 'Core + Manim Python package'}
+                    {profile === 'full' && 'Geometry + JAX + Manim'}
+                  </span>
+                  {installing === profile && <em>Installing…</em>}
+                </button>
               ))}
             </div>
 
@@ -168,6 +220,7 @@ export function RuntimeLab() {
                 <span>Output</span>
                 {executable && <code>{executable.installed ? executable.path : `${language} runtime missing`}</code>}
               </div>
+              {message && <div className="console-message">{message}</div>}
               {error && <pre className="console-error">{error}</pre>}
               {result && (
                 <>
@@ -178,14 +231,14 @@ export function RuntimeLab() {
                   </div>
                 </>
               )}
-              {!error && !result && <span className="runtime-muted">Run code to see stdout, stderr and execution status.</span>}
+              {!error && !message && !result && <span className="runtime-muted">Run code to see stdout, stderr and execution status.</span>}
             </div>
           </div>
         </div>
       )}
 
       <div className="runtime-safety">
-        Local execution is a trusted-workstation capability. Python, JavaScript and Julia code can access resources permitted to your macOS user account; use reviewed project code and keep untrusted scripts isolated.
+        Local execution is a trusted-workstation capability. Python, JavaScript and Julia code can access resources permitted to your macOS user account. The studio intentionally does not expose an unrestricted shell command box; use reviewed project code and keep untrusted scripts isolated.
       </div>
     </section>
   );
