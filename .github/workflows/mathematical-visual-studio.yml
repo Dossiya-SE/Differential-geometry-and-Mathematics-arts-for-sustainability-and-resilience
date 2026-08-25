@@ -76,7 +76,7 @@ jobs:
           python - <<'PY'
           import importlib.metadata
           expected = {
-              "numpy": "2.5.2",
+              "numpy": "2.3.5",
               "scipy": "1.18.0",
               "sympy": "1.14.0",
               "geomstats": "2.8.0",

@@ -8,7 +8,7 @@ This engine begins the free/open mathematical capability layer described by the 
 
 | Engine | Frozen version | Role |
 |---|---:|---|
-| NumPy | 2.5.2 | numerical array kernel |
+| NumPy | 2.3.5 | numerical array kernel; compatibility-pinned for Geomstats 2.8.0 |
 | SciPy | 1.18.0 | scientific algorithms |
 | SymPy | 1.14.0 | exact symbolic mathematics |
 | Geomstats | 2.8.0 | differential/Riemannian geometry |
@@ -16,6 +16,10 @@ This engine begins the free/open mathematical capability layer described by the 
 | Google OR-Tools | 9.15.6755 | network and combinatorial optimization |
 
 The development engine baseline is **CPython 3.12**. Release Engine Packs will be built and content-addressed per supported target architecture rather than pretending one binary payload is portable everywhere.
+
+### Compatibility decision
+
+The first cross-platform CI run intentionally used NumPy 2.5.2 and exposed a real upstream compatibility break: Geomstats 2.8.0 imports `numpy.trapz`, while NumPy removed that deprecated API in 2.4.0. The engine therefore pins NumPy 2.3.5, the latest 2.3.x release, until a released Geomstats version no longer depends on `numpy.trapz`. This is a compatibility constraint, not an attempt to silently patch third-party code.
 
 ## Governing rule
 
@@ -68,14 +72,15 @@ CI runs the worker on both Linux and Apple Silicon macOS with CPython 3.12 and c
 
 1. exact dependency identities;
 2. engine permission declarations;
-3. bounded symbolic parsing and rejection of executable syntax;
-4. geodesic distance on `S²`;
-5. manifold residuals for sampled geodesic points;
-6. deterministic NetworkX shortest-path behavior;
-7. OR-Tools optimal min-cost-flow result;
-8. byte-for-byte deterministic protocol output for repeated requests;
-9. fail-closed handling of unknown fields and operations;
-10. manifest JSON Schema validity and source/lock hashes.
+3. worker and dependency-lock content hashes;
+4. bounded symbolic parsing and rejection of executable syntax;
+5. geodesic distance on `S²`;
+6. manifold residuals for sampled geodesic points;
+7. deterministic NetworkX shortest-path behavior;
+8. OR-Tools optimal min-cost-flow result;
+9. byte-for-byte deterministic protocol output for repeated requests;
+10. fail-closed handling of unknown fields and operations;
+11. manifest JSON Schema validity.
 
 These are **software verification tests**. They do not establish empirical validity for a scientific model or dataset.
 

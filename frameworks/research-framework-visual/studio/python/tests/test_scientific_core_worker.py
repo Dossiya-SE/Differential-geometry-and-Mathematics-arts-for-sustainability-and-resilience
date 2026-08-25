@@ -1,3 +1,4 @@
+import hashlib
 import json
 import math
 import subprocess
@@ -7,6 +8,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKER = ROOT / "scientific_core_worker.py"
+REQUIREMENTS = ROOT / "scientific-core-requirements.txt"
+MANIFEST = ROOT.parent / "engine-packs" / "scientific-core" / "manifest.json"
 
 
 def call(operation, arguments, request_id="test"):
@@ -29,14 +32,23 @@ def call(operation, arguments, request_id="test"):
     return completed.returncode, json.loads(completed.stdout)
 
 
+def sha256(path: Path) -> str:
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 class ScientificCoreWorkerTests(unittest.TestCase):
+    def test_manifest_content_hashes(self):
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        self.assertEqual(manifest["payloadSha256"], sha256(WORKER))
+        self.assertEqual(manifest["lockSha256"], sha256(REQUIREMENTS))
+
     def test_capabilities_and_dependency_identity(self):
         code, response = call("system.capabilities", {})
         self.assertEqual(code, 0)
         self.assertTrue(response["ok"])
         dependencies = response["result"]["dependencies"]
         expected = {
-            "numpy": "2.5.2",
+            "numpy": "2.3.5",
             "scipy": "1.18.0",
             "sympy": "1.14.0",
             "geomstats": "2.8.0",
