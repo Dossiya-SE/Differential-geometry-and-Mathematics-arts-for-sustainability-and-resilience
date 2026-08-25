@@ -18,7 +18,16 @@
           "semanticRef": { "type": "string", "minLength": 1 },
           "visible": { "type": "boolean" },
           "layer": { "enum": ["precision-2d", "dense-2d", "interactive-3d", "overlay"] },
-          "encoding": { "type": "object", "additionalProperties": { "type": ["string", "number", "boolean"] } }
+          "encoding": {
+            "type": "object",
+            "additionalProperties": {
+              "anyOf": [
+                { "type": "string" },
+                { "type": "number" },
+                { "type": "boolean" }
+              ]
+            }
+          }
         }
       }
     },
