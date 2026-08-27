@@ -13,26 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Generate manifest
-        run: |
-          python - <<'PY'
-          import hashlib
-          from pathlib import Path
-          root = Path('.')
-          ignored = {'.git', '.mypy_cache', '.pytest_cache', '.quarto', '.ruff_cache', '.venv', '__pycache__', '_site', 'htmlcov', 'node_modules'}
-          files = []
-          for path in root.rglob('*'):
-              if not path.is_file() or path.name == 'MANIFEST.sha256':
-                  continue
-              rel = path.relative_to(root)
-              if any(part in ignored or part.endswith('.egg-info') for part in rel.parts):
-                  continue
-              files.append(path)
-          lines = []
-          for path in sorted(files, key=lambda p: p.relative_to(root).as_posix()):
-              rel = path.relative_to(root).as_posix()
-              lines.append(f"{hashlib.sha256(path.read_bytes()).hexdigest()}  {rel}")
-          Path('/tmp/MANIFEST.sha256').write_text('\n'.join(lines) + '\n', encoding='utf-8')
-          PY
+        run: python scripts/generate_manifest.py --output /tmp/MANIFEST.sha256
       - uses: actions/upload-artifact@v4
         with:
           name: mvs-manifest-helper
