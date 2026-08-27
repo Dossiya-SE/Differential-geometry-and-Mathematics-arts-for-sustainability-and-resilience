@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Dossiya-SE/Differential-geometry-and-Mathematics-arts-for-sustainability-and-resilience/schemas/mvs-visual-ir.schema.json",
+  "title": "MVS Visual IR",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "scene_id", "objects", "provenance"],
+  "properties": {
+    "version": {"type": "string", "const": "0.1.1"},
+    "scene_id": {"type": "string", "minLength": 1},
+    "objects": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "visual_id",
+          "semantic_id",
+          "kind",
+          "geometry",
+          "constraint_refs",
+          "renderer_ref",
+          "mathematics_locked"
+        ],
+        "properties": {
+          "visual_id": {"type": "string", "minLength": 1},
+          "semantic_id": {"type": "string", "minLength": 1},
+          "kind": {"type": "string", "minLength": 1},
+          "geometry": {"type": "object"},
+          "constraint_refs": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "uniqueItems": true
+          },
+          "renderer_ref": {"type": ["string", "null"]},
+          "mathematics_locked": {"type": "boolean", "const": true}
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": {"type": "string"},
+      "required": ["generator", "mathematical_authority"]
+    }
+  }
+}
