@@ -8,7 +8,12 @@ import pytest
 from mvs.model import Capability, TaskState
 from mvs.registry import CapabilityRegistry
 from mvs.release_gate import evaluate_release_gates
-from mvs.sphere import build_sphere_visual_ir, fibonacci_sphere, tangent_vectors, validate_scene
+from mvs.sphere import (
+    build_sphere_visual_ir,
+    fibonacci_sphere,
+    tangent_vectors,
+    validate_scene,
+)
 from mvs.spline_adapter import SplineAdapter
 
 
@@ -23,16 +28,15 @@ def test_math_and_constraint_gate() -> None:
 
 def test_invalid_scene_is_rejected() -> None:
     with pytest.raises(ValueError, match="mathematical validation failed"):
-        build_sphere_visual_ir(count=12, delta=3.2)
+        build_sphere_visual_ir(count=12, delta=0.7)
 
 
 def test_determinism_gate() -> None:
     assert build_sphere_visual_ir() == build_sphere_visual_ir()
 
 
-def test_registry_search_describe_execute_task_status() -> None:
-    registry = CapabilityRegistry()
-    capability = Capability(
+def _sphere_capability() -> Capability:
+    return Capability(
         id="mvs.sphere.build",
         domain="differential_geometry",
         deterministic=True,
@@ -43,6 +47,11 @@ def test_registry_search_describe_execute_task_status() -> None:
         produces_visual=True,
         mathematical_validation_required=True,
     )
+
+
+def test_registry_search_describe_execute_task_status() -> None:
+    registry = CapabilityRegistry()
+    capability = _sphere_capability()
     registry.register(capability, build_sphere_visual_ir)
 
     assert registry.search("sphere") == (capability,)
@@ -57,17 +66,7 @@ def test_registry_search_describe_execute_task_status() -> None:
 
 def test_registry_rejects_duplicate_and_unknown_ids() -> None:
     registry = CapabilityRegistry()
-    capability = Capability(
-        id="mvs.sphere.build",
-        domain="differential_geometry",
-        deterministic=True,
-        read_only=True,
-        destructive=False,
-        long_running=False,
-        requires_gpu=False,
-        produces_visual=True,
-        mathematical_validation_required=True,
-    )
+    capability = _sphere_capability()
     registry.register(capability, build_sphere_visual_ir)
 
     with pytest.raises(ValueError, match="already registered"):
@@ -116,4 +115,4 @@ def test_release_gate_is_computed_six_of_six() -> None:
 
 def test_release_gate_rejects_failed_constraint() -> None:
     with pytest.raises(ValueError, match="mathematical validation failed"):
-        evaluate_release_gates(delta=3.2)
+        evaluate_release_gates(delta=0.7)
