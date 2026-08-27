@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
-from typing import Any
+from typing import Any, cast
 
 from .model import VisualIR
 
@@ -67,6 +67,7 @@ class SplineAdapter:
     @staticmethod
     def _find(scene: dict[str, Any], visual_id: str) -> dict[str, Any]:
         for obj in scene["objects"]:
-            if obj["visual_id"] == visual_id:
-                return obj
+            candidate = cast(dict[str, Any], obj)
+            if candidate["visual_id"] == visual_id:
+                return candidate
         raise KeyError(f"unknown visual object: {visual_id}")
