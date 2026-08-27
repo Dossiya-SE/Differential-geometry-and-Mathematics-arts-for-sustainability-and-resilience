@@ -41,6 +41,12 @@ def test_visual_ir_matches_canonical_json_schema() -> None:
     Draft202012Validator(schema).validate(build_sphere_visual_ir().to_dict())
 
 
+def test_visual_ir_mathematics_is_deeply_immutable() -> None:
+    visual_ir = build_sphere_visual_ir()
+    with pytest.raises(TypeError):
+        visual_ir.objects[0].geometry["radius"] = 2.0  # type: ignore[index]
+
+
 def test_determinism_gate() -> None:
     assert build_sphere_visual_ir() == build_sphere_visual_ir()
 
