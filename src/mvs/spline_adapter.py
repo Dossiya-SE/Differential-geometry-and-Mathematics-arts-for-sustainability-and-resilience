@@ -29,13 +29,15 @@ class SplineAdapter:
         }
 
     def apply_style_edit(self, scene: dict[str, Any], visual_id: str, **style: Any) -> None:
-        target = next(obj for obj in scene["objects"] if obj["visual_id"] == visual_id)
+        target = self._find(scene, visual_id)
         target["style"].update(style)
 
     def import_identity_map(self, scene: dict[str, Any]) -> dict[str, str]:
         return {obj["visual_id"]: obj["semantic_id"] for obj in scene["objects"]}
 
-    def mathematical_snapshot(self, scene: dict[str, Any]) -> tuple[tuple[str, str, str, object], ...]:
+    def mathematical_snapshot(
+        self, scene: dict[str, Any]
+    ) -> tuple[tuple[str, str, str, object], ...]:
         return tuple(
             (
                 obj["visual_id"],
@@ -45,3 +47,31 @@ class SplineAdapter:
             )
             for obj in scene["objects"]
         )
+
+    def validate_roundtrip(self, visual_ir: VisualIR, scene: dict[str, Any]) -> bool:
+        expected = {
+            obj.visual_id: (
+                obj.semantic_id,
+                obj.kind,
+                obj.geometry,
+                obj.mathematics_locked,
+            )
+            for obj in visual_ir.objects
+        }
+        observed = {
+            obj["visual_id"]: (
+                obj["semantic_id"],
+                obj["kind"],
+                obj["geometry"],
+                obj["mathematics_locked"],
+            )
+            for obj in scene["objects"]
+        }
+        return observed == expected
+
+    @staticmethod
+    def _find(scene: dict[str, Any], visual_id: str) -> dict[str, Any]:
+        for obj in scene["objects"]:
+            if obj["visual_id"] == visual_id:
+                return obj
+        raise KeyError(f"unknown visual object: {visual_id}")
