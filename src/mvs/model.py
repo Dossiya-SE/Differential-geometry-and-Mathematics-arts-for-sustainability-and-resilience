@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from collections.abc import Callable
+from collections.abc import Callable, Mapping
 from dataclasses import dataclass, field
 from enum import StrEnum
+from types import MappingProxyType
 from typing import Any, Generic, TypeVar
 
 T = TypeVar("T")
@@ -13,6 +14,22 @@ class TaskState(StrEnum):
     RUNNING = "running"
     SUCCEEDED = "succeeded"
     FAILED = "failed"
+
+
+def _freeze(value: Any) -> Any:
+    if isinstance(value, Mapping):
+        return MappingProxyType({str(key): _freeze(item) for key, item in value.items()})
+    if isinstance(value, list | tuple):
+        return tuple(_freeze(item) for item in value)
+    return value
+
+
+def _thaw(value: Any) -> Any:
+    if isinstance(value, Mapping):
+        return {str(key): _thaw(item) for key, item in value.items()}
+    if isinstance(value, tuple):
+        return [_thaw(item) for item in value]
+    return value
 
 
 @dataclass(frozen=True)
@@ -74,17 +91,20 @@ class SceneObject:
     visual_id: str
     semantic_id: str
     kind: str
-    geometry: dict[str, Any]
+    geometry: Mapping[str, Any]
     constraint_refs: tuple[str, ...] = ()
     renderer_ref: str | None = None
     mathematics_locked: bool = True
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "geometry", _freeze(self.geometry))
 
     def to_dict(self) -> dict[str, Any]:
         return {
             "visual_id": self.visual_id,
             "semantic_id": self.semantic_id,
             "kind": self.kind,
-            "geometry": self.geometry,
+            "geometry": _thaw(self.geometry),
             "constraint_refs": list(self.constraint_refs),
             "renderer_ref": self.renderer_ref,
             "mathematics_locked": self.mathematics_locked,
@@ -96,12 +116,15 @@ class VisualIR:
     version: str
     scene_id: str
     objects: tuple[SceneObject, ...]
-    provenance: dict[str, str] = field(default_factory=dict)
+    provenance: Mapping[str, str] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "provenance", _freeze(self.provenance))
 
     def to_dict(self) -> dict[str, Any]:
         return {
             "version": self.version,
             "scene_id": self.scene_id,
             "objects": [obj.to_dict() for obj in self.objects],
-            "provenance": dict(self.provenance),
+            "provenance": _thaw(self.provenance),
         }
