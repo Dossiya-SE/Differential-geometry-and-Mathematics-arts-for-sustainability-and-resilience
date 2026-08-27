@@ -79,6 +79,17 @@ class SceneObject:
     renderer_ref: str | None = None
     mathematics_locked: bool = True
 
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "visual_id": self.visual_id,
+            "semantic_id": self.semantic_id,
+            "kind": self.kind,
+            "geometry": self.geometry,
+            "constraint_refs": list(self.constraint_refs),
+            "renderer_ref": self.renderer_ref,
+            "mathematics_locked": self.mathematics_locked,
+        }
+
 
 @dataclass(frozen=True)
 class VisualIR:
@@ -86,3 +97,11 @@ class VisualIR:
     scene_id: str
     objects: tuple[SceneObject, ...]
     provenance: dict[str, str] = field(default_factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "version": self.version,
+            "scene_id": self.scene_id,
+            "objects": [obj.to_dict() for obj in self.objects],
+            "provenance": dict(self.provenance),
+        }
