@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import json
 from copy import deepcopy
+from pathlib import Path
 
 import numpy as np
 import pytest
+from jsonschema import Draft202012Validator
 
 from mvs.model import Capability, TaskState
 from mvs.registry import CapabilityRegistry
@@ -29,6 +32,13 @@ def test_math_and_constraint_gate() -> None:
 def test_invalid_scene_is_rejected() -> None:
     with pytest.raises(ValueError, match="mathematical validation failed"):
         build_sphere_visual_ir(count=12, delta=0.7)
+
+
+def test_visual_ir_matches_canonical_json_schema() -> None:
+    schema_path = Path("schemas/mvs-visual-ir.schema.json")
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    Draft202012Validator.check_schema(schema)
+    Draft202012Validator(schema).validate(build_sphere_visual_ir().to_dict())
 
 
 def test_determinism_gate() -> None:
