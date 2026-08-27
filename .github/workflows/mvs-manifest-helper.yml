@@ -13,8 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Generate manifest
-        run: python scripts/generate_manifest.py --output /tmp/MANIFEST.sha256
+        run: python scripts/generate_manifest.py --write
       - uses: actions/upload-artifact@v4
         with:
           name: mvs-manifest-helper
-          path: /tmp/MANIFEST.sha256
+          path: MANIFEST.sha256
