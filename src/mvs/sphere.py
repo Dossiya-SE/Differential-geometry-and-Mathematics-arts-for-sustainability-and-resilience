@@ -1,38 +1,62 @@
 from __future__ import annotations
 
 import numpy as np
+from numpy.typing import NDArray
 
 from .model import SceneObject, VisualIR
 
+FloatArray = NDArray[np.float64]
 
-def fibonacci_sphere(count: int) -> np.ndarray:
+
+def fibonacci_sphere(count: int) -> FloatArray:
     if count < 2:
         raise ValueError("count must be >= 2")
-    indices = np.arange(count, dtype=float)
-    phi = np.pi * (3.0 - np.sqrt(5.0))
+
+    indices = np.arange(count, dtype=np.float64)
+    golden_angle = np.pi * (3.0 - np.sqrt(5.0))
     y = 1.0 - 2.0 * indices / (count - 1)
     radius = np.sqrt(np.maximum(0.0, 1.0 - y * y))
-    theta = phi * indices
-    return np.column_stack((np.cos(theta) * radius, y, np.sin(theta) * radius))
+    theta = golden_angle * indices
+    points = np.column_stack((np.cos(theta) * radius, y, np.sin(theta) * radius))
+    return np.asarray(points, dtype=np.float64)
 
 
-def tangent_vectors(points: np.ndarray) -> np.ndarray:
-    reference = np.array([0.0, 0.0, 1.0])
-    alternate = np.array([1.0, 0.0, 0.0])
-    vectors = []
+def tangent_vectors(points: FloatArray) -> FloatArray:
+    if points.ndim != 2 or points.shape[1] != 3:
+        raise ValueError("points must have shape (n, 3)")
+
+    reference = np.array([0.0, 0.0, 1.0], dtype=np.float64)
+    alternate = np.array([1.0, 0.0, 0.0], dtype=np.float64)
+    vectors: list[FloatArray] = []
+
     for point in points:
         ref = alternate if abs(float(np.dot(point, reference))) > 0.95 else reference
         tangent = np.cross(point, ref)
-        tangent /= np.linalg.norm(tangent)
-        vectors.append(tangent)
-    return np.asarray(vectors)
+        norm = float(np.linalg.norm(tangent))
+        if norm <= np.finfo(np.float64).eps:
+            raise ValueError("cannot construct a stable tangent vector")
+        vectors.append(np.asarray(tangent / norm, dtype=np.float64))
+
+    return np.asarray(vectors, dtype=np.float64)
 
 
-def geodesic_distance(a: np.ndarray, b: np.ndarray) -> float:
+def geodesic_distance(a: FloatArray, b: FloatArray) -> float:
     return float(np.arccos(np.clip(np.dot(a, b), -1.0, 1.0)))
 
 
-def validate_scene(points: np.ndarray, vectors: np.ndarray, delta: float, tol: float = 1e-10) -> dict[str, bool]:
+def validate_scene(
+    points: FloatArray,
+    vectors: FloatArray,
+    delta: float,
+    tol: float = 1e-10,
+) -> dict[str, bool]:
+    if delta < 0.0 or delta > np.pi:
+        raise ValueError("delta must satisfy 0 <= delta <= pi")
+    if tol <= 0.0:
+        raise ValueError("tol must be positive")
+    if points.shape != vectors.shape or points.ndim != 2 or points.shape[1] != 3:
+        raise ValueError("points and vectors must both have shape (n, 3)")
+
     unit_points = bool(np.allclose(np.linalg.norm(points, axis=1), 1.0, atol=tol))
     tangent = bool(np.all(np.abs(np.sum(points * vectors, axis=1)) <= tol))
     separation = all(
@@ -78,6 +102,7 @@ def build_sphere_visual_ir(count: int = 12, delta: float = 0.3) -> VisualIR:
                 constraint_refs=("constraint:tangent",),
             )
         )
+
     return VisualIR(
         version="0.1.1",
         scene_id="benchmark:S2-tangent-field",
