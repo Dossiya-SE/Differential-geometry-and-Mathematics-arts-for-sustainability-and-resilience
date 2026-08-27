@@ -64,10 +64,9 @@ def evaluate_release_gates(count: int = 12, delta: float = 0.3) -> ReleaseGateRe
     adapter.apply_style_edit(scene, "sphere:surface", material="release-gate-test")
     surface = next(obj for obj in scene["objects"] if obj["visual_id"] == "sphere:surface")
     editability = surface["style"].get("material") == "release-gate-test"
-    roundtrip = (
-        adapter.import_identity_map(scene) == identity_before
-        and adapter.validate_roundtrip(first, scene)
-    )
+    roundtrip = adapter.import_identity_map(
+        scene
+    ) == identity_before and adapter.validate_roundtrip(first, scene)
     safety = adapter.mathematical_snapshot(scene) == math_before
 
     return ReleaseGateReport(
