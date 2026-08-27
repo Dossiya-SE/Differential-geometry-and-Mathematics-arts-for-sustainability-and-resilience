@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .sphere import build_sphere_visual_ir, fibonacci_sphere, tangent_vectors, validate_scene
+from .sphere import (
+    build_sphere_visual_ir,
+    fibonacci_sphere,
+    tangent_vectors,
+    validate_scene,
+)
 from .spline_adapter import SplineAdapter
 
 
@@ -59,8 +64,9 @@ def evaluate_release_gates(count: int = 12, delta: float = 0.3) -> ReleaseGateRe
     adapter.apply_style_edit(scene, "sphere:surface", material="release-gate-test")
     surface = next(obj for obj in scene["objects"] if obj["visual_id"] == "sphere:surface")
     editability = surface["style"].get("material") == "release-gate-test"
-    roundtrip = adapter.import_identity_map(scene) == identity_before and adapter.validate_roundtrip(
-        first, scene
+    roundtrip = (
+        adapter.import_identity_map(scene) == identity_before
+        and adapter.validate_roundtrip(first, scene)
     )
     safety = adapter.mathematical_snapshot(scene) == math_before
 
