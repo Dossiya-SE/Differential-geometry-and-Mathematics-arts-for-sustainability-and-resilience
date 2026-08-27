@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from enum import StrEnum
-from typing import Any, Callable, Generic, TypeVar
+from typing import Any, Generic, TypeVar
 
 T = TypeVar("T")
 
@@ -30,10 +31,34 @@ class Capability:
 
 
 @dataclass(frozen=True)
+class Skill:
+    id: str
+    description: str
+    capability_ids: tuple[str, ...]
+    validator_ids: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
 class Constraint:
     id: str
     description: str
     validator: Callable[[Any], bool]
+
+
+@dataclass(frozen=True)
+class ValidationResult:
+    validator_id: str
+    passed: bool
+    residual: float | None = None
+    tolerance: float | None = None
+    detail: str = ""
+
+
+@dataclass(frozen=True)
+class Validator:
+    id: str
+    description: str
+    validate: Callable[[Any], ValidationResult]
 
 
 @dataclass
