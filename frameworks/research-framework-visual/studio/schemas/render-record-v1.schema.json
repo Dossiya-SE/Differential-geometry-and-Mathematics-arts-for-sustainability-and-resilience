@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mvs.local/schema/render-record-v1.schema.json",
+  "title": "MVS Render Record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "projectHash", "visualIrHash", "engine", "execution", "outputs"],
+  "properties": {
+    "schema": { "const": "mvs.render-record/1" },
+    "projectHash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "visualIrHash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "engine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pack", "version", "runtime", "architecture", "lockHash"],
+      "properties": {
+        "pack": { "type": "string" },
+        "version": { "type": "string" },
+        "runtime": { "type": "string" },
+        "architecture": { "type": "string" },
+        "lockHash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["seed", "network", "freshWorker"],
+      "properties": {
+        "seed": { "type": "integer" },
+        "network": { "type": "boolean" },
+        "freshWorker": { "type": "boolean" }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["uri", "mime", "sha256"],
+        "properties": {
+          "uri": { "type": "string", "minLength": 1 },
+          "mime": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+        }
+      }
+    }
+  }
+}

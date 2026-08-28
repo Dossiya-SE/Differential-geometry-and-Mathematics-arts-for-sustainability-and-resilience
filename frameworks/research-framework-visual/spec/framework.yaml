@@ -1,0 +1,81 @@
+stages:
+- id: 1
+  object_id: stage.real_problem
+  title: Real Problem
+  color: '#7a4fd6'
+  body: Define the system, phenomenon and decision that matters.
+- id: 2
+  object_id: stage.evidence
+  title: Evidence
+  color: '#3273dc'
+  body: Collect and weight empirical and scientific evidence.
+- id: 3
+  object_id: stage.gap_architecture
+  title: Gap Architecture
+  color: '#2b8cff'
+  body: Map multidimensional gaps that constrain knowledge and practice.
+- id: 4
+  object_id: stage.research_question
+  title: Research Question
+  color: '#26b3a6'
+  body: Converge system, mechanism, condition and outcome into a precise question.
+- id: 5
+  object_id: stage.system_assumptions
+  title: System & Assumptions
+  color: '#44b649'
+  body: Define states, controls, disturbances, parameters, constraints and assumptions.
+- id: 6
+  object_id: stage.mathematical_formulation
+  title: Mathematical Formulation
+  color: '#34c06b'
+  body: Express dynamics, observations, constraints and initial conditions.
+- id: 7
+  object_id: stage.computation
+  title: Computation
+  color: '#d7a22a'
+  body: Discretize and solve the declared mathematical model numerically.
+- id: 8
+  object_id: stage.verification
+  title: Verification
+  color: '#dfae2d'
+  body: Did we solve the equations correctly?
+- id: 9
+  object_id: stage.calibration
+  title: Calibration
+  color: '#e08f2c'
+  body: Estimate unknown parameters using calibration evidence.
+- id: 10
+  object_id: stage.validation
+  title: Validation
+  color: '#e25b37'
+  body: Does the model represent the intended real system for its stated purpose?
+- id: 11
+  object_id: stage.sensitivity
+  title: Sensitivity Analysis
+  color: '#8554df'
+  body: Identify which parameters or assumptions control the outcome.
+- id: 12
+  object_id: stage.uncertainty
+  title: Uncertainty Quantification
+  color: '#3f80ff'
+  body: Propagate uncertainty to decision-relevant outputs.
+- id: 13
+  object_id: stage.comparison
+  title: Comparison
+  color: '#36c0b0'
+  body: Compare the proposed approach with baselines or alternatives.
+- id: 14
+  object_id: stage.results
+  title: Scientific Results
+  color: '#56c547'
+  body: Extract bounded knowledge from verified and validated outputs.
+- id: 15
+  object_id: stage.industrial_implication
+  title: Industrial Implication
+  color: '#e2a739'
+  body: Translate supported results into practical implications.
+- id: 16
+  object_id: stage.bounded_conclusion
+  title: Limitations & Bounded Conclusion
+  color: '#f05047'
+  body: State only what is supported inside the validity domain.

@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "objects": [
+    {"object_id": "evidence.field", "status": "ILLUSTRATIVE", "generator": "svg_composer:evidence", "parameters": {"weights": [0.95,0.82,0.68,0.55,0.40]}},
+    {"object_id": "gap.vector", "status": "ILLUSTRATIVE", "generator": "svg_composer:gaps", "parameters": {"values": [0.82,0.70,0.90,0.75,0.62,0.68,0.57,0.54,0.49,0.45,0.41,0.38,0.35,0.31,0.28]}},
+    {"object_id": "model.trajectory", "status": "ILLUSTRATIVE", "generator": "svg_composer:model", "equation_ids": ["EQ-MODEL-001","EQ-CONSTRAINT-001"], "parameters": {"amplitude": 0.82, "frequency": 2.3}},
+    {"object_id": "verification.convergence", "status": "ILLUSTRATIVE", "generator": "svg_composer:verification", "equation_ids": ["EQ-VERIFY-001"], "parameters": {"h": [1.0,0.7,0.5,0.35,0.25,0.18]}},
+    {"object_id": "calibration.path", "status": "ILLUSTRATIVE", "generator": "svg_composer:calibration", "equation_ids": ["EQ-CAL-001"], "parameters": {"path": [[-1.4,1.2],[-0.8,0.7],[-0.2,0.2],[0.25,-0.1],[0.50,-0.30],[0.55,-0.35]]}},
+    {"object_id": "validation.model_vs_observation", "status": "ILLUSTRATIVE", "generator": "svg_composer:validation", "equation_ids": ["EQ-VAL-001"], "parameters": {"phase_offset": 0.1}},
+    {"object_id": "sensitivity.vector", "status": "ILLUSTRATIVE", "generator": "svg_composer:sensitivity", "equation_ids": ["EQ-SENS-001"], "parameters": {"values": [1.0,0.82,0.71,0.55,0.43,0.34,0.25,0.18]}},
+    {"object_id": "uncertainty.tube", "status": "ILLUSTRATIVE", "generator": "svg_composer:uncertainty", "equation_ids": ["EQ-UQ-001"], "parameters": {"sigma0": 0.10, "sigma_slope": 0.035}},
+    {"object_id": "comparison.trajectories", "status": "ILLUSTRATIVE", "generator": "svg_composer:comparison", "parameters": {"count": 3}},
+    {"object_id": "conclusion.admissible_region", "status": "ILLUSTRATIVE", "generator": "svg_composer:conclusion", "equation_ids": ["EQ-CONCLUSION-001"], "parameters": {"threshold": 0.72}}
+  ]
+}
