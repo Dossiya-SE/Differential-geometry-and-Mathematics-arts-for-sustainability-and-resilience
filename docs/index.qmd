@@ -7,7 +7,9 @@ This website documents a domain-neutral research platform connecting evidence sy
 
 ## Current boundary
 
-The application, system boundary, hazard, geography, and demonstrator remain `NOT_SELECTED`. The platform is intentionally designed before a preferred application is chosen so that repository structure cannot prejudge the evidence-led selection.
+The platform-level application, system boundary, hazard, geography, and demonstrator remain `NOT_SELECTED`. The platform is intentionally designed before a preferred application is adopted so that repository structure cannot prejudge the evidence-led selection.
+
+An application-specific **P–W–T thesis research package** is now maintained under [`docs/thesis/`](thesis/README.md). It records two candidate thesis trajectories, mathematical objects, candidate gaps, research questions, hypotheses, computational architecture, industrial translation, prior-art claim boundaries, and a long-term MSc-to-PhD research programme. Its claims remain evidence-bounded and do not alter the domain-neutral core unless a later decision record explicitly adopts them.
 
 ## Traceability principle
 
@@ -28,6 +30,7 @@ These links provide provenance. They do not imply that a proposed transfer has b
 - machine-readable model and experiment contracts;
 - a small verified two-sphere geometry reference model;
 - separate scientific and communication validation for mathematical art;
-- automated integrity, testing, citation, documentation, and reproducibility checks.
+- automated integrity, testing, citation, documentation, and reproducibility checks;
+- an evidence-bounded [thesis research consolidation](thesis/README.md) for sustainable and resilient infrastructure viability.
 
-Start with the [repository architecture](architecture.qmd) and [research-integrity standard](research-integrity.qmd).
+Start with the [repository architecture](architecture.qmd), [research-integrity standard](research-integrity.qmd), and [thesis research package](thesis/README.md).
