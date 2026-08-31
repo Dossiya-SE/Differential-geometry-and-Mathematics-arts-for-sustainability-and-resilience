@@ -92,4 +92,5 @@ $$
 - [08 — Six-slide proposal content and visual specification](08_SIX_SLIDE_PROPOSAL_SPEC.md)
 - [09 — Exploratory extensions: information geometry, tensors, quantum-inspired ideas](09_EXPLORATORY_EXTENSIONS.md)
 - [10 — Synthetic 2D viability demonstrator](10_2D_VIABILITY_DEMONSTRATOR.md)
+- [11 — Known prior art and novelty claim boundaries](11_KNOWN_PRIOR_ART_AND_CLAIM_BOUNDARIES.md)
 
