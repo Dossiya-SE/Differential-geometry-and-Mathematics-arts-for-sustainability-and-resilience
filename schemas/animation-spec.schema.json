@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Dossiya-SE/Differential-geometry-and-Mathematics-arts-for-sustainability-and-resilience/schemas/animation-spec.schema.json",
+  "title": "MSR animation specification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "title",
+    "status",
+    "renderer_status",
+    "evidence_state",
+    "scientific_question",
+    "mathematical_object",
+    "assumptions",
+    "sustainability_interpretation",
+    "visual_encodings",
+    "motion_semantics",
+    "validation",
+    "accessibility",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "id": {"type": "string", "pattern": "^MSR-ANIM-[0-9]{4}$"},
+    "title": {"type": "string", "minLength": 5},
+    "status": {"enum": ["SPECIFIED", "PROTOTYPE", "VALIDATED", "REJECTED"]},
+    "renderer_status": {"enum": ["SPECIFICATION_ONLY", "CANDIDATE_READY", "RENDERER_VALIDATED"]},
+    "evidence_state": {"enum": ["OBSERVED", "OBSERVED_PARTIAL", "INFERRED", "PROPOSED", "VALIDATED", "REJECTED", "NOT_VERIFIED"]},
+    "scientific_question": {"type": "string", "minLength": 20},
+    "mathematical_object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "state_space", "equations"],
+      "properties": {
+        "name": {"type": "string", "minLength": 3},
+        "state_space": {"type": "string", "minLength": 1},
+        "equations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}}
+      }
+    },
+    "assumptions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 5}},
+    "sustainability_interpretation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim", "boundary"],
+      "properties": {
+        "claim": {"type": "string", "minLength": 10},
+        "boundary": {"type": "string", "minLength": 10}
+      }
+    },
+    "visual_encodings": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["semantic", "mathematical_source", "invariant", "non_color_cue"],
+        "properties": {
+          "semantic": {"type": "string", "minLength": 3},
+          "mathematical_source": {"type": "string", "minLength": 3},
+          "invariant": {"type": "string", "minLength": 3},
+          "non_color_cue": {"type": "string", "minLength": 3}
+        }
+      }
+    },
+    "motion_semantics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "meaning"],
+        "properties": {
+          "type": {"enum": ["TIME_EVOLUTION", "PARAMETER_CONTINUATION", "COORDINATE_TRANSFORMATION", "OPTIMIZATION_ITERATION", "UNCERTAINTY_REALIZATION", "FAILURE_PROPAGATION", "RECOVERY_ACTION", "CAMERA_EXPOSITION"]},
+          "meaning": {"type": "string", "minLength": 10}
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mathematical_invariants", "determinism", "visual_semantics", "accessibility", "provenance"],
+      "properties": {
+        "mathematical_invariants": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 5}},
+        "determinism": {"type": "string", "minLength": 10},
+        "visual_semantics": {"type": "string", "minLength": 10},
+        "accessibility": {"type": "string", "minLength": 10},
+        "provenance": {"type": "string", "minLength": 10}
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["alt_text", "static_fallback", "reduced_motion", "color_independent"],
+      "properties": {
+        "alt_text": {"type": "string", "minLength": 20},
+        "static_fallback": {"type": "boolean"},
+        "reduced_motion": {"type": "boolean"},
+        "color_independent": {"type": "boolean"}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["program_id", "visual_standard_id", "model_contracts", "experiment_ids", "source_references"],
+      "properties": {
+        "program_id": {"const": "MSR-VM-001"},
+        "visual_standard_id": {"const": "MSR-VIS-001"},
+        "model_contracts": {"type": "array", "items": {"type": "string"}},
+        "experiment_ids": {"type": "array", "items": {"type": "string"}},
+        "source_references": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}}
+      }
+    }
+  }
+}
