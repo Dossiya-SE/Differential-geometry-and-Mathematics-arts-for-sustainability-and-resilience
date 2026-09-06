@@ -1,0 +1,57 @@
+schema_version: 1.0.0
+id: MSR-ANIM-0003
+title: Infrastructure vector field
+status: SPECIFIED
+renderer_status: CANDIDATE_READY
+evidence_state: PROPOSED
+scientific_question: How can a vector field, its integral trajectories, fixed points, and local linear stability be communicated as one mathematical object?
+mathematical_object:
+  name: Autonomous or controlled vector field
+  state_space: 'x in R^n; f: R^n -> R^n'
+  equations:
+  - dx/dt = f(x)
+  - f(x_star) = 0
+  - J(x_star) = partial f/partial x evaluated at x_star
+assumptions:
+- The field is a declared model and may be a reduced-order representation.
+- Stability interpretation is local when based on the Jacobian.
+- Arrow density is a sampling choice and cannot imply data density.
+sustainability_interpretation:
+  claim: Vector fields can make local system evolution, equilibria, and perturbation response geometrically legible.
+  boundary: The animation does not identify a real infrastructure mechanism unless the vector field is derived and validated for that system.
+visual_encodings:
+- semantic: vector glyph
+  mathematical_source: f(x)
+  invariant: direction and relative magnitude match f at sample point
+  non_color_cue: oriented arrow with length binning
+- semantic: fixed point
+  mathematical_source: f(x_star)=0
+  invariant: residual norm is below declared tolerance
+  non_color_cue: distinct ring marker and equilibrium label
+- semantic: integral curve
+  mathematical_source: solution of dx/dt=f(x)
+  invariant: curve tangent agrees with field along sampled path
+  non_color_cue: directed curve with time ticks
+motion_semantics:
+- type: TIME_EVOLUTION
+  meaning: Integral curves advance according to the ODE integration parameter.
+validation:
+  mathematical_invariants:
+  - Fixed-point residuals are below tolerance.
+  - Trajectory tangent direction is consistent with the evaluated field.
+  determinism: Fixed parameters and seeds must produce the same scene-level mathematical state.
+  visual_semantics: Every visible primitive must map to a declared mathematical or evidence semantic.
+  accessibility: Static fallback, alternative text, reduced motion, and non-color cues are required.
+  provenance: Rendered artifacts must retain spec, model, experiment, renderer, environment, and output hashes.
+accessibility:
+  alt_text: Arrows fill a state plane, a ring marks an equilibrium, and directed integral curves bend consistently with the local arrows.
+  static_fallback: true
+  reduced_motion: true
+  color_independent: true
+provenance:
+  program_id: MSR-VM-001
+  visual_standard_id: MSR-VIS-001
+  model_contracts: []
+  experiment_ids: []
+  source_references:
+  - docs/VISUAL_MATHEMATICS_RESEARCH_PROGRAM.md
