@@ -1,0 +1,59 @@
+schema_version: 1.0.0
+id: MSR-ANIM-0005
+title: Viability kernel
+status: SPECIFIED
+renderer_status: CANDIDATE_READY
+evidence_state: PROPOSED
+scientific_question: How can the viability kernel be distinguished from the larger feasible set using controlled trajectories and an explicit all-time constraint?
+mathematical_object:
+  name: Viability kernel of a controlled dynamical system
+  state_space: x in X; u in U; K subset X
+  equations:
+  - 'Viab_F(K) = {x0 in K : exists u(.) such that x(t;x0,u) in K for all t >= 0}'
+  - dx/dt = F(x,u)
+assumptions:
+- K and U are declared sets.
+- The displayed kernel is exact only when the computation method supports that claim; otherwise it is labeled an approximation.
+- Finite-horizon numerical tests cannot be silently described as infinite-horizon proof.
+sustainability_interpretation:
+  claim: Viability separates states that are merely feasible now from states for which an admissible control can keep constraints satisfied.
+  boundary: The kernel is model- and method-dependent and is not automatically a validated resilience region.
+visual_encodings:
+- semantic: feasible set
+  mathematical_source: feasible set K
+  invariant: displayed region matches declared feasibility representation
+  non_color_cue: outer closed contour labeled K
+- semantic: viability kernel
+  mathematical_source: Viab_F(K) or declared approximation
+  invariant: region provenance records exact versus approximate method
+  non_color_cue: inner hatched region labeled Viab_F(K)
+- semantic: controlled trajectory
+  mathematical_source: F(x,u) with admissible u
+  invariant: control remains in U and trajectory follows solver output
+  non_color_cue: directed path with control labels
+motion_semantics:
+- type: TIME_EVOLUTION
+  meaning: Controlled trajectories advance under F(x,u).
+- type: RECOVERY_ACTION
+  meaning: A control change is shown only when the declared policy changes u.
+validation:
+  mathematical_invariants:
+  - Displayed controls remain admissible.
+  - Any trajectory claimed viable remains in K over the declared verification horizon.
+  - Approximate kernels are explicitly labeled approximate.
+  determinism: Fixed parameters and seeds must produce the same scene-level mathematical state.
+  visual_semantics: Every visible primitive must map to a declared mathematical or evidence semantic.
+  accessibility: Static fallback, alternative text, reduced motion, and non-color cues are required.
+  provenance: Rendered artifacts must retain spec, model, experiment, renderer, environment, and output hashes.
+accessibility:
+  alt_text: An outer feasible region contains a smaller hatched viability region; controlled paths from different initial states either remain inside or leave the feasible boundary.
+  static_fallback: true
+  reduced_motion: true
+  color_independent: true
+provenance:
+  program_id: MSR-VM-001
+  visual_standard_id: MSR-VIS-001
+  model_contracts: []
+  experiment_ids: []
+  source_references:
+  - docs/VISUAL_MATHEMATICS_RESEARCH_PROGRAM.md
