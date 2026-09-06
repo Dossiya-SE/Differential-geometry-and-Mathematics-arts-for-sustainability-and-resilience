@@ -1,0 +1,369 @@
+schema_version: 1.0.0
+program_id: MSR-VM-001
+status: PROPOSED_ACTIVE_DEVELOPMENT
+application_domain: NOT_SELECTED
+renderer_candidate:
+  name: Manim Community Edition
+  status: ADMITTED_FOR_SPECIFICATION_PROTOTYPING
+  runtime_dependency: false
+concepts:
+- id: VM-001
+  title: State vectors and normalization
+  domain: linear_algebra
+  chain: C01
+  equation: x in R^n
+  sustainability_use: Coupled system state representation
+  animation_primitive: STATE_TRAJECTORY
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-002
+  title: Linear transformations
+  domain: linear_algebra
+  chain: C01
+  equation: y = A x
+  sustainability_use: Propagation between state representations
+  animation_primitive: COORDINATE_TRANSFORMATION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-003
+  title: Eigenmodes and spectral decomposition
+  domain: linear_algebra
+  chain: C02
+  equation: A v = lambda v
+  sustainability_use: Dominant structural or dynamical modes
+  animation_primitive: EIGENMODE_DECOMPOSITION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-004
+  title: SVD and principal coordinates
+  domain: linear_algebra
+  chain: C03
+  equation: X = U Sigma V^T
+  sustainability_use: Reduced representation of high-dimensional states
+  animation_primitive: SUBSPACE_PROJECTION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-005
+  title: Gradient fields
+  domain: calculus
+  chain: C06
+  equation: grad f(x)
+  sustainability_use: Local sensitivity and directional change
+  animation_primitive: VECTOR_FIELD
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-006
+  title: Divergence and conservation
+  domain: vector_calculus
+  chain: C01
+  equation: div F
+  sustainability_use: Source-sink and conservation diagnostics
+  animation_primitive: FIELD_DIAGNOSTIC
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-007
+  title: Curl and circulation
+  domain: vector_calculus
+  chain: C01
+  equation: curl F
+  sustainability_use: Local circulation structure
+  animation_primitive: FIELD_DIAGNOSTIC
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-008
+  title: Jacobian and local linearization
+  domain: dynamical_systems
+  chain: C02
+  equation: J_ij = partial f_i / partial x_j
+  sustainability_use: Local coupling and stability structure
+  animation_primitive: LOCAL_LINEARIZATION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-009
+  title: Hessian and local curvature
+  domain: optimization
+  chain: C06
+  equation: H = nabla^2 f
+  sustainability_use: Curvature of objectives and constraints
+  animation_primitive: CURVATURE_FIELD
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-010
+  title: ODE flows
+  domain: dynamical_systems
+  chain: C01
+  equation: dx/dt = f(x,u,eta)
+  sustainability_use: Time evolution under control and disturbance
+  animation_primitive: TIME_EVOLUTION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-011
+  title: Lyapunov stability
+  domain: dynamical_systems
+  chain: C05
+  equation: dV/dt <= 0
+  sustainability_use: Local stability diagnostics
+  animation_primitive: LEVEL_SET_EVOLUTION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-012
+  title: Bifurcation and regime change
+  domain: dynamical_systems
+  chain: C04
+  equation: dx/dt = f(x;mu)
+  sustainability_use: Parameter-driven regime transition
+  animation_primitive: PARAMETER_CONTINUATION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-013
+  title: Diffusion PDE
+  domain: partial_differential_equations
+  chain: C04
+  equation: partial_t c = D laplacian c
+  sustainability_use: Spatial diffusion of heat or concentration
+  animation_primitive: FIELD_EVOLUTION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-014
+  title: Advection-diffusion
+  domain: partial_differential_equations
+  chain: C01
+  equation: partial_t c + v dot grad c = D laplacian c
+  sustainability_use: Transport plus dispersion
+  animation_primitive: FIELD_EVOLUTION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-015
+  title: Fourier decomposition
+  domain: signal_analysis
+  chain: C03
+  equation: f(t) = sum_k c_k exp(i k omega t)
+  sustainability_use: Periodic variability decomposition
+  animation_primitive: FREQUENCY_DECOMPOSITION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-016
+  title: Stochastic processes
+  domain: probability
+  chain: C04
+  equation: dX_t = b dt + sigma dW_t
+  sustainability_use: Uncertain disturbance and state evolution
+  animation_primitive: UNCERTAINTY_REALIZATION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-017
+  title: Markov transitions
+  domain: probability
+  chain: C03
+  equation: p_(t+1) = p_t P
+  sustainability_use: Discrete state-transition uncertainty
+  animation_primitive: PROBABILITY_FLOW
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-018
+  title: Bayesian updating
+  domain: inference
+  chain: C03
+  equation: p(theta|y) proportional p(y|theta)p(theta)
+  sustainability_use: Evidence-conditioned uncertainty
+  animation_primitive: DISTRIBUTION_UPDATE
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-019
+  title: KKT geometry
+  domain: optimization
+  chain: C06
+  equation: grad L = 0 with feasibility and complementarity
+  sustainability_use: Constrained sustainable operation
+  animation_primitive: CONSTRAINT_GEOMETRY
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-020
+  title: Optimal control
+  domain: control
+  chain: C06
+  equation: min_u integral L(x,u) dt
+  sustainability_use: Intervention trajectories under constraints
+  animation_primitive: CONTROL_TRAJECTORY
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-021
+  title: Graph Laplacian
+  domain: graph_theory
+  chain: C02
+  equation: L = D - A
+  sustainability_use: Connectivity, diffusion, and spectral structure
+  animation_primitive: NETWORK_SPECTRUM
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-022
+  title: Network flow
+  domain: networks
+  chain: C01
+  equation: B f = b
+  sustainability_use: Capacity-constrained service/resource flow
+  animation_primitive: FLOW_NETWORK
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-023
+  title: Percolation
+  domain: networks
+  chain: C04
+  equation: P_inf(p)
+  sustainability_use: Connectivity loss under removals
+  animation_primitive: TOPOLOGY_TRANSITION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-024
+  title: Cascading failure
+  domain: resilience
+  chain: C04
+  equation: L_i > C_i implies failure
+  sustainability_use: Failure propagation under declared load rules
+  animation_primitive: FAILURE_PROPAGATION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-025
+  title: Multilayer networks
+  domain: networks
+  chain: C02
+  equation: G = {G^[l], C^[lm]}
+  sustainability_use: Interdependent systems and interfaces
+  animation_primitive: MULTILAYER_GRAPH
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-026
+  title: Criticality scoring
+  domain: resilience
+  chain: C05
+  equation: S_i = Phi(state,topology,consequence)
+  sustainability_use: Prioritization of nodes or interfaces
+  animation_primitive: RANKING_FIELD
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-027
+  title: Reliability systems
+  domain: reliability
+  chain: C05
+  equation: R_sys(t)
+  sustainability_use: Component-to-system reliability structure
+  animation_primitive: RELIABILITY_GRAPH
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-028
+  title: Hazard fields
+  domain: risk
+  chain: C04
+  equation: r(x,t) = Phi(h,e,v)
+  sustainability_use: Hazard-exposure-vulnerability representation
+  animation_primitive: SPATIOTEMPORAL_FIELD
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-029
+  title: Recovery trajectories
+  domain: resilience
+  chain: C05
+  equation: x(t0) -> x(tr)
+  sustainability_use: Time-dependent restoration path
+  animation_primitive: RECOVERY_ACTION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-030
+  title: Performance-loss integral
+  domain: resilience
+  chain: C05
+  equation: L = integral_(t0)^(tr) [Q0-Q(t)] dt
+  sustainability_use: Explicit performance-loss functional
+  animation_primitive: AREA_INTEGRAL
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-031
+  title: Stock-flow balance
+  domain: sustainability
+  chain: C08
+  equation: ds/dt = I - O
+  sustainability_use: Resource conservation and metabolism
+  animation_primitive: STOCK_FLOW
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-032
+  title: Carbon stock-flow
+  domain: sustainability
+  chain: C08
+  equation: dC/dt = E - R
+  sustainability_use: Carbon mass-balance accounting
+  animation_primitive: STOCK_FLOW
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-033
+  title: Circular material flow
+  domain: sustainability
+  chain: C08
+  equation: x_(t+1) = A x_t + b_t
+  sustainability_use: Reuse/recovery loops with losses
+  animation_primitive: CIRCULAR_FLOW
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-034
+  title: Life-cycle inventory map
+  domain: sustainability
+  chain: C08
+  equation: g = B x
+  sustainability_use: Activity-to-intervention accounting
+  animation_primitive: LINEAR_ACCOUNTING_MAP
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-035
+  title: Feasible sustainability set
+  domain: viability
+  chain: C08
+  equation: 'K = {x: g_j(x)<=0, h_k(x)=0}'
+  sustainability_use: Constraint-satisfying operating states
+  animation_primitive: FEASIBLE_REGION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-036
+  title: Viability kernel
+  domain: viability
+  chain: C05
+  equation: Viab_F(K)
+  sustainability_use: States from which constraints can remain satisfied
+  animation_primitive: VIABILITY_REGION
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-037
+  title: Tangent spaces
+  domain: differential_geometry
+  chain: C02
+  equation: T_x M
+  sustainability_use: Locally admissible perturbation directions
+  animation_primitive: TANGENT_BUNDLE
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-038
+  title: Riemannian metric
+  domain: differential_geometry
+  chain: C05
+  equation: ds^2 = dx^T g(x) dx
+  sustainability_use: State-dependent infinitesimal distance
+  animation_primitive: METRIC_FIELD
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-039
+  title: Geodesics
+  domain: differential_geometry
+  chain: C06
+  equation: gamma* = argmin_gamma L_g(gamma)
+  sustainability_use: Metric-minimizing path on a manifold
+  animation_primitive: GEODESIC_PATH
+  maturity: ROADMAP
+  evidence_state: PROPOSED
+- id: VM-040
+  title: Distance to viability boundary
+  domain: differential_geometry
+  chain: C05
+  equation: rho_g(x) = d_g(x, boundary V)
+  sustainability_use: Geometric margin to a declared boundary
+  animation_primitive: BOUNDARY_DISTANCE
+  maturity: ROADMAP
+  evidence_state: PROPOSED
