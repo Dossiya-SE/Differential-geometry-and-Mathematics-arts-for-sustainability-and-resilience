@@ -1,0 +1,59 @@
+schema_version: 1.0.0
+id: MSR-ANIM-0002
+title: Resilience landscape
+status: SPECIFIED
+renderer_status: CANDIDATE_READY
+evidence_state: PROPOSED
+scientific_question: How can a scalar resilience or performance landscape be visualized while making explicit that the landscape is a chosen mathematical model?
+mathematical_object:
+  name: Scalar field or potential over state space
+  state_space: 'x in R^n; R: R^n -> R'
+  equations:
+  - R = R(x;theta)
+  - grad R(x) = [partial R/partial x_i]
+  - dx/dt = -M(x) grad R(x) + xi(t)
+assumptions:
+- R is a declared scalar model and is not called a validated resilience metric unless separately validated.
+- The mobility M(x) and disturbance xi(t) are explicit model choices.
+- Height and color encode the same scalar using independent cues.
+sustainability_interpretation:
+  claim: A scalar field can expose basins, ridges, gradients, and sensitivity of a declared performance/resilience functional.
+  boundary: Landscape topology is not evidence that real infrastructure follows gradient dynamics.
+visual_encodings:
+- semantic: landscape height
+  mathematical_source: R(x;theta)
+  invariant: surface height equals evaluated scalar field
+  non_color_cue: height, contours, and numeric labels
+- semantic: gradient direction
+  mathematical_source: grad R(x)
+  invariant: arrow direction matches the evaluated gradient
+  non_color_cue: arrow glyphs
+- semantic: state trajectory
+  mathematical_source: declared dynamical law
+  invariant: trajectory samples follow the specified integration rule
+  non_color_cue: directed line with time markers
+motion_semantics:
+- type: PARAMETER_CONTINUATION
+  meaning: A declared parameter may deform the scalar field and its critical points.
+- type: TIME_EVOLUTION
+  meaning: A state trajectory moves only under the declared dynamical law.
+validation:
+  mathematical_invariants:
+  - Rendered critical points satisfy the selected numerical stationarity tolerance.
+  - Contour labels and surface heights agree at sampled points.
+  determinism: Fixed parameters and seeds must produce the same scene-level mathematical state.
+  visual_semantics: Every visible primitive must map to a declared mathematical or evidence semantic.
+  accessibility: Static fallback, alternative text, reduced motion, and non-color cues are required.
+  provenance: Rendered artifacts must retain spec, model, experiment, renderer, environment, and output hashes.
+accessibility:
+  alt_text: A scalar surface with contours shows basins and ridges; arrows indicate local gradients and a labeled path shows a model trajectory.
+  static_fallback: true
+  reduced_motion: true
+  color_independent: true
+provenance:
+  program_id: MSR-VM-001
+  visual_standard_id: MSR-VIS-001
+  model_contracts: []
+  experiment_ids: []
+  source_references:
+  - docs/VISUAL_MATHEMATICS_RESEARCH_PROGRAM.md
