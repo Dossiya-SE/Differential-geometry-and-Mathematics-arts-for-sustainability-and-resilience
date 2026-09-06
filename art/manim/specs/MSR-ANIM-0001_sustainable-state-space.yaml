@@ -1,0 +1,59 @@
+schema_version: 1.0.0
+id: MSR-ANIM-0001
+title: Sustainable state space
+status: SPECIFIED
+renderer_status: CANDIDATE_READY
+evidence_state: PROPOSED
+scientific_question: How can state, dynamics, constraints, and the boundary of a sustainable feasible set be distinguished without implying empirical validation?
+mathematical_object:
+  name: Controlled dynamical system inside a feasible set
+  state_space: x in R^n
+  equations:
+  - dx/dt = f(x,u,eta)
+  - 'K = {x : g_j(x) <= 0 and h_k(x) = 0}'
+  - x_tilde_i = (x_i-l_i)/(u_i-l_i)
+assumptions:
+- The displayed dimensions are an explicit projection of a higher-dimensional state when n>3.
+- Constraints are model declarations and are not automatically policy or physical limits.
+- Normalization bounds must be declared and cannot be inferred from the renderer.
+sustainability_interpretation:
+  claim: A state trajectory can be compared geometrically with declared sustainability constraints.
+  boundary: The animation does not establish that K is empirically correct, normatively sufficient, or viable.
+visual_encodings:
+- semantic: state point
+  mathematical_source: x(t)
+  invariant: point coordinates equal the declared state projection
+  non_color_cue: filled marker with persistent label x(t)
+- semantic: admissible boundary
+  mathematical_source: boundary K
+  invariant: boundary is computed from declared constraints
+  non_color_cue: thick closed contour with boundary label
+- semantic: trajectory
+  mathematical_source: solution of dx/dt=f(x,u,eta)
+  invariant: path samples are solver outputs, not artist control points
+  non_color_cue: directed path with time ticks
+motion_semantics:
+- type: TIME_EVOLUTION
+  meaning: The state marker advances according to the declared dynamical model.
+- type: CAMERA_EXPOSITION
+  meaning: Camera movement may reveal geometry but carries no scientific state change.
+validation:
+  mathematical_invariants:
+  - Every rendered state satisfies the coordinates supplied by the model.
+  - Boundary samples satisfy the declared constraint representation within tolerance.
+  determinism: Fixed parameters and seeds must produce the same scene-level mathematical state.
+  visual_semantics: Every visible primitive must map to a declared mathematical or evidence semantic.
+  accessibility: Static fallback, alternative text, reduced motion, and non-color cues are required.
+  provenance: Rendered artifacts must retain spec, model, experiment, renderer, environment, and output hashes.
+accessibility:
+  alt_text: A state point follows a directed trajectory inside a closed feasible region; a labeled boundary separates admitted and non-admitted states.
+  static_fallback: true
+  reduced_motion: true
+  color_independent: true
+provenance:
+  program_id: MSR-VM-001
+  visual_standard_id: MSR-VIS-001
+  model_contracts: []
+  experiment_ids: []
+  source_references:
+  - docs/VISUAL_MATHEMATICS_RESEARCH_PROGRAM.md
