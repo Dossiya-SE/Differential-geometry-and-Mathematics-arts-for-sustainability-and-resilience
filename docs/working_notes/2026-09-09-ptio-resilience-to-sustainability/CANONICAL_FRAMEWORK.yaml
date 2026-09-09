@@ -1,0 +1,60 @@
+framework:
+  status: canonical_working_design
+  canonical_date: '2026-09-09'
+  title: 'Causal–Hybrid Multilayer Resilience-to-Sustainability Framework for Interdependent Power–Transportation Systems'
+  governance_note: 'Working design archive only; does not override repository-level application-domain or evidence-status governance.'
+
+stages:
+  - id: 1
+    name: 'Multilayer Structure'
+    role: 'P–T–I–O architecture'
+    question: 'What exists?'
+  - id: 2
+    name: 'Causal Mechanisms'
+    role: 'Cross-layer cause-effect pathways'
+    question: 'Why does disruption propagate?'
+  - id: 3
+    name: 'Coupled Hybrid Multiscale Dynamics'
+    role: 'Coupling + continuous dynamics + discrete events + timescales'
+    question: 'How and when does it evolve?'
+  - id: 4
+    name: 'Feedback & Control'
+    role: 'Information, organization, decisions, intervention'
+    question: 'How does the system respond?'
+  - id: 5
+    name: 'Viability'
+    role: 'Survival/recoverability under constraints'
+    question: 'Can it survive?'
+  - id: 6
+    name: 'Resilience-to-Sustainability Transformation Interface'
+    role: 'Translate resilience findings into transformation requirements'
+    question: 'What do the resilience results imply for sustainability?'
+  - id: 7
+    name: 'Sustainable Transformation Pathways'
+    role: 'Technical, organizational, environmental and policy transformation'
+    question: 'What should be changed for long-term sustainability?'
+
+mathematical_hierarchy: '(\\mathcal G,Y,Z) \\rightarrow \\mathcal C \\rightarrow (Z,F,J,\\tau) \\rightarrow (\\mathcal H_{\\rm obs},\\hat Y,I,O,\\pi,u) \\rightarrow (K,\\mathcal V) \\rightarrow R \\xrightarrow{\\mathcal T_{ST}} S'
+
+visual_domains:
+  resilience_analysis: [1, 2, 3, 4, 5]
+  translation_interface: [6]
+  sustainable_transformation: [7]
+
+state_projection:
+  canonical_state: 'Y'
+  displayed_coordinates: ['Y₁', 'Y₂']
+  rejected_coordinates: ['X₁', 'X₂']
+  caption: 'Y₁,Y₂: illustrative coordinates of a two-dimensional projection of the coupled system state Y.'
+
+visual_rule: 'CHANGE THE VISUAL HIERARCHY, NOT THE SCIENTIFIC CONTENT.'
+
+not_approved_without_explicit_update:
+  - 'SDG icons or SDG numbering'
+  - 'extra pathway variables'
+  - 'extra resilience metrics'
+  - 'extra application outputs'
+  - 'non-frozen symbols such as S_T, S_O, S_E, S_P'
+  - 'geometry-heavy symbols such as ∂V'
+  - 'explanatory subtitles beneath the mathematical hierarchy'
+  - 'new scientific claims introduced only through decorative visuals'
