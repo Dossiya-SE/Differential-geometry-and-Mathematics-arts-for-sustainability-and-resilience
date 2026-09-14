@@ -9,6 +9,28 @@ This repository is a domain-neutral research platform for investigating how diff
 
 > **Traceability rule:** every substantive claim connects to evidence; every mathematical object connects to a specification; every computation connects to tests; every figure connects to reproducible data and declared visual encodings.
 
+## JSON-driven tensor geometry demonstrator
+
+<p align="center">
+  <img src="figures/generated/MSR-FIG-0002_tensor-geometry.svg" width="100%" alt="Tensor geometry demonstrator linking multilayer coupling, metric ellipsoids, a sustainable viability boundary and an intervention pathway" />
+</p>
+
+`MSR-FIG-0002` is generated deterministically from [`art/tensor-geometry/tensor_geometry.json`](art/tensor-geometry/tensor_geometry.json). The source specification controls the system layers, hazard and mechanism coordinates, coupling components, state-space metric samples, trajectory, viability boundary and intervention annotation; the committed SVG and provenance record must regenerate exactly from that JSON.
+
+The mathematical demonstrator uses
+
+```math
+C\in V\otimes V^*\otimes H^*\otimes M^*,
+\qquad
+M^i{}_j=C^i{}_{jhm}\eta^h\mu^m,
+\qquad
+r^i=M^i{}_j x^j.
+```
+
+**Evidence boundary:** the normalized coupling values are `ILLUSTRATIVE_SYNTHETIC`; they are not empirical infrastructure estimates, and this visual does **not** change the repository's `NOT_SELECTED` application-domain, hazard, system-boundary, or demonstrator status.
+
+[Interactive tensor view](docs/tensor-geometry.qmd) · [JSON source](art/tensor-geometry/tensor_geometry.json) · [provenance](figures/generated/MSR-FIG-0002.provenance.json) · [visual contract](art/tensor-geometry/README.md)
+
 ## Governing status
 
 | Field | Current state |
