@@ -1,3 +1,5 @@
+"""Regression and reproducibility tests for the JSON-driven tensor geometry visual."""
+
 from __future__ import annotations
 
 import json
