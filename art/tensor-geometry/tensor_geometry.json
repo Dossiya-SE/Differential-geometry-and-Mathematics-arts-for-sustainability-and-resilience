@@ -6,55 +6,310 @@
   "evidence_status": "ILLUSTRATIVE_SYNTHETIC",
   "claim_boundary": "All normalized coupling values are synthetic design data for visualization and software verification; they are not empirical infrastructure estimates.",
   "systems": [
-    {"id": "P", "label": "Power", "class": "physical"},
-    {"id": "T", "label": "Transport", "class": "physical"},
-    {"id": "I", "label": "Information", "class": "nonphysical"},
-    {"id": "O", "label": "Organization", "class": "nonphysical"}
+    {
+      "id": "P",
+      "label": "Power",
+      "class": "physical"
+    },
+    {
+      "id": "T",
+      "label": "Transport",
+      "class": "physical"
+    },
+    {
+      "id": "I",
+      "label": "Information",
+      "class": "nonphysical"
+    },
+    {
+      "id": "O",
+      "label": "Organization",
+      "class": "nonphysical"
+    }
   ],
   "hazards": [
-    {"id": "baseline", "label": "Baseline", "intensity": 0.2, "tensor_factor": 0.55},
-    {"id": "flood", "label": "Flood", "intensity": 0.9, "tensor_factor": 1.0},
-    {"id": "heat", "label": "Heat", "intensity": 0.65, "tensor_factor": 0.82}
+    {
+      "id": "baseline",
+      "label": "Baseline",
+      "intensity": 0.2,
+      "tensor_factor": 0.55
+    },
+    {
+      "id": "flood",
+      "label": "Flood",
+      "intensity": 0.9,
+      "tensor_factor": 1.0
+    },
+    {
+      "id": "heat",
+      "label": "Heat",
+      "intensity": 0.65,
+      "tensor_factor": 0.82
+    }
   ],
   "mechanisms": [
-    {"id": "physical", "label": "Physical", "weight": 1.0, "tensor_factor": 1.0},
-    {"id": "information", "label": "Information", "weight": 0.8, "tensor_factor": 0.72},
-    {"id": "economic", "label": "Economic", "weight": 0.55, "tensor_factor": 0.46},
-    {"id": "organizational", "label": "Organizational", "weight": 0.7, "tensor_factor": 0.64}
+    {
+      "id": "physical",
+      "label": "Physical",
+      "weight": 1.0,
+      "tensor_factor": 1.0
+    },
+    {
+      "id": "information",
+      "label": "Information",
+      "weight": 0.8,
+      "tensor_factor": 0.72
+    },
+    {
+      "id": "economic",
+      "label": "Economic",
+      "weight": 0.55,
+      "tensor_factor": 0.46
+    },
+    {
+      "id": "organizational",
+      "label": "Organizational",
+      "weight": 0.7,
+      "tensor_factor": 0.64
+    }
   ],
   "coupling_tensor": {
-    "notation": "C_ij^(hm) = B_ij a_h b_m",
+    "notation": "C^i_jhm = B^i_j a_h b_m",
     "factorization": "separable_illustrative",
     "units": "normalized_dimensionless_weight",
     "base_coupling": [
-      [0.0, 0.82, 0.34, 0.22],
-      [0.46, 0.0, 0.28, 0.27],
-      [0.52, 0.41, 0.0, 0.43],
-      [0.48, 0.54, 0.57, 0.0]
+      [
+        0.0,
+        0.82,
+        0.34,
+        0.22
+      ],
+      [
+        0.46,
+        0.0,
+        0.28,
+        0.27
+      ],
+      [
+        0.52,
+        0.41,
+        0.0,
+        0.43
+      ],
+      [
+        0.48,
+        0.54,
+        0.57,
+        0.0
+      ]
     ]
   },
   "state_space": {
     "axes": [
-      {"id": "x1", "label": "Infrastructure state x1"},
-      {"id": "x2", "label": "Infrastructure state x2"}
+      {
+        "id": "x1",
+        "label": "Infrastructure state x1"
+      },
+      {
+        "id": "x2",
+        "label": "Infrastructure state x2"
+      }
     ],
-    "linear_vector_field": {"A": [[-0.55, 0.3], [-0.22, -0.42]], "b": [0.33, 0.25]},
+    "linear_vector_field": {
+      "A": [
+        [
+          -0.55,
+          0.3
+        ],
+        [
+          -0.22,
+          -0.42
+        ]
+      ],
+      "b": [
+        0.33,
+        0.25
+      ]
+    },
     "metric_samples": [
-      {"x": [0.14, 0.18], "g": [[1.8, 0.42], [0.42, 1.05]]},
-      {"x": [0.23, 0.63], "g": [[1.35, -0.32], [-0.32, 1.7]]},
-      {"x": [0.52, 0.5], "g": [[1.1, 0.18], [0.18, 1.55]]},
-      {"x": [0.72, 0.24], "g": [[1.65, 0.38], [0.38, 1.2]]},
-      {"x": [0.84, 0.74], "g": [[1.95, -0.52], [-0.52, 1.1]]}
+      {
+        "x": [
+          0.14,
+          0.18
+        ],
+        "g": [
+          [
+            1.8,
+            0.42
+          ],
+          [
+            0.42,
+            1.05
+          ]
+        ]
+      },
+      {
+        "x": [
+          0.23,
+          0.63
+        ],
+        "g": [
+          [
+            1.35,
+            -0.32
+          ],
+          [
+            -0.32,
+            1.7
+          ]
+        ]
+      },
+      {
+        "x": [
+          0.52,
+          0.5
+        ],
+        "g": [
+          [
+            1.1,
+            0.18
+          ],
+          [
+            0.18,
+            1.55
+          ]
+        ]
+      },
+      {
+        "x": [
+          0.72,
+          0.24
+        ],
+        "g": [
+          [
+            1.65,
+            0.38
+          ],
+          [
+            0.38,
+            1.2
+          ]
+        ]
+      },
+      {
+        "x": [
+          0.84,
+          0.74
+        ],
+        "g": [
+          [
+            1.95,
+            -0.52
+          ],
+          [
+            -0.52,
+            1.1
+          ]
+        ]
+      }
     ],
-    "trajectory": [[0.12, 0.14], [0.22, 0.23], [0.34, 0.31], [0.45, 0.43], [0.57, 0.54], [0.68, 0.62], [0.79, 0.69]]
+    "trajectory": [
+      [
+        0.12,
+        0.14
+      ],
+      [
+        0.22,
+        0.23
+      ],
+      [
+        0.34,
+        0.31
+      ],
+      [
+        0.45,
+        0.43
+      ],
+      [
+        0.57,
+        0.54
+      ],
+      [
+        0.68,
+        0.62
+      ],
+      [
+        0.79,
+        0.69
+      ]
+    ]
   },
   "viability": {
     "set_label": "V",
-    "boundary": {"shape": "rotated_superellipse", "center": [0.52, 0.5], "radii": [0.43, 0.34], "exponent": 2.8, "rotation_degrees": -7.0},
-    "metric": [[1.4, 0.24], [0.24, 1.05]],
-    "trajectory": [[0.18, 0.2], [0.28, 0.31], [0.38, 0.43], [0.5, 0.46], [0.61, 0.41], [0.7, 0.5], [0.78, 0.64]],
+    "boundary": {
+      "shape": "rotated_superellipse",
+      "center": [
+        0.52,
+        0.5
+      ],
+      "radii": [
+        0.43,
+        0.34
+      ],
+      "exponent": 2.8,
+      "rotation_degrees": -7.0
+    },
+    "metric": [
+      [
+        1.4,
+        0.24
+      ],
+      [
+        0.24,
+        1.05
+      ]
+    ],
+    "trajectory": [
+      [
+        0.18,
+        0.2
+      ],
+      [
+        0.28,
+        0.31
+      ],
+      [
+        0.38,
+        0.43
+      ],
+      [
+        0.5,
+        0.46
+      ],
+      [
+        0.61,
+        0.41
+      ],
+      [
+        0.7,
+        0.5
+      ],
+      [
+        0.78,
+        0.64
+      ]
+    ],
     "boundary_samples": 720,
-    "decision": {"notation": "u* = arg min J(x,u)", "meaning": "Admissible intervention selected to maintain or restore viability."}
+    "decision": {
+      "notation": "u* = arg min J(x,u)",
+      "meaning": "Admissible intervention selected to maintain or restore viability."
+    }
   },
-  "style": {"canvas": [1800, 980], "motion_seconds": 12}
+  "style": {
+    "canvas": [
+      1800,
+      980
+    ],
+    "motion_seconds": 12
+  }
 }
