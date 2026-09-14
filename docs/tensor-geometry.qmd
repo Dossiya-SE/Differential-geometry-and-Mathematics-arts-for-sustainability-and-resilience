@@ -1,0 +1,148 @@
+---
+title: "JSON-driven tensor geometry"
+description: "Interactive inspection of the tensor-coupling specification that generates MSR-FIG-0002."
+---
+
+The visual below is generated from a single machine-readable specification:
+
+`art/tensor-geometry/tensor_geometry.json`
+
+Its coupling values are **illustrative synthetic normalized weights** used for visualization and software verification. They are not empirical infrastructure estimates.
+
+<p align="center">
+  <img src="../figures/generated/MSR-FIG-0002_tensor-geometry.svg"
+       style="width:100%;max-width:1800px"
+       alt="Tensor geometry visual linking coupling tensors, state-space metric ellipsoids, viability distance and intervention." />
+</p>
+
+## Interactive tensor slice
+
+Choose a hazard and mechanism. The browser reads the same JSON specification used by the deterministic SVG renderer.
+
+<div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem">
+  <label>Hazard
+    <select id="tensor-hazard"></select>
+  </label>
+  <label>Mechanism
+    <select id="tensor-mechanism"></select>
+  </label>
+</div>
+
+<div id="tensor-status" style="margin-bottom:.75rem;font-size:.95rem"></div>
+<svg id="tensor-matrix" viewBox="0 0 720 480"
+     role="img" aria-label="Interactive tensor coupling matrix"
+     style="width:100%;max-width:820px;border:1px solid #d8e2dc;border-radius:12px;background:#fbfcfa"></svg>
+
+<script>
+(() => {
+  const NS = "http://www.w3.org/2000/svg";
+  const dataUrl = "../art/tensor-geometry/tensor_geometry.json";
+  const hazardSelect = document.getElementById("tensor-hazard");
+  const mechanismSelect = document.getElementById("tensor-mechanism");
+  const svg = document.getElementById("tensor-matrix");
+  const status = document.getElementById("tensor-status");
+
+  const el = (name, attrs = {}, text = "") => {
+    const node = document.createElementNS(NS, name);
+    Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, String(value)));
+    if (text) node.textContent = text;
+    return node;
+  };
+
+  const mix = (a, b, t) => a.map((v, i) => Math.round(v + (b[i] - v) * t));
+  const hex = rgb => "#" + rgb.map(v => v.toString(16).padStart(2, "0")).join("");
+  const color = (v, max) => {
+    const n = max > 0 ? Math.max(0, Math.min(1, v / max)) : 0;
+    const blue = [53,111,145], pale = [235,241,226], gold = [204,157,49], red = [174,68,47];
+    if (n < 0.45) return hex(mix(blue, pale, n / 0.45));
+    if (n < 0.78) return hex(mix(pale, gold, (n - 0.45) / 0.33));
+    return hex(mix(gold, red, (n - 0.78) / 0.22));
+  };
+
+  const render = data => {
+    const systems = data.systems;
+    const h = hazardSelect.value;
+    const m = mechanismSelect.value;
+    const hazard = data.hazards.find(x => x.id === h);
+    const mechanismScale = m === "__contracted__"
+      ? data.mechanisms.reduce((sum, item) => sum + item.weight * item.tensor_factor, 0)
+      : data.mechanisms.find(x => x.id === m).tensor_factor;
+    const matrix = data.coupling_tensor.base_coupling.map(row =>
+      row.map(value => value * hazard.tensor_factor * mechanismScale)
+    );
+
+    const max = Math.max(...matrix.flat(), 0.0001);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    const left = 145, top = 90, cell = 72;
+    systems.forEach((system, i) => {
+      svg.appendChild(el("text", {x:left + i*cell + cell/2, y:62, "text-anchor":"middle",
+        "font-size":18, "font-weight":700, fill:"#10241b"}, system.id));
+      svg.appendChild(el("text", {x:120, y:top + i*cell + 45, "text-anchor":"end",
+        "font-size":18, "font-weight":700, fill:"#10241b"}, system.id));
+    });
+
+    matrix.forEach((row, i) => row.forEach((value, j) => {
+      svg.appendChild(el("rect", {x:left+j*cell, y:top+i*cell, width:cell-4, height:cell-4,
+        rx:6, fill:color(value,max), stroke:"#ffffff"}));
+      svg.appendChild(el("text", {x:left+j*cell+(cell-4)/2, y:top+i*cell+42,
+        "text-anchor":"middle", "font-size":15, fill:"#10241b"}, value.toFixed(3)));
+    }));
+
+    svg.appendChild(el("text", {x:360, y:430, "text-anchor":"middle",
+      "font-size":17, fill:"#5b6f65"}, "source i → target j"));
+    svg.appendChild(el("text", {x:360, y:462, "text-anchor":"middle",
+      "font-size":15, fill:"#5b6f65"},
+      "Interactive view only; evidence status remains ILLUSTRATIVE_SYNTHETIC"));
+
+    const hazardLabel = hazard.label;
+    const mechanismLabel = m === "__contracted__"
+      ? "mechanism-weighted contraction"
+      : data.mechanisms.find(x => x.id === m).label;
+    status.textContent = `${hazardLabel} · ${mechanismLabel}`;
+  };
+
+  fetch(dataUrl)
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      data.hazards.forEach(item => hazardSelect.append(new Option(item.label, item.id)));
+      mechanismSelect.append(new Option("Contracted over mechanisms", "__contracted__"));
+      data.mechanisms.forEach(item => mechanismSelect.append(new Option(item.label, item.id)));
+      hazardSelect.value = data.hazards[1]?.id ?? data.hazards[0].id;
+      mechanismSelect.value = "__contracted__";
+      hazardSelect.addEventListener("change", () => render(data));
+      mechanismSelect.addEventListener("change", () => render(data));
+      render(data);
+    })
+    .catch(error => {
+      status.textContent = `Tensor JSON could not be loaded: ${error.message}`;
+    });
+})();
+</script>
+
+## Mathematical contract
+
+Let \(V\) be the four-dimensional system-state space, \(H\) the hazard-coordinate space, and \(M\) the mechanism-coordinate space. The demonstrator defines
+
+```math
+C \in V\otimes V^*\otimes H^*\otimes M^*,
+\qquad
+C^i{}_{jhm}=B^i{}_j a_h b_m.
+```
+
+For hazard coordinates \(\eta^h\) and mechanism coordinates \(\mu^m\), contraction gives a linear system operator
+
+```math
+M^i{}_j
+=
+C^i{}_{jhm}\eta^h\mu^m,
+\qquad
+r^i=M^i{}_j x^j.
+```
+
+The committed components are defined in one fixed basis and are synthetic. The tensor construction is mathematically explicit, but **no empirical infrastructure transformation law or calibrated constitutive relation is claimed**. The renderer then links this coupling operator to a state-space metric \(g(x)\), a sampled viability margin, and an intervention variable.
+
+The repository deliberately distinguishes the **visual/mathematical demonstrator** from an empirically calibrated infrastructure model.
