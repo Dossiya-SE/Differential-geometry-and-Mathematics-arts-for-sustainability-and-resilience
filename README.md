@@ -21,6 +21,7 @@ This repository is a domain-neutral research platform for investigating how diff
 | Demonstrator | `NOT_SELECTED` |
 | Chain architecture | `MSR-CA-001`, `PROPOSED_NON_EXHAUSTIVE` |
 | Scientific lifecycle | `MSR-RA-002`, `PROPOSED_ACTIVE_REVIEW` |
+| Visualization learning architecture | `MSR-LA-001`, `PROPOSED_ACTIVE_LEARNING` |
 
 Coupled Power-Water-Transportation-Solid-Waste infrastructure under urban flooding remains one incomplete candidate. It has no privileged role in the core software, mathematical contracts, or selection process.
 
@@ -50,11 +51,11 @@ The layers are linked by identifiers, citations, schemas, tests, checksums, and 
 | [`mathematics/`](mathematics/) | Notation, definitions, assumptions, derivations, propositions, and model contracts |
 | [`src/msr/`](src/msr/) | Domain-neutral reference implementations |
 | [`tests/`](tests/) | Unit, property, numerical, regression, and future cross-language tests |
-| [`experiments/`](experiments/) | Registered configurations, benchmarks, and reproducible experiment records |
+| [`experiments/`](experiments/) | Registered configurations, benchmarks, reproducible experiment records, and the learning laboratory |
 | [`schemas/`](schemas/) | Machine-readable validation contracts |
 | [`art/`](art/) | Mathematical-art encoding standard and exact visual sources |
 | [`figures/`](figures/) | Source, generated, and publication-ready figures with provenance |
-| [`docs/`](docs/) | Quarto research documentation, `MSR-RA-001`, `MSR-RA-002`, and architectural decisions |
+| [`docs/`](docs/) | Quarto research documentation, `MSR-RA-001`, `MSR-RA-002`, `MSR-LA-001`, and architectural decisions |
 | [`reproducibility/`](reproducibility/) | Environments, containers, and integrity manifests |
 | [`.github/`](.github/) | Review templates, dependency policy, and automated quality gates |
 
@@ -92,6 +93,22 @@ make experiment
 ```
 
 The experiment tests geodesic exponential/logarithmic-map consistency on the unit two-sphere. It is a mathematical verification fixture, not an application-domain result.
+
+## Mathematical visualization learning laboratory
+
+[`MSR-LA-001`](docs/learning.qmd) defines a rigorous progression from equation-to-pixel fields through differential geometry, mathematical animation, and later interactive/GPU visualization. The first milestone is a controlled sequence of 100 experiments with proficiency gates rather than tutorial completion alone.
+
+Install the learning stack and run the first registered experiment:
+
+```bash
+python -m pip install -e '.[dev,visualization]'
+pytest tests/unit/test_visualization_fields.py -q
+python experiments/learning/01_equation_to_pixel/matart_001_radial_ring.py
+```
+
+`MATART-001` generates its RGB image entirely from explicit coordinate fields. Its governing equations, parameters, invariants, tests, interpretation, and limitations are registered in [`experiments/learning/01_equation_to_pixel/MATART_001.md`](experiments/learning/01_equation_to_pixel/MATART_001.md).
+
+The learning rule is prediction before rendering: analyze the function and predict each parameter's effect before changing the code.
 
 ## Evidence-first literature review
 

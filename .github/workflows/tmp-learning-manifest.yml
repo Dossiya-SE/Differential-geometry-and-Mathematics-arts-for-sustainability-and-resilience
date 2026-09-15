@@ -1,0 +1,60 @@
+name: Temporary learning manifest hashes
+
+on:
+  push:
+    branches:
+      - feat/mathematical-visualization-learning-lab
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  hashes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install formatter
+        run: python -m pip install -e '.[dev]'
+      - name: Format learning Python files in the temporary workspace
+        run: ruff format src/msr/visualization/fields.py tests/unit/test_visualization_fields.py
+      - name: Show exact formatted files and SHA-256 values
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+
+          formatted = [
+              "src/msr/visualization/fields.py",
+              "tests/unit/test_visualization_fields.py",
+          ]
+          for relative in formatted:
+              print(f"BEGIN_FILE {relative}")
+              print(Path(relative).read_text(encoding="utf-8"), end="")
+              print(f"END_FILE {relative}")
+
+          paths = [
+              "README.md",
+              "_quarto.yml",
+              "pyproject.toml",
+              "docs/learning.qmd",
+              "experiments/learning/README.md",
+              "experiments/learning/01_equation_to_pixel/MATART_001.md",
+              "experiments/learning/01_equation_to_pixel/matart_001_radial_ring.py",
+              "src/msr/visualization/__init__.py",
+              "src/msr/visualization/fields.py",
+              "tests/unit/test_visualization_fields.py",
+          ]
+          print("BEGIN_LEARNING_HASHES")
+          for relative in paths:
+              data = Path(relative).read_bytes()
+              digest = hashlib.sha256(data).hexdigest()
+              print(f"{digest}  {relative}")
+          print("END_LEARNING_HASHES")
+          PY

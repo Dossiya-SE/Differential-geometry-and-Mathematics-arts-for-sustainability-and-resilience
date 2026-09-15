@@ -1,0 +1,10 @@
+# MVS Scientific Core Engine v0.1
+# Python 3.12 baseline. Versions are frozen for reproducible engine-pack CI.
+# NumPy 2.3.5 is the newest 2.3.x release before np.trapz was removed in 2.4;
+# Geomstats 2.8.0 still imports that API, so this compatibility pin is intentional.
+numpy==2.3.5
+scipy==1.18.0
+sympy==1.14.0
+geomstats==2.8.0
+networkx==3.6.1
+ortools==9.15.6755

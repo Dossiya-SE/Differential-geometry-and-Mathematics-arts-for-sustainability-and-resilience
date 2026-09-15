@@ -1,0 +1,19 @@
+% Canonical editable mathematical source
+% EQ-MODEL-001
+\newcommand{\ModelDynamics}{\dot{\mathbf{x}}=\mathbf{f}(\mathbf{x},\mathbf{u},\boldsymbol{\eta},\boldsymbol{\theta},t)}
+% EQ-OBS-001
+\newcommand{\ObservationModel}{\mathbf{y}_k=\mathbf{h}(\mathbf{x}_k,\boldsymbol{\theta})+\boldsymbol{\varepsilon}_k}
+% EQ-CONSTRAINT-001
+\newcommand{\AdmissibleConstraint}{\mathbf{g}(\mathbf{x},\mathbf{u})\le 0}
+% EQ-VERIFY-001
+\newcommand{\VerificationError}{\varepsilon_h=\lVert \mathbf{x}_h-\mathbf{x}_{\mathrm{ref}}\rVert\to0}
+% EQ-CAL-001
+\newcommand{\CalibrationObjective}{\widehat{\boldsymbol{\theta}}=\arg\min_{\boldsymbol{\theta}}J(\boldsymbol{\theta})}
+% EQ-VAL-001
+\newcommand{\ValidationDistance}{D=\lVert \mathbf{y}_{\mathrm{model}}-\mathbf{y}_{\mathrm{observed}}\rVert}
+% EQ-SENS-001
+\newcommand{\Sensitivity}{S_i=\partial Y/\partial \theta_i}
+% EQ-UQ-001
+\newcommand{\UncertaintyTube}{\mathcal{U}_t=\{\mathbf{x}:(\mathbf{x}-\boldsymbol{\mu}_t)^T\Sigma_t^{-1}(\mathbf{x}-\boldsymbol{\mu}_t)\le c\}}
+% EQ-CONCLUSION-001
+\newcommand{\BoundedConclusion}{c^\star\in\mathcal{C}_{\mathrm{admissible}}}

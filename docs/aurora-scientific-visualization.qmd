@@ -1,0 +1,465 @@
+---
+title: "Aurora Mathematical and Scientific Visualization Roadmap"
+subtitle: "From procedural learning fields to physically grounded rendering"
+---
+
+## Status and scientific boundary
+
+This roadmap extends `MSR-LA-001` from equation-driven mathematical art toward a reproducible scientific-visualization workflow for auroral phenomena.
+
+The current $U$, $V$, $K_s$, and $Q_s$ equations used in the learning reconstruction are **illustrative procedural equations**. They are useful for learning coordinate transforms, scale families, oscillatory fields, compositing, and rendering, but they are **not a canonical physical model of the aurora**. The rigorous progression is therefore to preserve them as a mathematical-art learning model and progressively replace or augment them with physically interpretable geometry, dynamics, emission physics, camera modeling, and validation.
+
+The governing scientific pipeline is
+
+$$
+\boxed{
+\text{Physics}
+\rightarrow
+\text{Mathematical model}
+\rightarrow
+\text{Numerical computation}
+\rightarrow
+\text{Geometry}
+\rightarrow
+\text{Optical field}
+\rightarrow
+\text{Rendering}
+\rightarrow
+\text{Verification}
+}
+$$
+
+A candidate aurora-specific dependency chain is
+
+$$
+(x,y,z,t)
+\rightarrow
+U
+\rightarrow
+V
+\rightarrow
+\mathbf r(u,v,t)
+\rightarrow
+K,H
+\rightarrow
+Q_\lambda
+\rightarrow
+I_\lambda
+\rightarrow
+\text{camera}
+\rightarrow
+\text{image}.
+$$
+
+The final rendered image is an output of the model, not the starting point.
+
+## 1. Mathematics inventory
+
+The mathematical curriculum is organized into nine layers.
+
+| Mathematical area | Required concepts | Role |
+|---|---|---|
+| Coordinate geometry | Cartesian, cylindrical, spherical coordinates | Position structures in 3D |
+| Linear algebra | vectors, matrices, transformations, eigenvalues | rotations, deformation, fields |
+| Multivariable calculus | gradients, Jacobians, divergence, curl | spatial-field analysis |
+| Vector calculus | $\nabla f$, $\nabla\cdot\mathbf F$, $\nabla\times\mathbf F$ | electromagnetic and flow structure |
+| Parametric geometry | $\mathbf r(u,v,t)$ | construct curtains and surfaces |
+| Differential geometry | metric, normal, curvature, geodesics | characterize bending intrinsically and extrinsically |
+| Fourier/spectral mathematics | Fourier series, FFT, modes | waves, folds, scale decomposition |
+| Probability/random fields | Gaussian fields, noise, stochastic processes | controlled irregularity and variability |
+| PDEs/dynamical systems | transport, diffusion, waves, MHD approximations | physical evolution through time |
+
+### Differential-geometry requirement
+
+For a parametric surface
+
+$$
+\mathbf r(u,v),
+$$
+
+compute
+
+$$
+\mathbf r_u=\frac{\partial\mathbf r}{\partial u},
+\qquad
+\mathbf r_v=\frac{\partial\mathbf r}{\partial v}.
+$$
+
+The first fundamental form is
+
+$$
+I=
+\begin{bmatrix}
+E & F\\
+F & G
+\end{bmatrix},
+$$
+
+with
+
+$$
+E=\mathbf r_u\cdot\mathbf r_u,
+\qquad
+F=\mathbf r_u\cdot\mathbf r_v,
+\qquad
+G=\mathbf r_v\cdot\mathbf r_v.
+$$
+
+The unit normal is
+
+$$
+\mathbf n=
+\frac{\mathbf r_u\times\mathbf r_v}
+{\lVert\mathbf r_u\times\mathbf r_v\rVert}.
+$$
+
+After computing the second fundamental form $II$, Gaussian curvature is
+
+$$
+\boxed{K=\frac{\det II}{\det I}}.
+$$
+
+This distinction is mandatory: a symbol called $K_s$ in a procedural construction must not be described as geometric curvature unless curvature has actually been derived from the surface geometry.
+
+## 2. Transition from mathematical art to auroral physics
+
+A physically grounded aurora model must represent charged-particle dynamics, the geomagnetic environment, atmospheric excitation, photon emission, and observation geometry.
+
+A useful starting equation is the Lorentz force
+
+$$
+m\frac{d\mathbf v}{dt}
+=
+q\left(\mathbf E+\mathbf v\times\mathbf B\right).
+$$
+
+Magnetic-field-line geometry can be parameterized by
+
+$$
+\frac{d\mathbf r}{ds}
+=
+\frac{\mathbf B(\mathbf r)}{\lVert\mathbf B(\mathbf r)\rVert}.
+$$
+
+For an optically thin approximation, the spectral intensity observed by a camera can be represented conceptually by the line-of-sight integral
+
+$$
+I_\lambda
+=
+\int_{\text{line of sight}}
+\epsilon_\lambda(\mathbf r,t)\,ds.
+$$
+
+This is a key modeling distinction: the camera does not observe abstract geometry directly; it observes radiance accumulated along viewing rays.
+
+Useful background sources include NOAA NESDIS on auroral particle-atmosphere interactions and NOAA Space Weather Prediction Center and NASA Science on auroral emissions and colors.
+
+- NOAA NESDIS: <https://www.nesdis.noaa.gov/news/auroras-natures-light-show-captured-low-earth-orbit>
+- NOAA Space Weather Prediction Center: <https://www.swpc.noaa.gov/content/aurora-tutorial>
+- NASA Science: <https://science.nasa.gov/sun/auroras/>
+
+## 3. Spectral color must be modeled, not assigned decoratively
+
+For a scientific renderer, color should eventually be connected to spectral emission rather than a manually chosen aesthetic label.
+
+Important auroral oxygen emission lines include approximately
+
+$$
+\boxed{\lambda=557.7\ \mathrm{nm}}
+$$
+
+for the familiar green oxygen emission and
+
+$$
+\boxed{\lambda=630.0\ \mathrm{nm}}
+$$
+
+for a red oxygen emission line. Molecular nitrogen and related species contribute additional blue, violet, and pink/purple emissions depending on altitude, energy, and atmospheric conditions.
+
+A renderer should ultimately be driven by a spectral or band-resolved emissivity model such as
+
+$$
+Q(\mathbf r,\lambda,t)
+=
+Q_{\mathrm O,557.7}
++
+Q_{\mathrm O,630.0}
++
+Q_{\mathrm{N_2},\lambda}
++\cdots,
+$$
+
+followed by an explicit mapping from spectral radiance to display color.
+
+The scientific question is therefore not merely “what RGB value looks like an aurora?” but “what emission process produces the radiance arriving at the camera, and how is that radiance encoded for display?”
+
+## 4. Software architecture
+
+No single tool should carry the entire workflow.
+
+| Layer | Software | Primary role |
+|---|---|---|
+| Symbolic mathematics | SymPy | differentiation, algebra, formula verification |
+| Arrays | NumPy | coordinate grids and field evaluation |
+| Numerical science | SciPy | ODE/PDE integration, interpolation, optimization |
+| Diagnostic plots | Matplotlib | inspect equations and intermediate fields independently |
+| Scientific 3D | PyVista + VTK | meshes, vector/scalar fields, surfaces and volumes |
+| Mathematical animation | Manim | equation-by-equation explanation and geometric animation |
+| Acceleration/autodiff | JAX | JIT compilation, automatic differentiation, vectorization, accelerators |
+| GPU simulation | Taichi | large particle/field calculations when justified |
+| High-fidelity geometry/rendering | Blender + Geometry Nodes | final 3D geometry and cinematic output |
+| Advanced differentiable rendering | Mitsuba 3 | physically based and inverse/differentiable rendering |
+| Interactive publication | Three.js/WebGL/WebGPU | browser-based interactive visualizations |
+
+### PyVista/VTK
+
+PyVista is a strong initial scientific-3D layer because it provides a NumPy-oriented interface to VTK data structures and supports explicit treatment of geometry, topology, scalar fields, vector fields, meshes, and volumes.
+
+Documentation: <https://docs.pyvista.org/>
+
+### Manim
+
+Manim should be used to explain validated mathematical transformations dynamically—for example, to animate the learning sequence
+
+$$
+U\rightarrow V\rightarrow K\rightarrow Q
+$$
+
+rather than to substitute animation for the mathematics.
+
+Documentation: <https://docs.manim.community/en/stable/tutorials/quickstart.html>
+
+### JAX
+
+Once a NumPy implementation is correct, JAX can support compiled evaluation, automatic differentiation, and vectorization through concepts such as
+
+$$
+\texttt{jit},\qquad
+\texttt{grad},\qquad
+\texttt{vmap}.
+$$
+
+Documentation: <https://docs.jax.dev/en/latest/quickstart.html>
+
+### Blender Geometry Nodes
+
+Blender belongs downstream of the mathematics:
+
+$$
+\boxed{
+\text{Python mathematics}
+\rightarrow
+\text{verified arrays/mesh}
+\rightarrow
+\text{Blender}
+}
+$$
+
+not
+
+$$
+\text{Blender}
+\rightarrow
+\text{make something that merely looks mathematical}.
+$$
+
+Documentation: <https://docs.blender.org/manual/en/latest/modeling/geometry_nodes/introduction.html>
+
+### Mitsuba 3
+
+Mitsuba becomes relevant only after the forward model, scene parameters, and validation objectives are sufficiently defined. Its differentiable-rendering capabilities make a later inverse problem possible:
+
+$$
+\boxed{
+\text{observed aurora image}
+\rightarrow
+\text{inverse rendering}
+\rightarrow
+\text{estimated model parameters}
+}.
+$$
+
+Documentation: <https://mitsuba.readthedocs.io/en/stable/>
+
+## 5. First computational exercise
+
+Do not begin with Blender. Begin with a controlled two-dimensional synthetic field that can be analyzed independently.
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-3 * np.pi, 3 * np.pi, 800)
+z = np.linspace(-2 * np.pi, 2 * np.pi, 400)
+
+X, Z = np.meshgrid(x, z)
+
+U = (
+    np.sin(0.45 * X + 0.4)
+    + 0.35 * np.sin(0.90 * X + 1.2)
+)
+
+V = np.exp(
+    -(Z - 0.6) ** 2 / (2 * 1.2**2)
+) * (
+    1 + 0.6 * np.cos(2.1 * Z + 0.3)
+)
+
+field = U * V
+
+plt.figure(figsize=(14, 5))
+plt.imshow(
+    field,
+    extent=[x.min(), x.max(), z.min(), z.max()],
+    origin="lower",
+    aspect="auto",
+)
+plt.xlabel("x")
+plt.ylabel("z")
+plt.title("Synthetic U × V auroral curtain field")
+plt.colorbar()
+plt.show()
+```
+
+This example is **not auroral physics**. Its role is pedagogical: understand $U(x)$, then $V(z)$, then the composition $U(x)V(z)$ before introducing time, geometry, curvature, emission, or a camera.
+
+The progression is
+
+$$
+U(x)
+\rightarrow
+V(z)
+\rightarrow
+U(x)V(z)
+\rightarrow
+U(x,t)
+\rightarrow
+\mathbf r(u,v,t)
+\rightarrow
+\text{curvature}
+\rightarrow
+\text{emission}
+\rightarrow
+\text{camera}.
+$$
+
+## 6. Model specification that must be frozen before claiming physical fidelity
+
+| Required information | Example or decision class |
+|---|---|
+| Purpose | mathematical art vs physically plausible vs research simulation |
+| Coordinate system | Cartesian, spherical, geomagnetic |
+| Units | km, s, T, eV, nm |
+| Spatial domain | e.g. altitude interval and horizontal extent |
+| Temporal domain | seconds/minutes and sampling cadence |
+| Magnetic-field model | simplified dipole or observational/empirical model |
+| Particle model | electrons/protons, energy and pitch-angle distributions |
+| Atmospheric model | O, O$_2$, N$_2$ and altitude-dependent densities |
+| Emission model | wavelengths, excitation/quenching, emissivity |
+| Boundary conditions | particle influx and domain boundaries |
+| Initial conditions | initial particle/field/curtain state |
+| Stochastic model | distribution, correlation structure, fixed seed |
+| Camera model | position, orientation, FOV, projection, exposure |
+| Output | PNG/SVG, MP4, scientific 3D, interactive web |
+| Validation target | photograph, satellite data, published benchmark |
+| Accuracy tolerances | mathematical, numerical and observational tolerances |
+
+A visually impressive output is not sufficient to define what the computation represents. The specification must be explicit before a result is classified as scientific visualization.
+
+## 7. Proposed aurora laboratory architecture
+
+```text
+aurora-math-lab/
+├── 01_coordinates/
+├── 02_fields/
+├── 03_U_structure/
+├── 04_V_vertical_profile/
+├── 05_surface_geometry/
+├── 06_differential_geometry/
+├── 07_particle_dynamics/
+├── 08_emission_physics/
+├── 09_volume_rendering/
+├── 10_camera_model/
+├── 11_validation/
+├── 12_manim_animation/
+├── 13_pyvista_3d/
+├── 14_blender_render/
+└── tests/
+```
+
+Every stage must preserve
+
+$$
+\boxed{
+\text{Equation}
+\rightarrow
+\text{Derivation}
+\rightarrow
+\text{Implementation}
+\rightarrow
+\text{Numerical test}
+\rightarrow
+\text{Visualization}
+\rightarrow
+\text{Interpretation}
+}
+$$
+
+and must state whether the result is `mathematical-art`, `mathematical-visualization`, or `scientific-visualization`.
+
+## 8. Twelve progressive figures
+
+The first integrated notebook or reproducible script series should produce twelve dependency-ordered figures:
+
+1. coordinate grid;
+2. structural field $U$;
+3. vertical field $V$;
+4. composite $UV$ field;
+5. 3D curtain $\mathbf r(u,v)$;
+6. surface normals;
+7. metric coefficients $E,F,G$;
+8. Gaussian curvature $K$ and, where useful, mean curvature $H$;
+9. time evolution $\mathbf r(u,v,t)$;
+10. spectral/emissivity field $Q_\lambda$;
+11. line-of-sight or volume-rendered intensity $I_\lambda$;
+12. final camera-rendered aurora.
+
+Each figure must be generated only after the quantities on which it depends have passed their mathematical and numerical checks.
+
+## 9. Validation gates
+
+A stage is not complete until the following questions are answered where applicable:
+
+- Are coordinate conventions, units, and domains explicit?
+- Are equations dimensionally consistent?
+- Are analytic invariants tested where available?
+- Are discretization error and numerical stability characterized?
+- Are random seeds and stochastic assumptions recorded?
+- Are geometry and topology distinguished correctly?
+- Is curvature computed from the declared surface rather than inferred visually?
+- Is spectral emission distinguished from display RGB?
+- Is the camera model explicit?
+- Is the validation target independent of the rendering code?
+- Is physical fidelity claimed only to the level supported by the model and evidence?
+
+## 10. Learning objective
+
+The target capability is not merely to produce a visually convincing aurora. It is to preserve the entire explanatory chain
+
+$$
+\boxed{
+\text{physical assumption}
+\rightarrow
+\text{equation}
+\rightarrow
+\text{numerical solution}
+\rightarrow
+\text{geometric/optical quantity}
+\rightarrow
+\text{rendered observable}
+\rightarrow
+\text{validation evidence}
+}
+$$
+
+so that every visible feature can be traced to its mathematical and scientific origin.
