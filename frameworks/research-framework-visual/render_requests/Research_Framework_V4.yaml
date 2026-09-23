@@ -1,0 +1,54 @@
+controller:
+  id: CHATGPT-RENDER-CONTROLLER-V1.1
+  contract: EDITABLE-RESEARCH-VISUAL-CONTRACT-V1.0
+  fail_closed: true
+project:
+  name: Rigorous Scientific Research Framework
+  version: V4
+  objective: Translate the full research architecture into mathematically meaningful, editable, reproducible visual geometry.
+canvas:
+  width: 1800
+  height: 1200
+  title: A Mathematical–Computational Framework for Rigorous Scientific Research
+  subtitle: From Real-World Problem to Bounded Conclusion
+sources:
+  framework_spec: spec/framework.yaml
+  visual_grammar: spec/visual_grammar.yaml
+  equations: equations/equations.tex
+  research_data: data/research_data.json
+epistemic_vocabulary:
+  - USER_SPECIFIED
+  - COMPUTED
+  - OBSERVED
+  - PUBLISHED
+  - CALIBRATED
+  - DERIVED
+  - ASSUMED
+  - SYNTHETIC
+  - ILLUSTRATIVE
+  - TO_BE_VALIDATED
+required_artifacts:
+  - poster_EDITABLE.svg
+  - poster_EDITABLE.pptx
+  - poster.png
+  - poster.pdf
+  - render_request.yaml
+  - equations.tex
+  - research_data.json
+  - manifest.json
+  - qa_report.json
+  - SOURCE_BUNDLE.zip
+qa:
+  required_stage_count: 16
+  require_stable_object_ids: true
+  require_equation_source: true
+  require_epistemic_status: true
+  require_no_unexplained_raster_science: true
+  require_source_only_reproduction: true
+  reproduction:
+    exact_svg_hash: true
+    require_png_dimensions: true
+acceptance:
+  require_all_gates_pass: true
+  status_pass: RENDER_PASS
+  status_fail: RENDER_FAIL
