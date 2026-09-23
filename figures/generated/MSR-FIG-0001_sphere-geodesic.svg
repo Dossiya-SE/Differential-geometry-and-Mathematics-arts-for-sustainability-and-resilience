@@ -63,7 +63,7 @@
     <text x="24" y="347" class="body">Application: not selected</text>
   </g>
 
-  <rect x="70" y="690" width="1080" height="62" rx="14" fill="#FFF4E6" stroke="#E69F00" stroke-width="2"/>
+  <rect x="70" y="690" width="1080" height="62" rx="14" fill="#FFF4E6" stroke="#7c3aed" stroke-width="2"/>
   <text x="95" y="716" class="body">Scientific boundary</text>
   <text x="95" y="741" class="small">This exact vector artifact verifies a geometric representation only; it is not sustainability, resilience, infrastructure, or behavioral evidence.</text>
 </svg>
