@@ -1,0 +1,41 @@
+{
+  "artifact_class": "JSON_DRIVEN_SVG",
+  "claim_boundary": "All normalized coupling values are synthetic design data for visualization and software verification; they are not empirical infrastructure estimates.",
+  "communication_impact": "NOT_EVALUATED",
+  "derived_quantities": {
+    "boundary_samples": 720,
+    "sampled_metric_margin": 0.15096159,
+    "scenario_matrix": [
+      [
+        0.0,
+        2.880997,
+        1.19456,
+        0.77295
+      ],
+      [
+        1.616169,
+        0.0,
+        0.983755,
+        0.948621
+      ],
+      [
+        1.826974,
+        1.440499,
+        0.0,
+        1.510767
+      ],
+      [
+        1.686437,
+        1.897242,
+        2.002644,
+        0.0
+      ]
+    ]
+  },
+  "empirical_status": "NOT_EMPIRICALLY_CALIBRATED",
+  "evidence_status": "ILLUSTRATIVE_SYNTHETIC",
+  "figure_id": "MSR-FIG-0002",
+  "renderer": "scripts/render_tensor_geometry.py",
+  "source": "art/tensor-geometry/tensor_geometry.json",
+  "source_sha256": "b02bbd0b8f8279440037d5c57a040e1bec34ed034929c5798004ea5acb001b33"
+}

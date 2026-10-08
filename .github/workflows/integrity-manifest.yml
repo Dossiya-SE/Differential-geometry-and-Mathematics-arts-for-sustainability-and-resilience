@@ -1,0 +1,63 @@
+name: Integrity manifest
+
+on:
+  push:
+    branches:
+      - main
+      - feat/json-tensor-geometry-visual
+    paths:
+      - "art/tensor-geometry/**"
+      - "docs/tensor-geometry.qmd"
+      - "docs/gallery.qmd"
+      - "figures/generated/MSR-FIG-0002*"
+      - "schemas/tensor-geometry.schema.json"
+      - "scripts/render_tensor_geometry.py"
+      - "tests/test_tensor_geometry.py"
+      - "README.md"
+      - "MANIFEST.sha256"
+      - ".github/workflows/integrity-manifest.yml"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  synchronize-generated-artifacts:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/feat/json-tensor-geometry-visual'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/json-tensor-geometry-visual
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generate tensor visual and integrity manifest
+        run: |
+          python scripts/render_tensor_geometry.py
+          python scripts/generate_manifest.py --write
+      - name: Commit generated artifacts when needed
+        run: |
+          if git diff --quiet -- figures/generated/MSR-FIG-0002_tensor-geometry.svg figures/generated/MSR-FIG-0002.provenance.json MANIFEST.sha256; then
+            echo "Generated artifacts are already synchronized."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add figures/generated/MSR-FIG-0002_tensor-geometry.svg figures/generated/MSR-FIG-0002.provenance.json MANIFEST.sha256
+          git commit -m "Synchronize JSON-driven tensor visual artifacts"
+          git push origin HEAD:feat/json-tensor-geometry-visual
+
+  verify-integrity:
+    runs-on: ubuntu-latest
+    if: github.event_name != 'push' || github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify tensor visual is current
+        run: python scripts/render_tensor_geometry.py --check
+      - name: Verify repository manifest
+        run: python scripts/generate_manifest.py --check

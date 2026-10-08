@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Tensor geometry visual specification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "figure_id", "title", "subtitle", "evidence_status", "claim_boundary", "systems", "hazards", "mechanisms", "coupling_tensor", "state_space", "viability", "style"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "figure_id": {"const": "MSR-FIG-0002"},
+    "title": {"type": "string", "minLength": 1},
+    "subtitle": {"type": "string", "minLength": 1},
+    "evidence_status": {"const": "ILLUSTRATIVE_SYNTHETIC"},
+    "claim_boundary": {"type": "string", "minLength": 20},
+    "systems": {"type": "array", "minItems": 2, "items": {"type": "object", "additionalProperties": false, "required": ["id", "label", "class"], "properties": {"id": {"type": "string"}, "label": {"type": "string"}, "class": {"enum": ["physical", "nonphysical", "hybrid", "generic"]}}}},
+    "hazards": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["id", "label", "intensity", "tensor_factor"], "properties": {"id": {"type": "string"}, "label": {"type": "string"}, "intensity": {"type": "number", "minimum": 0, "maximum": 1}, "tensor_factor": {"type": "number", "minimum": 0, "maximum": 1}}}},
+    "mechanisms": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["id", "label", "weight", "tensor_factor"], "properties": {"id": {"type": "string"}, "label": {"type": "string"}, "weight": {"type": "number", "minimum": 0, "maximum": 1}, "tensor_factor": {"type": "number", "minimum": 0, "maximum": 1}}}},
+    "coupling_tensor": {"type": "object", "additionalProperties": false, "required": ["notation", "factorization", "units", "base_coupling"], "properties": {"notation": {"type": "string"}, "factorization": {"const": "separable_illustrative"}, "units": {"type": "string"}, "base_coupling": {"type": "array", "minItems": 2, "items": {"type": "array", "minItems": 2, "items": {"type": "number", "minimum": 0, "maximum": 1}}}}},
+    "state_space": {"type": "object", "additionalProperties": false, "required": ["axes", "linear_vector_field", "metric_samples", "trajectory"], "properties": {"axes": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "object", "required": ["id", "label"], "properties": {"id": {"type": "string"}, "label": {"type": "string"}}}}, "linear_vector_field": {"type": "object", "required": ["A", "b"], "properties": {"A": {"$ref": "#/$defs/matrix2"}, "b": {"$ref": "#/$defs/point2"}}}, "metric_samples": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["x", "g"], "properties": {"x": {"$ref": "#/$defs/point2"}, "g": {"$ref": "#/$defs/matrix2"}}}}, "trajectory": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/point2"}}}},
+    "viability": {"type": "object", "additionalProperties": false, "required": ["set_label", "boundary", "metric", "trajectory", "boundary_samples", "decision"], "properties": {"set_label": {"type": "string"}, "boundary": {"type": "object", "required": ["shape", "center", "radii", "exponent", "rotation_degrees"], "properties": {"shape": {"const": "rotated_superellipse"}, "center": {"$ref": "#/$defs/point2"}, "radii": {"$ref": "#/$defs/point2"}, "exponent": {"type": "number", "exclusiveMinimum": 1}, "rotation_degrees": {"type": "number"}}}, "metric": {"$ref": "#/$defs/matrix2"}, "trajectory": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/point2"}}, "boundary_samples": {"type": "integer", "minimum": 180}, "decision": {"type": "object", "required": ["notation", "meaning"], "properties": {"notation": {"type": "string"}, "meaning": {"type": "string"}}}}},
+    "style": {"type": "object", "additionalProperties": false, "required": ["canvas", "motion_seconds"], "properties": {"canvas": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer", "minimum": 400}}, "motion_seconds": {"type": "number", "minimum": 1}}}
+  },
+  "$defs": {
+    "point2": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}},
+    "matrix2": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}}}
+  }
+}
