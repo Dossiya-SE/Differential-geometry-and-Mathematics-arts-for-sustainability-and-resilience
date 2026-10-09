@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "figure_id": "MSR-FIG-0001",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "title": "Domain-neutral spherical geodesic verification artifact",
   "model_id": "MSR-MOD-0001",
   "experiment_id": "MSR-EXP-0001",
@@ -17,13 +17,14 @@
     "ellipses": "projected latitude and longitude guides",
     "blue_curve": "projected great-circle geodesic segment",
     "points_p_q": "endpoints on the selected geodesic",
-    "orange_arrow": "initial tangent direction",
+    "teal_arrow": "initial tangent direction (teal line and arrowhead)",
     "dashed_line": "OBSERVED_PARTIAL-style projection guide, not evidence strength in this artifact"
   },
-  "alt_text": "A white-background vector diagram of a unit sphere with gray coordinate guides, a blue great-circle geodesic segment connecting points p and q, and an orange tangent arrow at p. Labels state that the application is not selected and that the image is a mathematical fixture, not an empirical result.",
+  "alt_text": "A white-background vector diagram of a unit sphere with gray coordinate guides, a blue great-circle geodesic segment connecting points p and q, and a teal tangent arrow at p. Labels state that the application is not selected and that the image is a mathematical fixture, not an empirical result.",
   "limitations": [
     "The two-dimensional orthographic projection distorts three-dimensional distances.",
     "The artifact explains a mathematical fixture and does not encode sustainability or resilience data.",
-    "Communication impact has not been evaluated with participants."
+    "Communication impact has not been evaluated with participants.",
+    "Uniform white figure and box interiors; tangent color carries no evidence status and is also identified by geometry and label."
   ]
 }

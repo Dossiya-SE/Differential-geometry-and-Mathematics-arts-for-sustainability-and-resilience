@@ -10,7 +10,7 @@
     "C02": {"color": "#D55E00", "label": "Structural-interface"},
     "C03": {"color": "#009E73", "label": "Epistemic-inference"},
     "C04": {"color": "#CC79A7", "label": "Disturbance-consequence"},
-    "C05": {"color": "#E69F00", "label": "Viability-resilience"},
+    "C05": {"color": "#176B42", "label": "Viability-resilience"},
     "C06": {"color": "#56B4E9", "label": "Decision-action-learning"},
     "C07": {"color": "#6A3D9A", "label": "Service-equity"},
     "C08": {"color": "#2E7D32", "label": "Sustainability-metabolism"},
