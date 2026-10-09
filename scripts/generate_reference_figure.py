@@ -86,17 +86,13 @@ def render() -> str:
     return f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title description" data-figure-id="MSR-FIG-0001" data-model-id="MSR-MOD-0001" data-experiment-id="MSR-EXP-0001">
   <title id="title">Domain-neutral spherical geodesic verification artifact</title>
-  <desc id="description">A unit sphere with coordinate guides, a blue projected great-circle geodesic from p to q, and an orange initial tangent arrow. The application is not selected. This is a mathematical fixture, not an empirical sustainability or resilience result.</desc>
+  <desc id="description">A unit sphere with coordinate guides, a blue projected great-circle geodesic from p to q, and a teal initial tangent arrow. The application is not selected. This is a mathematical fixture, not an empirical sustainability or resilience result.</desc>
   <defs>
-    <radialGradient id="sphere-fill" cx="38%" cy="30%" r="72%">
-      <stop offset="0%" stop-color="#F8FBFE"/>
-      <stop offset="100%" stop-color="#DCEAF4"/>
-    </radialGradient>
     <clipPath id="sphere-clip">
       <circle cx="{center_x:.0f}" cy="{center_y:.0f}" r="{radius:.0f}"/>
     </clipPath>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#D55E00"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#006D70"/>
     </marker>
     <style>
       .title {{ font: 700 34px system-ui, sans-serif; fill: #17202A; }}
@@ -113,7 +109,7 @@ def render() -> str:
   <text x="70" y="98" class="subtitle">MSR-MOD-0001 · Unit two-sphere · MSR-EXP-0001 · application = NOT_SELECTED</text>
 
   <g aria-label="Orthographic sphere construction">
-    <circle cx="{center_x:.0f}" cy="{center_y:.0f}" r="{radius:.0f}" fill="url(#sphere-fill)" stroke="#17202A" stroke-width="3"/>
+    <circle cx="{center_x:.0f}" cy="{center_y:.0f}" r="{radius:.0f}" fill="#FFFFFF" stroke="#17202A" stroke-width="3"/>
     <g clip-path="url(#sphere-clip)">
       <ellipse cx="{center_x:.0f}" cy="{center_y:.0f}" rx="{radius:.0f}" ry="82" class="guide"/>
       <ellipse cx="{center_x:.0f}" cy="{center_y - 115:.0f}" rx="214" ry="54" class="guide"/>
@@ -123,21 +119,21 @@ def render() -> str:
       <polyline points="{polyline}" fill="none" stroke="#0072B2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
     </g>
 
-    <line x1="{point_p[0]:.2f}" y1="{point_p[1]:.2f}" x2="{tangent_end[0]:.2f}" y2="{tangent_end[1]:.2f}" stroke="#D55E00" stroke-width="5" marker-end="url(#arrow)"/>
+    <line x1="{point_p[0]:.2f}" y1="{point_p[1]:.2f}" x2="{tangent_end[0]:.2f}" y2="{tangent_end[1]:.2f}" stroke="#006D70" stroke-width="5" marker-end="url(#arrow)"/>
     <circle cx="{point_p[0]:.2f}" cy="{point_p[1]:.2f}" r="10" fill="#FFFFFF" stroke="#0072B2" stroke-width="5"/>
     <circle cx="{point_q[0]:.2f}" cy="{point_q[1]:.2f}" r="10" fill="#0072B2" stroke="#FFFFFF" stroke-width="3"/>
     <text x="{point_p[0] - 32:.2f}" y="{point_p[1] + 38:.2f}" class="label">p</text>
     <text x="{point_q[0] + 18:.2f}" y="{point_q[1] - 12:.2f}" class="label">q</text>
-    <text x="{tangent_end[0] + 12:.2f}" y="{tangent_end[1] - 4:.2f}" class="label" fill="#D55E00">v ∈ TₚS²</text>
+    <text x="{tangent_end[0] + 12:.2f}" y="{tangent_end[1] - 4:.2f}" class="label" fill="#006D70">v ∈ TₚS²</text>
     <text x="{center_x - 55:.0f}" y="{center_y + 18:.0f}" class="label">S²</text>
   </g>
 
   <g transform="translate(900 180)" aria-label="Mathematical and evidential legend">
-    <rect x="0" y="0" width="250" height="385" rx="18" fill="#F7F9FA" stroke="#CBD5DC" stroke-width="2"/>
+    <rect x="0" y="0" width="250" height="385" rx="18" fill="#FFFFFF" stroke="#CBD5DC" stroke-width="2"/>
     <text x="24" y="44" class="label">Encoding</text>
     <line x1="24" y1="82" x2="90" y2="82" stroke="#0072B2" stroke-width="8" stroke-linecap="round"/>
     <text x="108" y="89" class="body">geodesic</text>
-    <line x1="24" y1="126" x2="90" y2="126" stroke="#D55E00" stroke-width="5" marker-end="url(#arrow)"/>
+    <line x1="24" y1="126" x2="90" y2="126" stroke="#006D70" stroke-width="5" marker-end="url(#arrow)"/>
     <text x="108" y="133" class="body">tangent</text>
     <line x1="24" y1="170" x2="90" y2="170" stroke="#8CA0AF" stroke-width="2"/>
     <text x="108" y="177" class="body">projection guide</text>
@@ -148,7 +144,7 @@ def render() -> str:
     <text x="24" y="347" class="body">Application: not selected</text>
   </g>
 
-  <rect x="70" y="690" width="1080" height="62" rx="14" fill="#E0F2FE" stroke="#0284c7" stroke-width="2"/>
+  <rect x="70" y="690" width="1080" height="62" rx="14" fill="#FFFFFF" stroke="#0284c7" stroke-width="2"/>
   <text x="95" y="716" class="body">Scientific boundary</text>
   <text x="95" y="741" class="small">This exact vector artifact verifies a geometric representation only; it is not sustainability, resilience, infrastructure, or behavioral evidence.</text>
 </svg>
