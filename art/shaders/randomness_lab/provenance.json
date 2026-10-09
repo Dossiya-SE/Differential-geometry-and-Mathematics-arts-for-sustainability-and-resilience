@@ -1,0 +1,43 @@
+{
+  "figure_id": "MSR-FIG-0003",
+  "version": "0.1.0",
+  "status": "PROPOSED_FOR_REVIEW",
+  "artifact_class": "EXPLANATORY",
+  "skill_id": "MSR-SKILL-SR-001",
+  "mathematical_validity": "INTERNAL_REFERENCE_TESTS_REQUIRED; WEBGL_RENDERER_NOT_VALIDATED",
+  "communication_impact": "NOT_EVALUATED",
+  "application_decision": "NOT_SELECTED",
+  "empirical_validation": "NOT_VALIDATED",
+  "source": [
+    "skills/shader-randomness-scientific-visuals/SKILL.md",
+    "skills/shader-randomness-scientific-visuals/examples/random_fields.mjs",
+    "skills/shader-randomness-scientific-visuals/examples/random_fields.test.mjs",
+    "skills/shader-randomness-scientific-visuals/examples/render_static.mjs",
+    "art/shaders/randomness_lab/index.html"
+  ],
+  "static_fallback": "art/shaders/randomness_lab/static.svg",
+  "generation_command": "node skills/shader-randomness-scientific-visuals/examples/render_static.mjs --write",
+  "verification_commands": [
+    "make webtest",
+    "node skills/shader-randomness-scientific-visuals/examples/render_static.mjs --check",
+    "python scripts/generate_manifest.py --check"
+  ],
+  "randomness_semantics": "Deterministic procedural integer hash with fixed uint32 seed and 24-bit fraction output; not proven independent, uniform, cryptographically secure, or physically calibrated.",
+  "seed": 20261009,
+  "visual_encoding": {
+    "position": "white two-dimensional dimensionless Cartesian display; grid and curve coordinates vary by lesson",
+    "glyphs": "blue dots, thin grid lines, orientation tiles, curves or isolines",
+    "time": "display parameter only; no infrastructure simulation or physical time",
+    "color": "#87CEFA secondary lines and #00BFFF or blue primary geometry; white canvas"
+  },
+  "alt_text": "An eight by eight labeled white grid contains deterministic blue diagonal glyphs; no measured field, hazard, infrastructure or causal topology is encoded.",
+  "limits": [
+    "Interactive WebGL2 renderer not independently tested across devices and browsers",
+    "GLSL integer/float arithmetic and antialiasing may vary by GPU",
+    "Deterministic hashes are not a validated stochastic model",
+    "Smooth interpolation does not establish empirical spatial covariance",
+    "Only the orientation-tile static example has a committed SVG fallback",
+    "Output cannot be used as uncertainty or sustainability/resilience evidence without separate modeling, data and validation"
+  ],
+  "source_sha256": {}
+}
