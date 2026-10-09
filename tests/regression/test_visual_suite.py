@@ -49,7 +49,7 @@ class VisualSuiteTests(unittest.TestCase):
                 source = path.read_text(encoding="utf-8").lower()
                 for forbidden in ("#e69f00", "lineargradient", "radialgradient"):
                     self.assertNotIn(forbidden, source)
-                self.assertNotIn("fill=\"#87cefa\"", source)
+                self.assertNotIn('fill="#87cefa"', source)
 
     def test_new_models_conform_to_repo_json_schema(self) -> None:
         if importlib.util.find_spec("jsonschema") is None:
@@ -69,9 +69,7 @@ class VisualSuiteTests(unittest.TestCase):
 
     def test_cross_artifact_equations_and_conventions_are_declared(self) -> None:
         standard = (ROOT / "docs/VISUAL_SYSTEM_V1.md").read_text(encoding="utf-8")
-        skill = (
-            ROOT / "skills/scientific-visual-system/SKILL.md"
-        ).read_text(encoding="utf-8")
+        skill = (ROOT / "skills/scientific-visual-system/SKILL.md").read_text(encoding="utf-8")
         self.assertIn("Viab(K)=K", standard)
         self.assertIn("NOT_SELECTED", standard)
         self.assertIn("Mind map", skill)
