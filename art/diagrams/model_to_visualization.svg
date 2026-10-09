@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1336" height="480" viewBox="0 0 1336 480" role="img" aria-labelledby="title description" data-figure-id="MSR-FIG-0005">
+  <title id="title">Five-stage mathematical visualization pipeline</title>
+  <desc id="description">Five labeled white rectangular stages in a row: Theory, Model, Computation, Visualization and Interpretation. Four large blue arrows indicate methodological transitions only, not inherited validity.</desc>
+  <rect x="0" y="0" width="1336" height="480" fill="#FFFFFF"/>
+  <defs><marker id="direction" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M 0 1 L 11 6 L 0 11" fill="none" stroke="#0072B2" stroke-width="2.7"/></marker></defs>
+  <text x="45" y="72" font-family="system-ui" font-size="31" font-weight="700" fill="#17202A">From mathematical theory to justified interpretation</text>
+  <text x="45" y="113" font-family="system-ui" font-size="19" fill="#5D6D7E">Five distinct stages · arrows mean methodological transfer, not validation</text>
+  <rect data-node="Theory" x="38" y="207" width="210" height="126" rx="5" fill="#FFFFFF" stroke="#87CEFA" stroke-width="4"/>
+  <text x="143" y="263" text-anchor="middle" font-family="system-ui" font-size="24" font-weight="650" fill="#17202A">Theory</text>
+  <text x="143" y="300" text-anchor="middle" font-family="system-ui" font-size="18" fill="#5D6D7E">Definitions</text>
+  <rect data-node="Model" x="300" y="207" width="210" height="126" rx="5" fill="#FFFFFF" stroke="#87CEFA" stroke-width="4"/>
+  <text x="405" y="263" text-anchor="middle" font-family="system-ui" font-size="24" font-weight="650" fill="#17202A">Model</text>
+  <text x="405" y="300" text-anchor="middle" font-family="system-ui" font-size="18" fill="#5D6D7E">Assumptions</text>
+  <rect data-node="Computation" x="562" y="207" width="210" height="126" rx="5" fill="#FFFFFF" stroke="#87CEFA" stroke-width="4"/>
+  <text x="667" y="263" text-anchor="middle" font-family="system-ui" font-size="24" font-weight="650" fill="#17202A">Computation</text>
+  <text x="667" y="300" text-anchor="middle" font-family="system-ui" font-size="18" fill="#5D6D7E">Algorithms</text>
+  <rect data-node="Visualization" x="824" y="207" width="210" height="126" rx="5" fill="#FFFFFF" stroke="#00BFFF" stroke-width="4"/>
+  <text x="929" y="263" text-anchor="middle" font-family="system-ui" font-size="24" font-weight="650" fill="#17202A">Visualization</text>
+  <text x="929" y="300" text-anchor="middle" font-family="system-ui" font-size="18" fill="#5D6D7E">Encodings</text>
+  <rect data-node="Interpretation" x="1086" y="207" width="210" height="126" rx="5" fill="#FFFFFF" stroke="#87CEFA" stroke-width="4"/>
+  <text x="1191" y="263" text-anchor="middle" font-family="system-ui" font-size="21" font-weight="650" fill="#17202A">Interpretation</text>
+  <text x="1191" y="300" text-anchor="middle" font-family="system-ui" font-size="18" fill="#5D6D7E">Conclusions</text>
+  <line data-edge="Theory-to-Model" x1="249" y1="270" x2="293" y2="270" stroke="#0072B2" stroke-width="4" marker-end="url(#direction)"/>
+  <line data-edge="Model-to-Computation" x1="511" y1="270" x2="555" y2="270" stroke="#0072B2" stroke-width="4" marker-end="url(#direction)"/>
+  <line data-edge="Computation-to-Visualization" x1="773" y1="270" x2="817" y2="270" stroke="#0072B2" stroke-width="4" marker-end="url(#direction)"/>
+  <line data-edge="Visualization-to-Interpretation" x1="1035" y1="270" x2="1079" y2="270" stroke="#0072B2" stroke-width="4" marker-end="url(#direction)"/>
+  <text x="45" y="401" font-family="system-ui" font-size="19" fill="#17202A">Gate: mathematical correctness, implementation verification and empirical validity are separate.</text>
+  <text x="45" y="448" font-family="system-ui" font-size="17" fill="#5D6D7E">MSR-FIG-0005 · Proposed explanatory process diagram · no domain or causal effect selected.</text>
+</svg>
