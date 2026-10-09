@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0.0",
+  "version": "0.1.0",
+  "record_date": "2026-10-09",
+  "status": "PROPOSED",
+  "application_decision": "NOT_SELECTED",
+  "model_id": "MSR-MOD-0004",
+  "title": "North-pole stereographic projection to equatorial plane verification fixture",
+  "purpose": "Precisely represent an invertible stereographic mapping with declared excluded pole and document a separate orthographic drawing projection.",
+  "mathematical_structure": {
+    "state_space": "S^2 without north pole N=(0,0,1)",
+    "ambient_space": "R^3",
+    "dimension": 2,
+    "ambient_dimension": 3,
+    "metric": "round sphere induced Euclidean metric; projected drawing does not preserve distances",
+    "topology": "smooth 2-sphere with excluded north pole, homeomorphic to R^2"
+  },
+  "maps": [
+    {
+      "name": "sphere_to_plane",
+      "domain": "S^2 \\ {N}",
+      "codomain": "R^2",
+      "definition": "pi(x,y,z)=(x/(1-z),y/(1-z))",
+      "singularities": "Analytically undefined at N; binary64 reference additionally excludes denom<=1e-14"
+    },
+    {
+      "name": "plane_to_sphere",
+      "domain": "R^2",
+      "codomain": "S^2 \\ {N}",
+      "definition": "pi^{-1}(u,v)=(2u/(1+s),2v/(1+s),(s-1)/(1+s)); s=u^2+v^2"
+    }
+  ],
+  "parameters": [
+    {
+      "symbol": "P",
+      "meaning": "point on unit sphere away from N",
+      "unit": "dimensionless",
+      "admissible_set": "S^2 \\ {N} with finite binary64 coordinates"
+    },
+    {
+      "symbol": "Q",
+      "meaning": "planar coordinate in z=0 plane",
+      "unit": "dimensionless",
+      "admissible_set": "R^2 with finite and representable squared radius"
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "A-001",
+      "statement": "Sphere radius equals one and projection plane is z=0.",
+      "status": "PROPOSED"
+    },
+    {
+      "id": "A-002",
+      "statement": "Projection center is N=(0,0,1), excluded from the mathematical map domain.",
+      "status": "PROPOSED"
+    },
+    {
+      "id": "A-003",
+      "statement": "SVG is an independent orthographic camera view using orthonormal axes; not metric preserving.",
+      "status": "PROPOSED"
+    }
+  ],
+  "invariants": [
+    {
+      "id": "INV-001",
+      "statement": "||pi^{-1}(u,v)||=1 for all finite representable u,v.",
+      "test": "tests/unit/test_visual_math.py"
+    },
+    {
+      "id": "INV-002",
+      "statement": "pi(pi^{-1}(u,v))=(u,v) where computations are numerically resolved.",
+      "test": "tests/unit/test_visual_math.py"
+    },
+    {
+      "id": "INV-003",
+      "statement": "N, P, and the plane image Q lie on one straight 3D line.",
+      "test": "art/visual_suite/render.test.mjs"
+    }
+  ],
+  "numerical": {
+    "representation": "Python math binary64 projection and inverse, separately generated exact-construction SVG with rounded display coordinates",
+    "precision": "IEEE-754 binary64; display is orthographic with coordinates rounded to three decimals",
+    "absolute_tolerance": 2e-14,
+    "relative_tolerance": 2e-14
+  },
+  "uncertainty": {
+    "representation": "None: exact analytic coordinate mapping with bounded floating-point representation",
+    "status": "NOT_APPLICABLE"
+  },
+  "evidence": {
+    "citation_keys": [
+      "needham1997visual"
+    ],
+    "audit_ids": [
+      "MSR-DER-0003"
+    ],
+    "evidence_status": "PROPOSED",
+    "limitations": [
+      "Projection is undefined at the north pole and extreme neighborhoods can be underresolved.",
+      "Orthographic SVG camera display is not isometric to intrinsic sphere geometry.",
+      "No external empirical sustainability or resilience outcome is represented."
+    ]
+  },
+  "implementation": {
+    "reference_language": "Python",
+    "module": "msr.geometry.stereographic"
+  },
+  "verification": {
+    "tests": [
+      "tests/unit/test_visual_math.py",
+      "art/visual_suite/render.test.mjs"
+    ],
+    "benchmark_experiments": [
+      "VISUAL-SUITE-V1-STEREOGRAPHIC-REFERENCE"
+    ],
+    "validation_status": "MATHEMATICAL_FIXTURE_ONLY"
+  }
+}
