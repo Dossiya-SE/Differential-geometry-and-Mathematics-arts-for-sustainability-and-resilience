@@ -26,7 +26,7 @@ class ScientificColorGovernanceTests(unittest.TestCase):
         self.assertEqual(root.attrib["data-figure-id"], "MSR-FIG-0001")
         circles = root.findall(".//" + ns + "circle")
         self.assertTrue(circles)
-        self.assertEqual(circles[0].attrib["fill"], "#FFFFFF")
+        self.assertTrue(any(c.attrib.get("fill") == "#FFFFFF" and c.attrib.get("stroke") == "#17202A" for c in circles))
         for rect in root.findall(".//" + ns + "rect"):
             self.assertEqual(rect.attrib.get("fill"), "#FFFFFF")
 
