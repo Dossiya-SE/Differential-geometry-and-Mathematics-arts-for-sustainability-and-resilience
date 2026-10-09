@@ -1,0 +1,35 @@
+{
+  "figure_id": "MSR-FIG-0002",
+  "version": "0.1.0",
+  "status": "PROPOSED_FOR_REVIEW",
+  "model_id": "MSR-MOD-0002",
+  "artifact_class": "EXPLANATORY",
+  "mathematical_validity": "PYTHON_REFERENCE_TESTED; WEBGL_RENDERER_NOT_INDEPENDENTLY_VALIDATED",
+  "communication_impact": "NOT_EVALUATED",
+  "application_decision": "NOT_SELECTED",
+  "source": [
+    "art/shaders/inversion_lab/index.html",
+    "scripts/generate_inversion_static.py"
+  ],
+  "static_fallback": "art/shaders/inversion_lab/static.svg",
+  "generation_command": "python scripts/generate_inversion_static.py",
+  "visual_encoding": {
+    "position": "two side-by-side dimensionless Cartesian coordinate panels",
+    "shape": "left original straight grid; right inversion of grid lines",
+    "circle": "fixed inversion sphere ||x||=r, not a viability threshold",
+    "color": "#87CEFA grid; #00BFFF inversion circle; axes use dark stroke",
+    "motion": "optional sinusoidal radius control, visual-time only"
+  },
+  "alt_text": "Left: original Cartesian grid. Right: inverted grid with circular image curves and unchanged axes. The center is singular and masked in GPU rendering.",
+  "known_limitations": [
+    "GPU precision and antialiasing depend on hardware and browser",
+    "a radius-0.13 render-only exclusion disk exceeds the mathematical singularity set",
+    "static reference is exact for r=1 while interactive radius may vary",
+    "no physical-domain interpretation or empirical validation"
+  ],
+  "source_sha256": {
+    "art/shaders/inversion_lab/index.html": "7298ca3fe67c0d6fd0b7a112ab991081949585a7ba62ee207e11d36791eee40e",
+    "scripts/generate_inversion_static.py": "dd47069ec497eb2d38f1fbaea7d5396c57a3565d6c7e26dab9f6236a22ee9b7e",
+    "art/shaders/inversion_lab/static.svg": "8eb1cfc32787a604faa037116811e0da004c5ba535f4a5c3a659221f062a2a8a"
+  }
+}
