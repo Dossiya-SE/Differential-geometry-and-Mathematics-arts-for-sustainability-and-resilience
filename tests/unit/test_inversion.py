@@ -17,9 +17,7 @@ class InversionUnitTests(unittest.TestCase):
         np.testing.assert_allclose(invert_point([3, 4], [0, 0], 5), [3, 4], atol=1e-14)
 
     def test_three_dimensional_support(self) -> None:
-        np.testing.assert_allclose(
-            invert_point([0, 0, 4], [0, 0, 0], 2), [0, 0, 1], atol=1e-15
-        )
+        np.testing.assert_allclose(invert_point([0, 0, 4], [0, 0, 0], 2), [0, 0, 1], atol=1e-15)
 
     def test_jacobian_known_case(self) -> None:
         np.testing.assert_allclose(
