@@ -2,6 +2,34 @@
 
 All material changes are recorded here. Versions follow semantic versioning for the research platform; evidence records and model contracts retain their own immutable identifiers and versions.
 
+## Unreleased — 2026-08-31
+
+### Added
+
+- `docs/thesis/` evidence-bounded thesis research package;
+- Graph-to-Viability Geometry thesis specification;
+- Differential and Nonsmooth Geometry of Sustainable Infrastructure Viability thesis specification;
+- candidate scientific/industrial gap register, research questions, objective, hypotheses, and falsification criteria;
+- physics–mathematics–engineering concept taxonomy;
+- mathematical/computational architecture for graph, dynamics, viability, geometry, and intervention layers;
+- industrial translation and platform-integration hypothesis map;
+- MSc-to-PhD mathematical research trajectory;
+- six-slide proposal content and visual-integrity specification;
+- exploratory information-geometry, tensor-method, and quantum-inspired extension register;
+- synthetic 2D viability demonstrator record;
+- known prior-art and novelty-claim boundary register;
+- `ADR-0003` preserving the domain-neutral core while adding the application-specific thesis package.
+
+### Changed
+
+- `docs/index.qmd` now links to the P–W–T thesis research package while preserving the platform-level `NOT_SELECTED` application boundary.
+
+### Preserved
+
+- candidate research gaps remain unvalidated until systematic-review closure;
+- the domain-neutral platform core remains unchanged;
+- established viability, Riemannian, nonsmooth, stochastic, optimization, and Digital Twin literature is explicitly treated as prior art rather than claimed novelty.
+
 ## 0.4.0 — 2026-08-22
 
 ### Added
