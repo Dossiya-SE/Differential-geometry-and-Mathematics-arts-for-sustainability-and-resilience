@@ -1,0 +1,468 @@
+---
+title: "Mathematical Visualization Toolchain"
+subtitle: "Use each mathematical and computational tool only for the role it serves best"
+---
+
+## Status
+
+| Field | Value |
+|---|---|
+| Architecture ID | `MSR-TC-001` |
+| State | `PROPOSED_ACTIVE_LEARNING` |
+| Scope | mathematical art, geometry visualization, aurora laboratory, scientific visualization |
+| Governing rule | do not learn or deploy every tool simultaneously |
+
+The purpose of this framework is to keep mathematical reasoning, numerical computation, scientific inspection, geometry, animation, simulation, rendering, and publication as distinct responsibilities. A tool is introduced only when the current mathematical object or computational problem requires it.
+
+The foundational mathematical progression is
+
+$$
+\boxed{
+\text{Linear Algebra}
+\rightarrow
+\text{Calculus}
+\rightarrow
+\text{Parametric Surfaces}
+\rightarrow
+\text{Differential Geometry}
+\rightarrow
+\text{Dynamics}
+}
+$$
+
+The foundational software progression is
+
+$$
+\boxed{
+\text{NumPy}
+\rightarrow
+\text{Matplotlib}
+\rightarrow
+\text{SymPy}
+\rightarrow
+\text{PyVista}
+\rightarrow
+\text{Manim}
+}
+$$
+
+Only after these layers are controlled should the workflow extend toward
+
+$$
+\boxed{
+\text{JAX/Taichi}
+\rightarrow
+\text{Blender}
+\rightarrow
+\text{Mitsuba}
+\rightarrow
+\text{Three.js}
+}.
+$$
+
+## 1. Mathematics responsibilities
+
+| Mathematics | Primary use |
+|---|---|
+| **Linear algebra** | vectors, rotations, coordinate transformations, matrices |
+| **Multivariable calculus** | derivatives of surfaces and fields |
+| **Vector calculus** | magnetic/electric fields: $\nabla f$, $\nabla\cdot\mathbf F$, $\nabla\times\mathbf F$ |
+| **Parametric geometry** | construct a surface or auroral curtain $\mathbf r(u,v)$ |
+| **Differential geometry** | tangent plane, normal, metric, Gaussian curvature $K$, mean curvature $H$, geodesics |
+| **Fourier analysis** | waves, folds, repeating and multiscale structures |
+| **Probability** | controlled irregularity, stochastic structure, uncertainty |
+| **ODEs** | particle trajectories and time evolution |
+| **PDEs** | continuous field evolution, diffusion, transport, waves |
+
+These subjects should not be treated as interchangeable. For example, a procedural symbol named $K_s$ is not Gaussian curvature unless it is actually derived from a declared surface metric and second fundamental form.
+
+## 2. NumPy — construct the mathematics numerically
+
+NumPy is the first numerical layer.
+
+```python
+import numpy as np
+
+x = np.linspace(-5, 5, 500)
+y = np.sin(x)
+```
+
+Use NumPy for coordinate arrays and sampled mathematical fields such as
+
+$$
+(x,y,z),
+\qquad
+U(x,y),
+\qquad
+V(x,y),
+\qquad
+\mathbf r(u,v).
+$$
+
+**Responsibility:** numerical mathematical objects and vectorized field evaluation.
+
+NumPy should not be used as a substitute for symbolic derivation, high-level ODE/PDE algorithms, 3D mesh inspection, or final cinematic rendering.
+
+## 3. SymPy — derive before computing
+
+Use SymPy when exact symbolic structure matters.
+
+```python
+ru = r.diff(u)
+rv = r.diff(v)
+```
+
+Typical targets include
+
+$$
+\mathbf r_u,
+\qquad
+\mathbf r_v,
+\qquad
+g_{ij},
+\qquad
+K,
+\qquad
+H.
+$$
+
+**Responsibility:** symbolic mathematics, analytic differentiation, simplification, and formula verification.
+
+Whenever feasible, derive an expression symbolically first and then convert it to a numerical function for array evaluation.
+
+## 4. SciPy — solve numerical mathematical problems
+
+Use SciPy when a mathematical model becomes an algorithmic numerical problem, including
+
+$$
+\dot x=f(x,t),
+$$
+
+optimization
+
+$$
+x^*=\arg\min_x J(x),
+$$
+
+numerical integration, interpolation, eigenvalue problems, boundary-value problems, and related algorithms.
+
+**Responsibility:** numerical solvers and scientific algorithms.
+
+## 5. Matplotlib — inspect mathematics before styling it
+
+Before producing a polished image, inspect the mathematical quantity directly.
+
+```python
+import matplotlib.pyplot as plt
+
+plt.plot(x, y)
+plt.show()
+```
+
+Use Matplotlib to answer questions such as:
+
+- Is $U$ implemented correctly?
+- Does curvature satisfy the expected sign or symmetry?
+- Is a numerical solution stable?
+- Does a parameter change produce the predicted response?
+
+**Responsibility:** scientific inspection and diagnostic visualization.
+
+A visually attractive final renderer must never replace these diagnostic checks.
+
+## 6. PyVista — make validated mathematics spatial
+
+When equations generate
+
+$$
+X(u,v),\qquad Y(u,v),\qquad Z(u,v),
+$$
+
+send the resulting arrays and topology to PyVista.
+
+Use PyVista for:
+
+- 3D surfaces;
+- meshes;
+- scalar fields;
+- curvature maps;
+- normals;
+- vector fields;
+- volume visualization.
+
+The intended dependency is
+
+$$
+\boxed{
+\text{NumPy mathematics}
+\rightarrow
+\text{PyVista geometry}
+}.
+$$
+
+**Responsibility:** scientific spatial representation of verified geometry and fields.
+
+## 7. Manim — explain mathematics through time
+
+Use Manim when the objective is to make a mathematical transformation understandable dynamically.
+
+A teaching sequence may progressively expose
+
+$$
+U
+\rightarrow
+V
+\rightarrow
+(U,V)
+\rightarrow
+K
+\rightarrow
+Q.
+$$
+
+Manim is appropriate for:
+
+- derivation sequences;
+- coordinate transformations;
+- parameter evolution;
+- curve and surface construction;
+- differential-geometric explanations;
+- presentation-quality mathematical storytelling.
+
+**Responsibility:** mathematical explanation through time.
+
+Manim animation must remain downstream of the mathematical model rather than becoming the model itself.
+
+## 8. JAX — advanced automatic differentiation and acceleration
+
+Do not begin the learning path with JAX. Move from a verified NumPy implementation to JAX when the computation becomes expensive or derivatives with respect to parameters are required.
+
+For
+
+$$
+f(\theta),
+$$
+
+we may need
+
+$$
+\frac{\partial f}{\partial\theta}.
+$$
+
+Useful JAX concepts include
+
+```python
+grad()
+jit()
+vmap()
+```
+
+**Responsibility:** NumPy-like numerical computation plus automatic differentiation, vectorization, compilation, and accelerator execution.
+
+## 9. Taichi — large particle or field simulation
+
+Taichi becomes useful when the model contains very large numbers of independently or locally interacting elements, for example
+
+$$
+10^5,\quad10^6,\quad\ldots
+$$
+
+particles or grid cells evolving simultaneously.
+
+For a charged particle,
+
+$$
+m\dot{\mathbf v}
+=
+q\left(\mathbf E+\mathbf v\times\mathbf B\right),
+$$
+
+large ensembles may justify GPU-oriented implementation.
+
+**Responsibility:** high-throughput physical simulation when scale requires it.
+
+It is not necessary during the initial mathematical-learning stages.
+
+## 10. Blender — final visual quality downstream of mathematics
+
+Blender must not invent the mathematical model.
+
+Python should first calculate quantities such as
+
+$$
+\mathbf r,
+\qquad
+\mathbf n,
+\qquad
+K,
+\qquad
+Q,
+\qquad
+I.
+$$
+
+Only then should Blender receive the geometry or field products.
+
+Use Blender for:
+
+- camera placement;
+- lighting;
+- volumetric glow;
+- atmosphere;
+- scene composition;
+- cinematic animation;
+- high-resolution rendering.
+
+The required architecture is
+
+$$
+\boxed{
+\text{Mathematics}
+\rightarrow
+\text{Python}
+\rightarrow
+\text{verified geometry}
+\rightarrow
+\text{Blender}
+}.
+$$
+
+**Responsibility:** high-fidelity presentation of already-defined mathematical or scientific content.
+
+## 11. Mitsuba — light transport and inverse rendering
+
+Mitsuba belongs at a substantially later stage, when light transport itself is part of the mathematical problem.
+
+The forward relationship is
+
+$$
+\text{geometry}
++
+\text{material}
++
+\text{light transport}
++
+\text{camera}
+\rightarrow
+\text{image}.
+$$
+
+A later inverse problem may take the form
+
+$$
+\boxed{
+\text{observed image}
+\rightarrow
+\text{estimate model parameters}
+}.
+$$
+
+**Responsibility:** physically based, differentiable, or inverse rendering when the research question justifies it.
+
+## 12. Three.js / WebGL — interactive publication
+
+After Python has produced validated mathematical data, a web renderer can expose that data interactively.
+
+Potential controls include:
+
+- rotate a surface or auroral curtain;
+- vary $K$, $Q$, or another declared parameter;
+- move through time $t$;
+- inspect curvature or field magnitude;
+- enable or disable mathematical layers.
+
+**Responsibility:** interactive browser publication, not primary derivation or numerical validation.
+
+## 13. Required learning sequence
+
+Do not begin with ten technologies simultaneously.
+
+### Foundation sequence
+
+$$
+\boxed{
+\text{NumPy}
+\rightarrow
+\text{Matplotlib}
+\rightarrow
+\text{SymPy}
+\rightarrow
+\text{PyVista}
+\rightarrow
+\text{Manim}
+}
+$$
+
+This sequence establishes numerical construction, inspection, symbolic verification, spatial geometry, and mathematical animation.
+
+### Advanced sequence
+
+$$
+\boxed{
+\text{JAX/Taichi}
+\rightarrow
+\text{Blender}
+\rightarrow
+\text{Mitsuba}
+\rightarrow
+\text{Three.js}
+}
+$$
+
+These tools are introduced only after a demonstrated computational need exists.
+
+## 14. Governing experiment discipline
+
+For every mathematical object or model component, preserve the same dependency chain:
+
+$$
+\boxed{
+\text{write equation}
+\rightarrow
+\text{understand variables}
+\rightarrow
+\text{compute}
+\rightarrow
+\text{test}
+\rightarrow
+\text{plot}
+\rightarrow
+\text{build geometry}
+\rightarrow
+\text{render}
+}.
+$$
+
+The experiment is incomplete if a later layer succeeds while an earlier dependency has not been understood or validated.
+
+### Tool-admission rule
+
+A new tool may enter the workflow only if all three conditions are satisfied:
+
+1. the current mathematical or computational problem has been stated explicitly;
+2. the existing toolchain cannot address that problem adequately or efficiently;
+3. the new tool's output can be validated independently of its visual appearance.
+
+This prevents complexity from growing faster than mathematical understanding.
+
+## 15. Mastery target
+
+The objective is to progress from using graphics that merely contain mathematical notation to constructing visualizations whose visible structure is generated by, traceable to, and testable against the mathematics itself.
+
+The target capability is
+
+$$
+\boxed{
+\text{equation}
+\rightarrow
+\text{derivation}
+\rightarrow
+\text{validated computation}
+\rightarrow
+\text{geometry/dynamics}
+\rightarrow
+\text{rendering}
+\rightarrow
+\text{interpretation}
+}.
+$$

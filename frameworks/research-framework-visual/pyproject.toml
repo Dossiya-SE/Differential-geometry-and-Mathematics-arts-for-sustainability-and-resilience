@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "research-framework-visual"
+version = "0.4.1"
+description = "Governed scientific rendering pipeline for a mathematical-computational research framework"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "CairoSVG>=2.7",
+  "Pillow>=10.0",
+  "PyYAML>=6.0",
+  "python-pptx>=0.6.23"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+notebook = [
+  "jupyter>=1.1,<2",
+  "notebook>=7,<8",
+  "ipykernel>=7,<8",
+  "numpy>=2.5,<3",
+  "matplotlib>=3.11,<4"
+]
+
+[project.scripts]
+framework = "framework.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
