@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from math import hypot, isfinite
+from typing import TypeAlias
 
-type Point2 = tuple[float, float]
-type Point3 = tuple[float, float, float]
+Point2: TypeAlias = tuple[float, float]
+Point3: TypeAlias = tuple[float, float, float]
 
 
 class ProjectionInputError(ValueError):
