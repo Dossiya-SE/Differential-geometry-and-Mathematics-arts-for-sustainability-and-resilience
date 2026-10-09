@@ -68,7 +68,7 @@ function renderMindmap(){
   body.push(`  <text x="${x+w/2}" y="331" text-anchor="middle" font-family="system-ui" font-size="23" font-weight="650" fill="#17202A">${branches[k]}</text>`);
   for(let j=0;j<3;j++){
     const y=420+j*96;
-    body.push(`  <path data-relation="branch-${k}-to-${j}" d="M ${x+164} 356 V ${y-13}" fill="none" stroke="#87CEFA" stroke-width="2.5"/>`);
+    body.push(`  <path data-relation="branch-${k}-to-${j}" d="M ${x+164} 356 V 387 H ${x-18} V ${y+34} H ${x}" fill="none" stroke="#87CEFA" stroke-width="2.5"/>`);
     body.push(`  <rect data-node="leaf-${k}-${j}" x="${x}" y="${y}" width="${w}" height="68" rx="4" fill="#FFFFFF" stroke="#C5D2DC" stroke-width="2"/>`);
     body.push(`  <text x="${x+w/2}" y="${y+41}" text-anchor="middle" font-family="system-ui" font-size="${leaves[k][j].length>23?18:21}" font-weight="550" fill="#17202A">${leaves[k][j]}</text>`);
   }
