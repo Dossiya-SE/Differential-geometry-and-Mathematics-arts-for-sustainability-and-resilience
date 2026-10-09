@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MSR-FIG-0003 — Rigorous generative mathematics laboratory</title>
+  <style>
+    :root{color-scheme:light;font-family:system-ui,Arial,sans-serif;color:#17202A;background:#fff}
+    *{box-sizing:border-box} body{max-width:1100px;margin:auto;padding:26px 22px;background:#fff}
+    h1{font-size:clamp(1.5rem,3vw,2.1rem);margin:0 0 8px}
+    p{line-height:1.55;max-width:90ch}
+    .note{border-left:4px solid #87CEFA;padding-left:14px}
+    .controls{display:flex;gap:20px;flex-wrap:wrap;align-items:center;margin:24px 0 16px}
+    label{display:grid;gap:6px;font-weight:600;font-size:.96rem}
+    select,input,button{font:inherit;padding:7px;border:1px solid #718499;border-radius:3px;color:#17202A;background:#fff}
+    input[type=range]{accent-color:#00BFFF;padding:0}
+    input[type=checkbox]{accent-color:#00BFFF}
+    .check{display:flex;gap:8px;align-items:center}
+    .figure{margin:0}canvas,img{display:block;width:100%;height:auto;aspect-ratio:16/9;border:1px solid #9FAFBC;background:#fff}
+    figcaption{font-size:1rem;line-height:1.55;margin-top:10px}
+    .meta{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:18px}
+    .meta>section{border:1px solid #C5D2DC;padding:12px;background:#fff}
+    .meta h2{font-size:1.05rem;margin:0 0 7px}
+    .meta p{margin:0;font-size:.94rem}
+    .hidden{display:none!important} :focus-visible{outline:3px solid #00BFFF;outline-offset:3px}
+    @media(max-width:700px){.meta{grid-template-columns:1fr}body{padding:14px}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <h1>Random-looking geometry, exact rules</h1>
+  <p><strong>MSR-SKILL-SR-001 · MSR-FIG-0003</strong> — A domain-neutral mathematical learning fixture, not measured environmental data or an infrastructure simulation.</p>
+  <p class="note">Explore seven original representations related to Chapter 10 of <a href="https://thebookofshaders.com/10/">The Book of Shaders</a>. Pseudorandom-looking shading is deterministic under a fixed seed and does not establish a statistically validated physical uncertainty model.</p>
+  <div class="controls">
+    <label for="mode">Mathematical exercise
+      <select id="mode">
+        <option value="0">L1 · fractional sine map</option>
+        <option value="1">L2 · power transformation</option>
+        <option value="2">L3 · integer-coordinate hash</option>
+        <option value="3">L4 · lattice cells</option>
+        <option value="4" selected>L5 · orientation tiles</option>
+        <option value="5">L6 · moving rows</option>
+        <option value="6">L7 · smooth value field</option>
+      </select>
+    </label>
+    <label for="seed">Fixed seed (uint32)
+      <input id="seed" type="number" min="0" max="4294967295" step="1" value="20261009">
+    </label>
+    <label for="gamma">Power exponent γ: <output id="gammaValue">2.00</output>
+      <input id="gamma" type="range" min="0.5" max="4" value="2" step="0.1">
+    </label>
+    <label class="check" for="animate"><input id="animate" type="checkbox"> Animate moving rows</label>
+    <button id="reset" type="button">Reset</button>
+  </div>
+  <figure class="figure">
+    <canvas id="view" width="1024" height="576" role="img" aria-label="White-background GLSL figure showing the selected lesson as blue line geometry. Exact scientific interpretation is stated below; the visual is illustrative mathematics."></canvas>
+    <img id="fallback" class="hidden" src="static.svg" alt="Static deterministic figure: sixty-four white lattice cells each with one of two blue diagonal strokes, selected using a fixed seed. No physical topology is represented.">
+    <figcaption id="caption">L5: each square contains one of two diagonal strokes, selected from a deterministic integer hash. Neighboring strokes do not encode an empirical network.</figcaption>
+  </figure>
+  <p id="status" role="status" aria-live="polite">Checking local WebGL2 support. Static SVG remains available if rendering fails.</p>
+  <div class="meta">
+    <section><h2>Numerical status</h2><p>JavaScript/Node reference examples test ranges, deterministic seeds, negative coordinates, quantile monotonicity, and interpolation continuity. GPU rendering and distributional assumptions require separate verification.</p></section>
+    <section><h2>Interpretation boundary</h2><p>Any motion is a display-time parameter. Truchet tiles are geometric glyphs. Smooth value noise is not observed heat, transport performance, covariance, or resilience evidence.</p></section>
+  </div>
+  <details><summary>Equations and limits</summary>
+    <p>Cell decomposition: i=floor(s·x), f=s·x−i; hash output: 24 most significant bits from a deterministic uint32 mixing function. Distribution exercise: y=u^γ, γ&gt;0, with a theoretical CDF derived only under an ideal uniform input. Spatial interpolation: q(t)=3t²−2t³. Floating-point GPU implementations are not equivalent to proof or calibrated measurements.</p>
+  </details>
+  <script id="vs" type="x-shader/x-vertex">#version 300 es
+    precision highp float;
+    void main(){
+      vec2 v=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));
+      gl_Position=vec4(2.0*v-1.0,0.0,1.0);
+    }
+  </script>
+  <script id="fs" type="x-shader/x-fragment">#version 300 es
+    precision highp float;
+    precision highp int;
+    uniform vec2 uResolution;
+    uniform int uMode;
+    uniform uint uSeed;
+    uniform float uGamma;
+    uniform float uTime;
+    out vec4 outputColor;
+
+    uint mixUInt(uint x){
+      x^=x>>16u; x*=0x7feb352du;
+      x^=x>>15u; x*=0x846ca68bu;
+      x^=x>>16u; return x;
+    }
+    float hash24(ivec2 cell){
+      uint h=uint(cell.x)*0x9e3779b1u ^ uint(cell.y)*0x85ebca77u ^ uSeed;
+      return float(mixUInt(h)>>8u) / 16777216.0;
+    }
+    float smoothValue(vec2 p){
+      ivec2 i=ivec2(floor(p));
+      vec2 f=fract(p); vec2 q=f*f*(3.0-2.0*f);
+      float a=hash24(i), b=hash24(i+ivec2(1,0));
+      float c=hash24(i+ivec2(0,1)), d=hash24(i+ivec2(1,1));
+      return mix(mix(a,b,q.x),mix(c,d,q.x),q.y);
+    }
+    float lineMask(float distance,float pixel){
+      return 1.0-smoothstep(0.0,1.6,max(distance,0.0)/max(pixel,0.001));
+    }
+    void main(){
+      vec2 st=gl_FragCoord.xy/uResolution.xy;
+      vec2 p=(gl_FragCoord.xy-0.5*uResolution.xy)/min(uResolution.x,uResolution.y)*6.0;
+      float aa=max(fwidth(p.x),0.01);
+      vec3 ink=vec3(1.0);
+      float blue=0.0, pale=0.0;
+      if(uMode==0){
+        float u=fract(sin(7.41*p.x+0.31)*437.71);
+        blue=lineMask(abs(p.y-4.0*(u-0.5)),aa);
+        pale=lineMask(abs(p.y),aa*0.7);
+      }else if(uMode==1){
+        float u=clamp((p.x+2.4)/4.8,0.0,1.0);
+        float y=(p.y+2.0)/4.0;
+        if(p.x>=-2.4 && p.x<=2.4){
+          blue=lineMask(abs(y-pow(u,uGamma))*4.0,aa);
+          pale=lineMask(abs(y-u)*4.0,aa*0.8);
+        }
+      }else if(uMode==2){
+        vec2 q=p*5.0,local=fract(q)-0.5;
+        float h=hash24(ivec2(floor(q)));
+        blue=1.0-smoothstep(0.07+0.14*h,0.10+0.14*h,length(local));
+      }else if(uMode==3){
+        vec2 q=p*2.5,local=fract(q);
+        float h=hash24(ivec2(floor(q)));
+        float edge=min(min(local.x,1.0-local.x),min(local.y,1.0-local.y));
+        pale=lineMask(edge,0.018);
+        blue=1.0-smoothstep(0.045+0.13*h,0.064+0.13*h,length(local-0.5));
+      }else if(uMode==4){
+        vec2 q=p*2.0,local=fract(q);
+        ivec2 cell=ivec2(floor(q));
+        float dist=hash24(cell)<0.5?abs(local.x-local.y):abs(local.x+local.y-1.0);
+        float edge=min(min(local.x,1.0-local.x),min(local.y,1.0-local.y));
+        pale=lineMask(edge,0.015);
+        blue=lineMask(dist,0.045);
+      }else if(uMode==5){
+        float row=floor(p.y*2.4);
+        float speed=0.25+0.6*hash24(ivec2(int(row),0));
+        float dir=mod(abs(row),2.0)<0.5?1.0:-1.0;
+        float displaced=p.x*2.4-dir*speed*uTime;
+        ivec2 cell=ivec2(int(floor(displaced)),int(row));
+        vec2 local=vec2(fract(displaced),fract(p.y*2.4));
+        float h=hash24(cell);
+        float dash=1.0-smoothstep(0.045,0.085,abs(local.y-0.5));
+        float segment=step(0.78,h)*step(0.18,local.x)*step(local.x,0.82);
+        blue=dash*segment;
+      }else{
+        float v=smoothValue(p*1.5);
+        float q=abs(fract(v*11.0)-0.5);
+        blue=lineMask(q,0.055);
+      }
+      ink=mix(ink,vec3(0.5294,0.8078,0.9804),clamp(pale,0.0,1.0));
+      ink=mix(ink,vec3(0.0,0.4824,0.7059),clamp(blue,0.0,1.0));
+      outputColor=vec4(ink,1.0);
+    }
+  </script>
+  <script>
+    (() => {
+      const canvas=document.getElementById('view');
+      const image=document.getElementById('fallback');
+      const status=document.getElementById('status');
+      const controls=['mode','seed','gamma','animate','reset'].map(id=>document.getElementById(id));
+      const [mode,seed,gamma,animate,reset]=controls;
+      const gammaValue=document.getElementById('gammaValue');
+      const caption=document.getElementById('caption');
+      const captions=[
+        'L1 · Fractional sine: deterministic, discontinuous and implementation-dependent. Not independent random samples.',
+        'L2 · Power map: blue curve u^γ and pale reference u. The theoretical CDF applies only if the input U is uniform.',
+        'L3 · 2D integer hash: seeded per-cell dot sizes. Fixed seed, not an environmental field.',
+        'L4 · Spatial cells: integer lattice boundaries and locally indexed dots. Cell edges are not physical boundaries.',
+        'L5 · Diagonal tile glyphs: deterministic orientations, with no empirical network topology.',
+        'L6 · Moving rows: a synthetic time parameter shifts selected glyphs. No recovery or physical speed is modeled.',
+        'L7 · Value interpolation: contour lines from synthetic, smoothly interpolated cell hashes; covariance is not calibrated.'
+      ];
+      const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+      function staticFallback(reason){
+        canvas.classList.add('hidden');image.classList.remove('hidden');
+        controls.forEach(control=>control.disabled=true);
+        status.textContent=reason+' Fixed seed 20261009, L5 orientation-tile static SVG shown.';
+      }
+      const gl=canvas.getContext('webgl2',{alpha:false,antialias:true,preserveDrawingBuffer:false});
+      if(!gl){staticFallback('WebGL2 unavailable.');return;}
+      let program;
+      function compile(type,source){
+        const shader=gl.createShader(type);
+        gl.shaderSource(shader,source);gl.compileShader(shader);
+        if(!gl.getShaderParameter(shader,gl.COMPILE_STATUS)){
+          const message=gl.getShaderInfoLog(shader)||'GLSL compilation failed';
+          gl.deleteShader(shader);throw Error(message);
+        }
+        return shader;
+      }
+      try{
+        const vs=compile(gl.VERTEX_SHADER,document.getElementById('vs').textContent.trim());
+        const fs=compile(gl.FRAGMENT_SHADER,document.getElementById('fs').textContent.trim());
+        program=gl.createProgram();gl.attachShader(program,vs);gl.attachShader(program,fs);
+        gl.linkProgram(program);
+        if(!gl.getProgramParameter(program,gl.LINK_STATUS)){
+          throw Error(gl.getProgramInfoLog(program)||'Shader linking failed');
+        }
+        gl.deleteShader(vs);gl.deleteShader(fs);
+      }catch(error){console.error(error);staticFallback('Shader compilation or linking failed.');return;}
+      gl.bindVertexArray(gl.createVertexArray());
+      gl.useProgram(program);
+      const locs={
+        resolution:gl.getUniformLocation(program,'uResolution'),
+        mode:gl.getUniformLocation(program,'uMode'),
+        seed:gl.getUniformLocation(program,'uSeed'),
+        gamma:gl.getUniformLocation(program,'uGamma'),
+        time:gl.getUniformLocation(program,'uTime')
+      };
+      let handle=null;
+      let timeOrigin=performance.now();
+      const animationAllowed=()=>!reduced.matches && Number(mode.value)===5;
+      function draw(){
+        handle=null;
+        const dpr=Math.min(window.devicePixelRatio||1,2);
+        const width=Math.max(2,Math.round(canvas.clientWidth*dpr));
+        const height=Math.max(2,Math.round(canvas.clientWidth*9/16*dpr));
+        if(width!==canvas.width||height!==canvas.height){canvas.width=width;canvas.height=height;}
+        const numericSeed=Number(seed.value);
+        if(!Number.isSafeInteger(numericSeed)||numericSeed<0||numericSeed>4294967295){
+          status.textContent='Invalid seed. Use an integer in [0, 4294967295].';return;
+        }
+        const activeAnimation=animate.checked&&animationAllowed();
+        const t=activeAnimation?(performance.now()-timeOrigin)/1000:0;
+        gl.viewport(0,0,width,height);
+        gl.uniform2f(locs.resolution,width,height);
+        gl.uniform1i(locs.mode,Number(mode.value));
+        gl.uniform1ui(locs.seed,numericSeed);
+        gl.uniform1f(locs.gamma,Number(gamma.value));
+        gl.uniform1f(locs.time,t);
+        gl.drawArrays(gl.TRIANGLES,0,3);
+        gammaValue.textContent=Number(gamma.value).toFixed(2);
+        caption.textContent=captions[Number(mode.value)];
+        status.textContent='WebGL2 visualization active; fixed-seed synthetic mathematics, GPU pixels not independently validated.';
+        if(activeAnimation)handle=requestAnimationFrame(draw);
+      }
+      function update(){
+        if(handle!==null)cancelAnimationFrame(handle);
+        animate.disabled=!animationAllowed();
+        if(animate.disabled)animate.checked=false;
+        timeOrigin=performance.now();
+        draw();
+      }
+      for(const control of [mode,seed,gamma,animate])control.addEventListener('input',update);
+      reset.addEventListener('click',()=>{
+        mode.value='4';seed.value='20261009';gamma.value='2';animate.checked=false;update();
+      });
+      reduced.addEventListener('change',update);
+      window.addEventListener('resize',update);
+      canvas.addEventListener('webglcontextlost',event=>{
+        event.preventDefault();
+        if(handle!==null)cancelAnimationFrame(handle);
+        staticFallback('WebGL2 context lost.');
+      });
+      update();
+    })();
+  </script>
+</body>
+</html>

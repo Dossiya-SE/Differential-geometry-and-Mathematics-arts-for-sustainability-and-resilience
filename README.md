@@ -74,11 +74,13 @@ The mathematics-publication controls are demonstrated with an immutable mixed-su
 
 These controls extend the non-conflation rules in [`literature_review/protocol/CHAIN_ARCHITECTURE.md`](literature_review/protocol/CHAIN_ARCHITECTURE.md).
 
-## Experimental mathematical geometry laboratory
+## Experimental mathematical graphics and teaching skills
 
-The proposed [sphere-inversion WebGL2 laboratory](art/shaders/inversion_lab/README.md) demonstrates a mathematically specified nonlinear coordinate transformation using an interactive point probe, numerically reported invariants, and a static SVG fallback. Open [the browser source](art/shaders/inversion_lab/index.html) through a local HTTP server (see the laboratory README). The code is on a draft review branch and remains **unreviewed** until GPU/browser testing and independent mathematical inspection are complete.
+- [Sphere-inversion WebGL2 laboratory](art/shaders/inversion_lab/README.md) — an internally tested geometric transformation (`MSR-MOD-0002` / `MSR-FIG-0002`), merged as a *proposed* educational artifact; independent browser validation and gallery promotion remain tracked in [issue #27](https://github.com/Dossiya-SE/Differential-geometry-and-Mathematics-arts-for-sustainability-and-resilience/issues/27).
+- [Scientific shader randomness skill](skills/shader-randomness-scientific-visuals/SKILL.md) — Chapter 10 concept mapping, seven original code lessons and task-specific scientific adaptations for animations, diagrams, mind maps, charts and mathematical figures.
+- [Randomness learning laboratory](art/shaders/randomness_lab/README.md) — seven WebGL2 teaching modes, fixed-seed reference functions, Node.js property tests and a deterministic SVG fallback (`MSR-FIG-0003`, proposed, GPU rendering not independently validated).
 
-**Scope boundary:** `MSR-MOD-0002` is a geometry-learning fixture, not a selected sustainability domain, physical infrastructure model, or empirical resilience result. To run the independent browser-kernel checks on this branch, use Node.js 22 and `make webtest`.
+**Scientific boundary:** These are domain-neutral mathematical learning fixtures. A procedural visual pattern is neither an observation nor a calibrated statistical model. Application selection remains `NOT_SELECTED`. Run `make webtest` with Node.js 22 to execute the browser-kernel mathematical tests.
 
 ## Quick start
 
