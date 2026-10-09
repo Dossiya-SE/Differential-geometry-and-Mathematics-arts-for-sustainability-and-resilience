@@ -15,6 +15,10 @@
     label { display: inline-flex; gap: 9px; align-items: center; }
     input[type=range] { width: 180px; accent-color: #00bfff; }
     input[type=checkbox] { accent-color: #00bfff; }
+    .inspector { border: 1px solid #bdc9d2; border-radius: 4px; padding: 12px 14px; margin-bottom: 18px; }
+    .inspector h2 { font-size: 1.06rem; margin: 0 0 6px; }
+    .inspector output { display: block; line-height: 1.65; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+    .inspector p { margin: 5px 0 10px; }
     .panels { display: grid; grid-template-columns: 1fr 1fr; text-align: center; font-weight: 600; }
     canvas, img { width: 100%; height: auto; display: block; background: #fff; border: 1px solid #bdc9d2; }
     .figure { margin: 0; }
@@ -37,9 +41,23 @@
     <label><input id="animate" type="checkbox"> Animate radius (visual parameter, not physical time)</label>
     <button id="reset" type="button">Reset</button>
   </div>
+  <section class="inspector" aria-labelledby="probeTitle">
+    <h2 id="probeTitle">Pointwise mathematical inspector</h2>
+    <p>Outlined points identify an input location and its transformed image; these are mathematical coordinates, not infrastructure observations.</p>
+    <div class="controls">
+      <label for="probeX">Point x₁ <output id="probeXText">1.25</output>
+        <input id="probeX" type="range" min="0.5" max="2" step="0.05" value="1.25">
+      </label>
+      <label for="probeY">Point x₂ <output id="probeYText">0.75</output>
+        <input id="probeY" type="range" min="-1.5" max="1.5" step="0.05" value="0.75">
+      </label>
+    </div>
+    <output id="probeReport" aria-live="off">The numerical diagnostic is available when the interactive renderer is active.</output>
+    <p><small>Diagnostics use JavaScript binary64 arithmetic; GPU pixel positions use device-dependent precision. Values may differ near hardware precision limits.</small></p>
+  </section>
   <div class="panels"><span>Original Cartesian grid</span><span>Inverted coordinate grid</span></div>
   <figure class="figure">
-    <canvas id="plot" width="960" height="480" role="img" aria-label="Two mathematical panels showing a straight Cartesian coordinate grid and its image under circle inversion about the origin. The inversion center is excluded from rendering."></canvas>
+    <canvas id="plot" width="960" height="480" role="img" aria-label="Left panel shows source Cartesian grid and selected source point. Right panel shows inverted grid and its corresponding transformed point. Axes and inversion circle are shown; the center is masked for GPU sampling."></canvas>
     <img id="fallback" class="hidden" src="static.svg" alt="Static comparison: ordinary coordinate lines at left and the corresponding inverted circular arcs and axes at right for radius one.">
     <figcaption>The circular outline is the inversion circle, not a constraint or viability boundary. WebGL rendering masks a radius-0.13 neighborhood for sampling stability; analytically only the center is excluded. Coordinate time is not physical time.</figcaption>
   </figure>
@@ -61,6 +79,7 @@ precision highp float;
 uniform vec3 iResolution;
 uniform float iTime;
 uniform float uRadius;
+uniform vec2 uProbe;
 uniform bool uAnimate;
 out vec4 fragColor;
 
@@ -107,6 +126,16 @@ void mainImage(out vec4 colorOut, in vec2 fragCoord) {
     ink = mix(ink, vec3(0.23, 0.35, 0.47), maskRing * dashes);
   }
 
+  // Inversion is an involution; source marker and its image use the same
+  // analytical map. Distinct white-center/blue-outline glyphs avoid color-only meaning.
+  vec2 marker = right ? (r * r / dot(uProbe, uProbe)) * uProbe : uProbe;
+  float markerDistance = length(p - marker);
+  float aa = max(fwidth(p.x), 0.012);
+  float outer = 1.0 - smoothstep(0.060, 0.060 + aa, markerDistance);
+  float inner = 1.0 - smoothstep(0.034, 0.034 + aa, markerDistance);
+  ink = mix(ink, vec3(0.0, 0.4824, 0.7059), outer);
+  ink = mix(ink, vec3(1.0), inner);
+
   float divider = 1.0 - smoothstep(0.0, 1.2, abs(fragCoord.x - panelWidth));
   ink = mix(ink, vec3(0.67, 0.72, 0.78), divider);
   colorOut = vec4(ink, 1.0);
@@ -114,7 +143,8 @@ void mainImage(out vec4 colorOut, in vec2 fragCoord) {
 
 void main() { mainImage(fragColor, gl_FragCoord.xy); }
   </script>
-  <script>
+  <script type="module">
+    import {inspectProbe} from './probe.mjs';
     (() => {
       const canvas = document.getElementById('plot');
       const fallback = document.getElementById('fallback');
@@ -123,10 +153,17 @@ void main() { mainImage(fragColor, gl_FragCoord.xy); }
       const radiusText = document.getElementById('radiusText');
       const animateInput = document.getElementById('animate');
       const reset = document.getElementById('reset');
+      const probeX = document.getElementById('probeX');
+      const probeY = document.getElementById('probeY');
+      const probeXText = document.getElementById('probeXText');
+      const probeYText = document.getElementById('probeYText');
+      const probeReport = document.getElementById('probeReport');
       const gl = canvas.getContext('webgl2', { alpha: false, antialias: true });
       function fallbackView(message) {
         canvas.classList.add('hidden');
         fallback.classList.remove('hidden');
+        for (const control of [radiusInput, animateInput, probeX, probeY, reset]) control.disabled = true;
+        probeReport.textContent = 'Interactive diagnostics are disabled. The static SVG shows radius r = 1 and does not depict a selected point.';
         status.textContent = message;
       }
       if (!gl) { fallbackView('WebGL2 unavailable; showing the fixed-radius exact SVG example.'); return; }
@@ -164,9 +201,11 @@ void main() { mainImage(fragColor, gl_FragCoord.xy); }
       const resLoc = gl.getUniformLocation(program, 'iResolution');
       const timeLoc = gl.getUniformLocation(program, 'iTime');
       const radiusLoc = gl.getUniformLocation(program, 'uRadius');
+      const probeLoc = gl.getUniformLocation(program, 'uProbe');
       const animLoc = gl.getUniformLocation(program, 'uAnimate');
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       const start = performance.now();
+      animateInput.disabled = reducedMotion.matches;
       let frameHandle = null;
       function draw() {
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -178,8 +217,17 @@ void main() { mainImage(fragColor, gl_FragCoord.xy); }
         }
         gl.viewport(0, 0, width, height);
         gl.uniform3f(resLoc, width, height, 1);
-        gl.uniform1f(timeLoc, (performance.now() - start) / 1000);
-        gl.uniform1f(radiusLoc, Number(radiusInput.value));
+        const seconds = (performance.now() - start) / 1000;
+        const radius = Number(radiusInput.value);
+        const effectiveRadius = radius * (animateInput.checked ? 1.0 + 0.08 * Math.sin(seconds) : 1.0);
+        const point = [Number(probeX.value), Number(probeY.value)];
+        const diagnostic = inspectProbe(point, effectiveRadius);
+        gl.uniform1f(timeLoc, seconds);
+        gl.uniform1f(radiusLoc, radius);
+        gl.uniform2f(probeLoc, point[0], point[1]);
+        probeXText.textContent = point[0].toFixed(2);
+        probeYText.textContent = point[1].toFixed(2);
+        probeReport.textContent = `r(t)=${effectiveRadius.toFixed(4)}; x=(${point.map(v => v.toFixed(2)).join(', ')}); I(x)=(${diagnostic.image.map(v => v.toFixed(4)).join(', ')}); |I(I(x))−x|=${diagnostic.roundTripError.toExponential(2)}; ||x||·||I(x)||−r² absolute residual=${diagnostic.radialError.toExponential(2)}.`;
         gl.uniform1i(animLoc, animateInput.checked ? 1 : 0);
         gl.drawArrays(gl.TRIANGLES, 0, 3);
         if (animateInput.checked) frameHandle = requestAnimationFrame(draw);
@@ -192,14 +240,20 @@ void main() { mainImage(fragColor, gl_FragCoord.xy); }
         draw();
       }
       radiusInput.addEventListener('input', update);
+      probeX.addEventListener('input', update);
+      probeY.addEventListener('input', update);
       animateInput.addEventListener('change', update);
       reset.addEventListener('click', () => {
         radiusInput.value = '1';
         animateInput.checked = false;
+        probeX.value = '1.25';
+        probeY.value = '0.75';
         update();
       });
       reducedMotion.addEventListener('change', () => {
-        if (reducedMotion.matches) { animateInput.checked = false; update(); }
+        animateInput.disabled = reducedMotion.matches;
+        if (reducedMotion.matches) animateInput.checked = false;
+        update();
       });
       window.addEventListener('resize', update);
       canvas.addEventListener('webglcontextlost', event => {
