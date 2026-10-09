@@ -20,7 +20,16 @@
       "browser_validation": "NOT_COMPLETED",
       "empirical_validation": "NOT_APPLICABLE",
       "communication_impact": "NOT_EVALUATED",
-      "application_decision": "NOT_SELECTED"
+      "application_decision": "NOT_SELECTED",
+      "model_id": "MSR-MOD-0003",
+      "authority_doc": "docs/VISUAL_SYSTEM_V1.md",
+      "render_source": "art/visual_suite/render.mjs",
+      "alt_text": "An initial-state unit disk with A inside and B outside; x decreases exponentially with dimensionless time.",
+      "known_limitations": [
+        "Internally generated illustrative mathematical or semantic representation",
+        "Independent audience accessibility and communication impact not yet evaluated",
+        "No application-specific physical or empirical validation"
+      ]
     },
     {
       "id": "MSR-FIG-0005",
@@ -36,7 +45,15 @@
       "browser_validation": "NOT_COMPLETED",
       "empirical_validation": "NOT_APPLICABLE",
       "communication_impact": "NOT_EVALUATED",
-      "application_decision": "NOT_SELECTED"
+      "application_decision": "NOT_SELECTED",
+      "authority_doc": "docs/VISUAL_SYSTEM_V1.md",
+      "render_source": "art/visual_suite/render.mjs",
+      "alt_text": "Five white stage rectangles with four directed methodological arrows.",
+      "known_limitations": [
+        "Internally generated illustrative mathematical or semantic representation",
+        "Independent audience accessibility and communication impact not yet evaluated",
+        "No application-specific physical or empirical validation"
+      ]
     },
     {
       "id": "MSR-FIG-0006",
@@ -52,7 +69,15 @@
       "browser_validation": "NOT_COMPLETED",
       "empirical_validation": "NOT_APPLICABLE",
       "communication_impact": "NOT_EVALUATED",
-      "application_decision": "NOT_SELECTED"
+      "application_decision": "NOT_SELECTED",
+      "authority_doc": "docs/VISUAL_SYSTEM_V1.md",
+      "render_source": "art/visual_suite/render.mjs",
+      "alt_text": "One mathematics root, three thematic branches and nine child concepts linked without causal arrows.",
+      "known_limitations": [
+        "Internally generated illustrative mathematical or semantic representation",
+        "Independent audience accessibility and communication impact not yet evaluated",
+        "No application-specific physical or empirical validation"
+      ]
     },
     {
       "id": "MSR-FIG-0007",
@@ -68,7 +93,16 @@
       "browser_validation": "NOT_COMPLETED",
       "empirical_validation": "NOT_APPLICABLE",
       "communication_impact": "NOT_EVALUATED",
-      "application_decision": "NOT_SELECTED"
+      "application_decision": "NOT_SELECTED",
+      "model_id": "MSR-MOD-0003",
+      "authority_doc": "docs/VISUAL_SYSTEM_V1.md",
+      "render_source": "art/visual_suite/render.mjs",
+      "alt_text": "Two exact exponential radial trajectories with a reference radius-one constraint and analytically computed crossing.",
+      "known_limitations": [
+        "Internally generated illustrative mathematical or semantic representation",
+        "Independent audience accessibility and communication impact not yet evaluated",
+        "No application-specific physical or empirical validation"
+      ]
     },
     {
       "id": "MSR-FIG-0008",
@@ -84,7 +118,16 @@
       "browser_validation": "NOT_COMPLETED",
       "empirical_validation": "NOT_APPLICABLE",
       "communication_impact": "NOT_EVALUATED",
-      "application_decision": "NOT_SELECTED"
+      "application_decision": "NOT_SELECTED",
+      "model_id": "MSR-MOD-0004",
+      "authority_doc": "docs/VISUAL_SYSTEM_V1.md",
+      "render_source": "art/visual_suite/render.mjs",
+      "alt_text": "A schematic unit sphere and equatorial plane showing a north-pole projection line through P and Q.",
+      "known_limitations": [
+        "Internally generated illustrative mathematical or semantic representation",
+        "Independent audience accessibility and communication impact not yet evaluated",
+        "No application-specific physical or empirical validation"
+      ]
     }
   ]
 }
