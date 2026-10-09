@@ -6,7 +6,7 @@ import unittest
 
 import numpy as np
 
-from msr.geometry.inversion import invert_point, inversion_jacobian
+from msr.geometry.inversion import inversion_jacobian, invert_point
 
 
 class InversionPropertyTests(unittest.TestCase):
