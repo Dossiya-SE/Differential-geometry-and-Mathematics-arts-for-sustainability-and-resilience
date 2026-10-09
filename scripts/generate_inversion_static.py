@@ -13,10 +13,10 @@ def render() -> str:
     lines = [
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" '
         'role="img" data-figure-id="MSR-FIG-0002">',
-        '<title>Sphere inversion of an orthogonal coordinate grid</title>',
-        '<desc>Left: straight horizontal and vertical lines. Right: exact inverted circles '
-        'for nonzero grid lines and straight invariant axes, with the excluded center marked. '
-        'This is dimensionless geometry, not a physical resilience simulation.</desc>',
+        "<title>Sphere inversion of an orthogonal coordinate grid</title>",
+        "<desc>Left: straight horizontal and vertical lines. Right: exact inverted circles "
+        "for nonzero grid lines and straight invariant axes, with the excluded center marked. "
+        "This is dimensionless geometry, not a physical resilience simulation.</desc>",
         '<defs><clipPath id="left"><rect x="0" y="0" width="480" height="480"/></clipPath>'
         '<clipPath id="right"><rect x="480" y="0" width="480" height="480"/></clipPath></defs>',
         '<rect width="960" height="480" fill="#FFFFFF"/>',
@@ -28,7 +28,7 @@ def render() -> str:
         x = 240 + (tick * 0.5) * scale
         y = 240 - (tick * 0.5) * scale
         lines.append(f'<path d="M{x:.2f},0 V480 M0,{y:.2f} H480"/>')
-    lines += ['</g>', '<g clip-path="url(#right)" stroke="#87CEFA" stroke-width="1.4" fill="none">']
+    lines += ["</g>", '<g clip-path="url(#right)" stroke="#87CEFA" stroke-width="1.4" fill="none">']
     # Inversion of x=a -> circle centered (1/(2a), 0), radius |1/(2a)|.
     # Inversion of y=b -> circle centered (0,1/(2b)), radius |1/(2b)|.
     for tick in range(-5, 6):
@@ -37,25 +37,20 @@ def render() -> str:
         a = tick * 0.5
         center = 1 / (2 * a)
         radius = abs(center) * scale
-        lines.append(
-            f'<circle cx="{720 + center * scale:.5f}" cy="240" r="{radius:.5f}"/>'
-        )
-        lines.append(
-            f'<circle cx="720" cy="{240 - center * scale:.5f}" r="{radius:.5f}"/>'
-        )
+        lines.append(f'<circle cx="{720 + center * scale:.5f}" cy="240" r="{radius:.5f}"/>')
+        lines.append(f'<circle cx="720" cy="{240 - center * scale:.5f}" r="{radius:.5f}"/>')
     lines += [
-        '</g>',
+        "</g>",
         '<g stroke="#007AB4" stroke-width="2" fill="none">',
         '<path d="M240,0 V480 M0,240 H480 M720,0 V480 M480,240 H960"/>',
-        '</g>',
+        "</g>",
         '<g stroke="#00BFFF" stroke-width="2.4" fill="none">',
         f'<circle cx="240" cy="240" r="{scale}"/>',
         f'<circle cx="720" cy="240" r="{scale}"/>',
-        '</g>',
+        "</g>",
         '<path d="M480,0 V480" stroke="#ABB7C4"/>',
-        '<circle cx="720" cy="240" r="8" stroke="#52616B" fill="#FFFFFF" '
-        'stroke-dasharray="2 3"/>',
-        '</svg>',
+        '<circle cx="720" cy="240" r="8" stroke="#52616B" fill="#FFFFFF" stroke-dasharray="2 3"/>',
+        "</svg>",
     ]
     return "\n".join(lines) + "\n"
 
