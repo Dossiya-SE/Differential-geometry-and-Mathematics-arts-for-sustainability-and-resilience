@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import importlib.util
 import json
 import unittest
 from pathlib import Path
@@ -49,6 +50,22 @@ class VisualSuiteTests(unittest.TestCase):
                 for forbidden in ("#e69f00", "lineargradient", "radialgradient"):
                     self.assertNotIn(forbidden, source)
                 self.assertNotIn("fill=\"#87cefa\"", source)
+
+    def test_new_models_conform_to_repo_json_schema(self) -> None:
+        if importlib.util.find_spec("jsonschema") is None:
+            self.skipTest("optional jsonschema dependency not installed")
+        from jsonschema import Draft202012Validator
+
+        schema = json.loads(
+            (ROOT / "schemas/model-contract.schema.json").read_text(encoding="utf-8")
+        )
+        validator = Draft202012Validator(schema)
+        for number in (3, 4):
+            path = ROOT / f"mathematics/model_contracts/MSR-MOD-{number:04d}.json"
+            with self.subTest(model=number):
+                record = json.loads(path.read_text(encoding="utf-8"))
+                self.assertEqual(record["application_decision"], "NOT_SELECTED")
+                self.assertEqual(list(validator.iter_errors(record)), [])
 
     def test_cross_artifact_equations_and_conventions_are_declared(self) -> None:
         standard = (ROOT / "docs/VISUAL_SYSTEM_V1.md").read_text(encoding="utf-8")
