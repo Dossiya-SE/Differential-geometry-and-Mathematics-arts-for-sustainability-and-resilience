@@ -52,7 +52,7 @@ ${arr}
 }
 
 function renderMindmap(){
- const rootX=480,rootY=135,rootW=390;
+ const rootX=650,rootY=135,rootW=390;
  const cols=[215,680,1145], branches=["Foundations","Methods","Research interfaces"];
  const leaves=[["Geometry","Partial differential equations","Dynamical systems"],["Optimization","Uncertainty","Scientific computation"],["Viability","Networks","Visualization"]];
  const body=[];
@@ -63,7 +63,7 @@ function renderMindmap(){
  body.push(`  <text x="${rootX+rootW/2}" y="197" text-anchor="middle" font-family="system-ui" font-size="22" font-weight="650" fill="#17202A">Sustainability and Resilience</text>`);
  for(let k=0;k<3;k++){
   const x=cols[k],w=328;
-  body.push(`  <path data-relation="root-to-${k}" d="M 675 223 V 265 H ${x+164} V 289" fill="none" stroke="#87CEFA" stroke-width="3"/>`);
+  body.push(`  <path data-relation="root-to-${k}" d="M 845 223 V 265 H ${x+164} V 289" fill="none" stroke="#87CEFA" stroke-width="3"/>`);
   body.push(`  <rect data-node="branch-${k}" x="${x}" y="289" width="${w}" height="67" rx="4" fill="#FFFFFF" stroke="#00BFFF" stroke-width="3"/>`);
   body.push(`  <text x="${x+w/2}" y="331" text-anchor="middle" font-family="system-ui" font-size="23" font-weight="650" fill="#17202A">${branches[k]}</text>`);
   for(let j=0;j<3;j++){
@@ -74,7 +74,7 @@ function renderMindmap(){
   }
  }
  body.push(`  <text x="70" y="780" font-family="system-ui" font-size="18" fill="#5D6D7E">MSR-FIG-0006 · Concept hierarchy only · 1 root / 3 branches / 9 leaves · proposed taxonomy.</text>`);
- return svg("MSR-FIG-0006","Mathematics taxonomy for sustainability and resilience","One central root concept connects without arrows to three groups Foundations, Methods and Research interfaces. Each group has three named child concepts, nine leaves total. Connecting lines encode membership and are not causal arrows.",1370,815,body.join("\n"))
+ return svg("MSR-FIG-0006","Mathematics taxonomy for sustainability and resilience","One central root concept connects without arrows to three groups Foundations, Methods and Research interfaces. Each group has three named child concepts, nine leaves total. Connecting lines encode membership and are not causal arrows.",1688,815,body.join("\n"))
 }
 
 function renderChart(){
@@ -115,7 +115,7 @@ function renderProjection(){
  const R=175,cx=455,cy=410,s2=Math.SQRT1_2,s6=1/Math.sqrt(6);
  const point=(p)=>[cx+R*s2*(p[0]-p[1]),cy-R*(-s6*(p[0]+p[1])+2*s6*p[2])];
  const P=[Math.sqrt(3)/2,0,-.5],N=[0,0,1],Q=[1/Math.sqrt(3),0,0]; const n=point(N),p=point(P),q=point(Q);
- const polys=[[-1.6,-1.6,0],[1.6,-1.6,0],[1.6,1.6,0],[-1.6,1.6,0]].map(point).map(v=>v.map(f).join(",")).join(" ");
+ const polys=[[-1.1,-1.1,0],[1.1,-1.1,0],[1.1,1.1,0],[-1.1,1.1,0]].map(point).map(v=>v.map(f).join(",")).join(" ");
  const eq=Array.from({length:181},(_,i)=>{const theta=2*Math.PI*i/180;let xy=point([Math.cos(theta),Math.sin(theta),0]);return(i?"L ":"M ")+xy.map(f).join(" ")}).join(" ");
  const body=`  <text x="58" y="65" font-family="system-ui" font-size="31" font-weight="700" fill="#17202A">Stereographic projection from S² to a plane</text>
   <text x="58" y="103" font-family="system-ui" font-size="19" fill="#5D6D7E">Orthographic drawing of a 3D construction · displayed lengths are not intrinsic distances</text>
