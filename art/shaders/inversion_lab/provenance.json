@@ -35,7 +35,7 @@
   ],
   "source_sha256": {
     "art/shaders/inversion_lab/index.html": "e772a7c3d3202bbb812a681365c79a685b845c5474e85284f3134fdd12e01340",
-    "scripts/generate_inversion_static.py": "dd47069ec497eb2d38f1fbaea7d5396c57a3565d6c7e26dab9f6236a22ee9b7e",
+    "scripts/generate_inversion_static.py": "1d05ec383f82cc908ca18ab0e7be9c79278585bc308361ec5383b34285487380",
     "art/shaders/inversion_lab/static.svg": "8eb1cfc32787a604faa037116811e0da004c5ba535f4a5c3a659221f062a2a8a",
     "art/shaders/inversion_lab/probe.mjs": "1adebeb00ab0ac38eebbe4086b10254020d018e6e025d0e0f490d5201e52cdbb",
     "art/shaders/inversion_lab/probe.test.mjs": "cc40ac61d8a443bae69a830c40791b8ed24b3de3818ceaee8c079a805ecef0e0",
