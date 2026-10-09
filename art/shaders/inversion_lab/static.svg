@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" role="img" data-figure-id="MSR-FIG-0002">
+<title>Sphere inversion of an orthogonal coordinate grid</title>
+<desc>Left: straight horizontal and vertical lines. Right: exact inverted circles for nonzero grid lines and straight invariant axes, with the excluded center marked. This is dimensionless geometry, not a physical resilience simulation.</desc>
+<defs><clipPath id="left"><rect x="0" y="0" width="480" height="480"/></clipPath><clipPath id="right"><rect x="480" y="0" width="480" height="480"/></clipPath></defs>
+<rect width="960" height="480" fill="#FFFFFF"/>
+<g clip-path="url(#left)" stroke="#87CEFA" stroke-width="1.4" fill="none">
+<path d="M50.00,0 V480 M0,430.00 H480"/>
+<path d="M88.00,0 V480 M0,392.00 H480"/>
+<path d="M126.00,0 V480 M0,354.00 H480"/>
+<path d="M164.00,0 V480 M0,316.00 H480"/>
+<path d="M202.00,0 V480 M0,278.00 H480"/>
+<path d="M240.00,0 V480 M0,240.00 H480"/>
+<path d="M278.00,0 V480 M0,202.00 H480"/>
+<path d="M316.00,0 V480 M0,164.00 H480"/>
+<path d="M354.00,0 V480 M0,126.00 H480"/>
+<path d="M392.00,0 V480 M0,88.00 H480"/>
+<path d="M430.00,0 V480 M0,50.00 H480"/>
+</g>
+<g clip-path="url(#right)" stroke="#87CEFA" stroke-width="1.4" fill="none">
+<circle cx="704.80000" cy="240" r="15.20000"/>
+<circle cx="720" cy="255.20000" r="15.20000"/>
+<circle cx="701.00000" cy="240" r="19.00000"/>
+<circle cx="720" cy="259.00000" r="19.00000"/>
+<circle cx="694.66667" cy="240" r="25.33333"/>
+<circle cx="720" cy="265.33333" r="25.33333"/>
+<circle cx="682.00000" cy="240" r="38.00000"/>
+<circle cx="720" cy="278.00000" r="38.00000"/>
+<circle cx="644.00000" cy="240" r="76.00000"/>
+<circle cx="720" cy="316.00000" r="76.00000"/>
+<circle cx="796.00000" cy="240" r="76.00000"/>
+<circle cx="720" cy="164.00000" r="76.00000"/>
+<circle cx="758.00000" cy="240" r="38.00000"/>
+<circle cx="720" cy="202.00000" r="38.00000"/>
+<circle cx="745.33333" cy="240" r="25.33333"/>
+<circle cx="720" cy="214.66667" r="25.33333"/>
+<circle cx="739.00000" cy="240" r="19.00000"/>
+<circle cx="720" cy="221.00000" r="19.00000"/>
+<circle cx="735.20000" cy="240" r="15.20000"/>
+<circle cx="720" cy="224.80000" r="15.20000"/>
+</g>
+<g stroke="#007AB4" stroke-width="2" fill="none">
+<path d="M240,0 V480 M0,240 H480 M720,0 V480 M480,240 H960"/>
+</g>
+<g stroke="#00BFFF" stroke-width="2.4" fill="none">
+<circle cx="240" cy="240" r="76"/>
+<circle cx="720" cy="240" r="76"/>
+</g>
+<path d="M480,0 V480" stroke="#ABB7C4"/>
+<circle cx="720" cy="240" r="8" stroke="#52616B" fill="#FFFFFF" stroke-dasharray="2 3"/>
+</svg>
