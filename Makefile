@@ -1,7 +1,7 @@
 PYTHON ?= python3
 PYTHONPATH := src
 
-.PHONY: help verify verify-ci test webtest lint typecheck experiment docs clean
+.PHONY: help verify verify-ci test webtest visualsuite lint typecheck experiment docs clean
 
 help:
 	@echo "MSR research-platform commands"
@@ -9,6 +9,7 @@ help:
 	@echo "  make verify-ci   Run installed development tools plus portable checks"
 	@echo "  make test        Run the complete Python test suite"
 	@echo "  make webtest     Run dependency-free Node.js mathematical browser-kernel tests"
+	@echo "  make visualsuite  Verify five deterministic SVG visual types"
 	@echo "  make experiment  Reproduce the reference geometry experiment"
 	@echo "  make docs        Render the Quarto site or validate with Pandoc"
 
@@ -22,8 +23,12 @@ test:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m pytest -q
 
 webtest:
-	node --test art/shaders/inversion_lab/probe.test.mjs skills/shader-randomness-scientific-visuals/examples/random_fields.test.mjs
+	node --test art/shaders/inversion_lab/probe.test.mjs skills/shader-randomness-scientific-visuals/examples/random_fields.test.mjs art/visual_suite/render.test.mjs art/animations/viability_lab/model.test.mjs
 	node skills/shader-randomness-scientific-visuals/examples/render_static.mjs --check
+	node art/visual_suite/render.mjs --check
+
+visualsuite:
+	node art/visual_suite/render.mjs --check
 
 lint:
 	$(PYTHON) -m ruff check src tests scripts
