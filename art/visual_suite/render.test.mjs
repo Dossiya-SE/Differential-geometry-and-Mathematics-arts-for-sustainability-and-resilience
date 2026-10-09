@@ -65,3 +65,24 @@ test('stereographic projection points are collinear in the declared orthographic
   assert.ok(Math.abs(determinant)<0.5,'projection line must pass through all three plotted points');
   assert.match(figure,/Domain: S² without the north pole N/);
 });
+
+test('diagram and mind map geometry remain inside their viewports',()=>{
+  const doc=renderAll()['art/mindmaps/mathematics_taxonomy.svg'];
+  const root=doc.match(/viewBox="0 0 ([0-9]+) ([0-9]+)"/);
+  assert.ok(root);
+  const width=Number(root[1]), boxes=[...doc.matchAll(/<rect data-node="[^"]+" x="([^"]+)" y="[^"]+" width="([^"]+)"/g)];
+  assert.equal(boxes.length,13);
+  for(const box of boxes){
+    const left=Number(box[1]),right=left+Number(box[2]);
+    assert.ok(left>=0 && right<=width, 'taxonomy node outside the declared SVG canvas');
+  }
+  const center=Number(doc.match(/<rect data-node="root" x="([^"]+)"[^>]*width="([^"]+)"/)[1])+195;
+  assert.ok(Math.abs(center-width/2)<2, 'root must be centered among three branch columns');
+});
+test('stereographic equatorial plane outline does not collide with the explanation column',()=>{
+  const doc=renderAll()['art/mathematical_figures/stereographic_projection.svg'];
+  const match=doc.match(/data-object="equatorial-plane" points="([^"]+)"/);
+  assert.ok(match);
+  const projectedX=match[1].split(' ').map(s=>Number(s.split(',')[0]));
+  assert.ok(Math.max(...projectedX)<735,'plane geometry must remain left of the semantic divider');
+});
