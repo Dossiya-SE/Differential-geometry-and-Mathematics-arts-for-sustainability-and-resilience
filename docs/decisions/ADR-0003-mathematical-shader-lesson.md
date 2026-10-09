@@ -6,7 +6,7 @@
 
 ## Decision
 
-Allow one self-contained WebGL2 fragment shader and minimal browser JavaScript within `art/shaders/inversion_lab/`. Keep Python/NumPy as the mathematical reference implementation of `MSR-MOD-0002`. Use no new build-time frontend dependencies. The browser presentation has a static SVG reference and supports reduced motion. No unrelated interface or package dependencies are introduced.
+Allow one self-contained WebGL2 fragment shader and minimal browser JavaScript within `art/shaders/inversion_lab/`. Keep Python/NumPy as the mathematical reference implementation of `MSR-MOD-0002`. Use a dependency-free ECMAScript module for pointwise coordinate diagnostics and Node.js 22's built-in test runner for a numerically independent browser-kernel check. Node.js is an explicitly pinned CI verification tool, not a frontend build dependency. Use no new build-time frontend dependencies. The browser presentation has a static SVG reference and supports reduced motion. No unrelated interface or package dependencies are introduced.
 
 ## Justification for GLSL
 
