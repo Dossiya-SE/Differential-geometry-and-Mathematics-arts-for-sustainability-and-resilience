@@ -2,7 +2,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1688" height="815" viewBox="0 0 1688 815" role="img" aria-labelledby="title description" data-figure-id="MSR-FIG-0006">
   <title id="title">Mathematics taxonomy for sustainability and resilience</title>
   <desc id="description">One central root concept connects without arrows to three groups Foundations, Methods and Research interfaces. Each group has three named child concepts, nine leaves total. Connecting lines encode membership and are not causal arrows.</desc>
-  <rect x="0" y="0" width="1370" height="815" fill="#FFFFFF"/>
+  <rect x="0" y="0" width="1688" height="815" fill="#FFFFFF"/>
   <text x="70" y="62" font-family="system-ui" font-size="31" font-weight="700" fill="#17202A">A nonexhaustive mathematics study taxonomy</text>
   <text x="70" y="99" font-family="system-ui" font-size="19" fill="#5D6D7E">Lines encode parent–child grouping, never causal or operational dependencies</text>
   <rect data-node="root" x="650" y="135" width="390" height="88" rx="5" fill="#FFFFFF" stroke="#00BFFF" stroke-width="4"/>
