@@ -24,7 +24,7 @@ Canvas, panels and boxes must be white (`#FFFFFF`). No gold, gradients, shadows,
 
 ## 4. First five-example contract
 
-### 1 — Animation `MSR-FIG-0004`
+### 1 — Animation `MSR-FIG-0004` (model `MSR-MOD-0003`)
 Equation: `dx/dτ=-x` for `x∈R²`, `τ≥0`. Closed form `x(τ)=e^{-τ}x₀`. Constraint `K={x:||x||₂≤1}`. A trajectory initially in `K` remains in `K`. Since no controls or disturbances are supplied, `Viab(K)=K` for this autonomous demonstration. For `||x₀||>1`, entering `K` later does not make it viable at `τ=0`. Example initial conditions A=(0.8,0.45) and B=(1.4,0.35). The time axis is dimensionless and contains **no** simulated physical recovery. Accessible time slider and playback; separate static first-frame SVG.
 
 ### 2 — Diagram `MSR-FIG-0005`
@@ -33,10 +33,10 @@ Exactly four directed stage transitions: theory → model → computation → vi
 ### 3 — Mind map `MSR-FIG-0006`
 Root "Mathematics for Sustainability and Resilience"; three illustrative branches: Foundations (Geometry, PDEs, Dynamical systems); Methods (Optimization, Uncertainty, Computation); Interfaces (Viability, Networks, Visualization). This is a deliberately **nonexhaustive study taxonomy**, not a tested ontology or causal graph.
 
-### 4 — Chart `MSR-FIG-0007`
+### 4 — Chart `MSR-FIG-0007` (model `MSR-MOD-0003`)
 Analytical radius comparison for the *same fixture* as the animation. Plot `r_A(τ)=√(0.8²+0.45²)e^{-τ}` and `r_B(τ)=√(1.4²+0.35²)e^{-τ}`; dotted `r=1`. The outside-start curve crosses `r=1` at `τ=ln(√(1.4²+0.35²))` (a mathematical crossing, not physical recovery). Explicit `τ∈[0,3]`, `r∈[0,1.6]`, dimensionless axes and a source-data table of declared initial conditions.
 
-### 5 — Figure `MSR-FIG-0008`
+### 5 — Figure `MSR-FIG-0008` (model `MSR-MOD-0004`)
 Sphere `S²={p∈R³:||p||₂=1}`, pole `N=(0,0,1)`, plane `z=0`. For `P=(x,y,z)∈S²\{N}`, the stereographic projection is `Q=(x/(1-z),y/(1-z),0)`. The illustrated `P=(√3/2,0,-1/2)` projects to `Q=(1/√3,0,0)`. Plot using an explicitly documented orthographic 3D-to-2D camera; the screen drawing is *not a distance-preserving embedding*. The map is undefined at N.
 
 ## 5. Directory and identifiers
@@ -62,4 +62,4 @@ make verify-ci
 python scripts/generate_manifest.py --check
 ```
 
-The SVG files are byte-exact output of the generator. Do not edit output directly. Registry records source, parameter assumptions, semantic role, accessible descriptions and verification status. If the output changes, update both the generator and registry as necessary, then sync `MANIFEST.sha256`. Perform review of rendered labels, accessibility and actual browser animation before moving `PROPOSED_FOR_REVIEW` to an accepted gallery state. The mathematical evidence status and communication-evaluation status remain separate.
+The mathematical authorities are [MSR-MOD-0003](../mathematics/model_contracts/MSR-MOD-0003.json), [MSR-MOD-0004](../mathematics/model_contracts/MSR-MOD-0004.json) and [their derivations](../mathematics/derivations/MSR-DER-0003_linear-invariance-stereographic.md). The SVG files are byte-exact output of the generator. Do not edit output directly. Registry records source, parameter assumptions, semantic role, accessible descriptions and verification status. If the output changes, update both the generator and registry as necessary, then sync `MANIFEST.sha256`. Perform review of rendered labels, accessibility and actual browser animation before moving `PROPOSED_FOR_REVIEW` to an accepted gallery state. The mathematical evidence status and communication-evaluation status remain separate.
