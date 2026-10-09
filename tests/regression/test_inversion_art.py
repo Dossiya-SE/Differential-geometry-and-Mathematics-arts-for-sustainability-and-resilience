@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import subprocess
 import sys
@@ -20,6 +21,16 @@ class InversionArtTests(unittest.TestCase):
             check=True,
             cwd=ROOT,
         )
+
+    def test_source_hashes_match_declared_provenance(self) -> None:
+        metadata = json.loads((ART / "provenance.json").read_text(encoding="utf-8"))
+        source_hashes = metadata["source_sha256"]
+        self.assertIn("art/shaders/inversion_lab/index.html", source_hashes)
+        self.assertIn("art/shaders/inversion_lab/probe.mjs", source_hashes)
+        for path, digest in source_hashes.items():
+            with self.subTest(path=path):
+                actual = hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
+                self.assertEqual(actual, digest)
 
     def test_static_has_text_alternatives_and_model_link(self) -> None:
         svg = ElementTree.parse(ART / "static.svg").getroot()
