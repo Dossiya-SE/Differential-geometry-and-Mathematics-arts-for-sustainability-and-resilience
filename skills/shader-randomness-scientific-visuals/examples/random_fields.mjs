@@ -85,6 +85,8 @@ export function tileOrientation(column, row, seed = 20261009) {
 export function rowShift(row, displayTime, seed = 20261009) {
   signedCell(row, 'row');
   finiteNumber(displayTime, 'displayTime');
+  // Return canonical +0 for both positive and negative rows at reset.
+  if (displayTime === 0) return 0;
   const speed = 0.25 + 0.6 * hashCell(row, 0, seed);
   const direction = row % 2 === 0 ? 1 : -1;
   const shift = direction * speed * displayTime;
