@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from math import exp, hypot, isfinite, log
+from typing import TypeAlias
 
-type Point2 = tuple[float, float]
+Point2: TypeAlias = tuple[float, float]
 
 
 class FlowInputError(ValueError):
