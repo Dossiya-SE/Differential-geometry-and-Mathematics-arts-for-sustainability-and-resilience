@@ -1,24 +1,28 @@
 PYTHON ?= python3
 PYTHONPATH := src
 
-.PHONY: help verify verify-ci test lint typecheck experiment docs clean
+.PHONY: help verify verify-ci test webtest lint typecheck experiment docs clean
 
 help:
 	@echo "MSR research-platform commands"
 	@echo "  make verify      Run the portable evidence-to-publication checks"
 	@echo "  make verify-ci   Run installed development tools plus portable checks"
 	@echo "  make test        Run the complete Python test suite"
+	@echo "  make webtest     Run dependency-free Node.js mathematical browser-kernel tests"
 	@echo "  make experiment  Reproduce the reference geometry experiment"
 	@echo "  make docs        Render the Quarto site or validate with Pandoc"
 
 verify:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) scripts/verify.py
 
-verify-ci: lint typecheck test
+verify-ci: lint typecheck test webtest
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) scripts/verify.py --strict-tools
 
 test:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m pytest -q
+
+webtest:
+	node --test art/shaders/inversion_lab/probe.test.mjs
 
 lint:
 	$(PYTHON) -m ruff check src tests scripts
