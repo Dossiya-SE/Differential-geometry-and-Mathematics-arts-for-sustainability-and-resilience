@@ -43,8 +43,11 @@ class InversionPropertyTests(unittest.TestCase):
         columns = []
         for axis in np.eye(2):
             columns.append(
-                (invert_point(point + epsilon * axis, center, radius)
-                 - invert_point(point - epsilon * axis, center, radius)) / (2 * epsilon)
+                (
+                    invert_point(point + epsilon * axis, center, radius)
+                    - invert_point(point - epsilon * axis, center, radius)
+                )
+                / (2 * epsilon)
             )
         numerical = np.stack(columns, axis=1)
         np.testing.assert_allclose(
