@@ -9,6 +9,10 @@
 
 Inversion `I(x)=r²x/||x||²` on `R²\{0}`, with radius controlled by a slider. Left panel: source Cartesian grid. Right panel: the image under inversion, plotted by inverse sampling. The blue outline denotes the fixed inversion circle. Animation changes a **visual parameter**, not physical time or a recovery trajectory.
 
+### Numerical point inspector
+
+Adjust the dimensionless coordinates `x₁` and `x₂`. A ring marker identifies the source point on the left and its inverted image on the right. The inspector reports the instantaneous effective radius, image coordinates, `||I(I(x))-x||`, and the absolute radial-product residual `|||x||·||I(x)||-r²|`. The inspector uses binary64 JavaScript, the shader uses device-dependent GPU precision, and the Python reference remains authoritative. A transformed marker outside the plot bounds is not clipped back into the visible domain.
+
 The shader is original educational source inspired by procedural geometry and publicly available Shadertoy ideas; it is **not a copy of shader `4scfR2`**, whose implementation has not been verified.
 
 ## Open locally
@@ -33,6 +37,7 @@ Open `http://localhost:8000/art/shaders/inversion_lab/`. Browser requires WebGL2
 ```bash
 PYTHONPATH=src python -m unittest tests.unit.test_inversion tests.properties.test_inversion_properties -v
 python scripts/generate_inversion_static.py --check
+node --test art/shaders/inversion_lab/probe.test.mjs
 ```
 
 ## Visual encoding and limitations
@@ -41,7 +46,9 @@ python scripts/generate_inversion_static.py --check
 - No color is used as the only meaning: left/right labels, axes, circle, mathematical caption and fallback remain available.
 - The map is undefined only at the center, but shader rendering additionally excludes a small disk of radius `0.13` to avoid undersampling and extreme derivatives.
 - WebGL2/highp, anti-alias derivatives, DPI and frame times depend on browser/device. Browser image verification and accessibility audit are pending.
-- Reduced-motion preferences are respected by default (no automatic motion), and motion can be disabled by an explicit control.
+- Reduced-motion preferences are respected by default (no automatic motion). The animation control is disabled when the user prefers reduced motion.
+- On GPU failure, the static reference is shown and all inactive controls are disabled; the static SVG intentionally contains no sampled point marker.
+- The pointwise browser inspector is tested with dependency-free Node.js 22 tests and is not claimed to be GPU-vs-CPU pixel validation.
 - Mathematical verification is not external application validation, and a transformed grid is not evidence of resilience or sustainability performance.
 
 **References:** Needham (1997), *Visual Complex Analysis*, chapter 3; <https://academic.oup.com/book/52945>. For Shadertoy/WebGL integration see <https://threejs.org/manual/pages/shadertoy.html>.
