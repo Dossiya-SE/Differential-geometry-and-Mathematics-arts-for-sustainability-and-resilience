@@ -22,7 +22,8 @@ test:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m pytest -q
 
 webtest:
-	node --test art/shaders/inversion_lab/probe.test.mjs
+	node --test art/shaders/inversion_lab/probe.test.mjs skills/shader-randomness-scientific-visuals/examples/random_fields.test.mjs
+	node skills/shader-randomness-scientific-visuals/examples/render_static.mjs --check
 
 lint:
 	$(PYTHON) -m ruff check src tests scripts
