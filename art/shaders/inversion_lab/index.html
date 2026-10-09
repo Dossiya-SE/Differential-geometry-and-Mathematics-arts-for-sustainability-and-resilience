@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MSR-FIG-0002 | Euclidean inversion geometry laboratory</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #17202a; background: #fff; }
+    * { box-sizing: border-box; }
+    body { max-width: 1050px; margin: 0 auto; padding: 24px; background: #fff; }
+    h1 { font-size: 1.65rem; font-weight: 650; margin: 0 0 8px; }
+    p { line-height: 1.55; max-width: 86ch; }
+    .note { border-left: 4px solid #87cefa; padding-left: 12px; }
+    .controls { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; padding: 12px 0 16px; }
+    label { display: inline-flex; gap: 9px; align-items: center; }
+    input[type=range] { width: 180px; accent-color: #00bfff; }
+    input[type=checkbox] { accent-color: #00bfff; }
+    .inspector { border: 1px solid #bdc9d2; border-radius: 4px; padding: 12px 14px; margin-bottom: 18px; }
+    .inspector h2 { font-size: 1.06rem; margin: 0 0 6px; }
+    .inspector output { display: block; line-height: 1.65; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+    .inspector p { margin: 5px 0 10px; }
+    .panels { display: grid; grid-template-columns: 1fr 1fr; text-align: center; font-weight: 600; }
+    canvas, img { width: 100%; height: auto; display: block; background: #fff; border: 1px solid #bdc9d2; }
+    .figure { margin: 0; }
+    figcaption { font-size: .94rem; line-height: 1.5; margin-top: 12px; color: #4a5864; }
+    code { font-size: .96em; }
+    .hidden { display: none !important; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sphere inversion: geometry to GPU</h1>
+    <p><strong>MSR-MOD-0002 · MSR-FIG-0002</strong> — A dimensionless mathematical teaching fixture. Not an infrastructure, sustainability, or resilience simulation.</p>
+  </header>
+  <p class="note">For a radius <i>r</i> and center at the origin, <i>I(x) = r²x / ||x||²</i>, for <i>x ≠ 0</i>. A single transformation sends straight grid lines away from the origin to circles through the origin. The transformation is its own inverse.</p>
+  <div class="controls">
+    <label for="radius">Inversion radius <output id="radiusText">1.00</output>
+      <input id="radius" type="range" min="0.6" max="2" step="0.05" value="1" aria-label="Inversion radius">
+    </label>
+    <label><input id="animate" type="checkbox"> Animate radius (visual parameter, not physical time)</label>
+    <button id="reset" type="button">Reset</button>
+  </div>
+  <section class="inspector" aria-labelledby="probeTitle">
+    <h2 id="probeTitle">Pointwise mathematical inspector</h2>
+    <p>Outlined points identify an input location and its transformed image; these are mathematical coordinates, not infrastructure observations.</p>
+    <div class="controls">
+      <label for="probeX">Point x₁ <output id="probeXText">1.25</output>
+        <input id="probeX" type="range" min="0.5" max="2" step="0.05" value="1.25">
+      </label>
+      <label for="probeY">Point x₂ <output id="probeYText">0.75</output>
+        <input id="probeY" type="range" min="-1.5" max="1.5" step="0.05" value="0.75">
+      </label>
+    </div>
+    <output id="probeReport" aria-live="off">The numerical diagnostic is available when the interactive renderer is active.</output>
+    <p><small>Diagnostics use JavaScript binary64 arithmetic; GPU pixel positions use device-dependent precision. Values may differ near hardware precision limits.</small></p>
+  </section>
+  <div class="panels"><span>Original Cartesian grid</span><span>Inverted coordinate grid</span></div>
+  <figure class="figure">
+    <canvas id="plot" width="960" height="480" role="img" aria-label="Left panel shows source Cartesian grid and selected source point. Right panel shows inverted grid and its corresponding transformed point. Axes and inversion circle are shown; the center is masked for GPU sampling."></canvas>
+    <img id="fallback" class="hidden" src="static.svg" alt="Static comparison: ordinary coordinate lines at left and the corresponding inverted circular arcs and axes at right for radius one.">
+    <figcaption>The circular outline is the inversion circle, not a constraint or viability boundary. WebGL rendering masks a radius-0.13 neighborhood for sampling stability; analytically only the center is excluded. Coordinate time is not physical time.</figcaption>
+  </figure>
+  <p id="status" role="status" aria-live="polite">Static mathematical explanation remains available if GPU rendering is unsupported.</p>
+  <details>
+    <summary>Mathematical verification and scientific interpretation</summary>
+    <p>Let <i>u = x / ||x||</i>. The Jacobian is <i>J(x)=(r²/||x||²)(I−2uuᵀ)</i>. Consequently, <i>JᵀJ=(r⁴/||x||⁴)I</i>, and inversion preserves angle magnitude but reverses orientation. The Python reference tests involution, the radial product, fixed sphere, singularity and Jacobian.</p>
+    <p>Reference computations use float64. GPU shader precision and pixel antialiasing depend on browser and hardware. No empirical validation or claim about a sustainability system is made.</p>
+  </details>
+  <script id="vertex" type="x-shader/x-vertex">#version 300 es
+precision highp float;
+void main() {
+  vec2 v = vec2(float((gl_VertexID << 1) & 2), float(gl_VertexID & 2));
+  gl_Position = vec4(v * 2.0 - 1.0, 0.0, 1.0);
+}
+  </script>
+  <script id="fragment" type="x-shader/x-fragment">#version 300 es
+precision highp float;
+uniform vec3 iResolution;
+uniform float iTime;
+uniform float uRadius;
+uniform vec2 uProbe;
+uniform bool uAnimate;
+out vec4 fragColor;
+
+float gridLine(vec2 q) {
+  vec2 scaled = q / 0.5;
+  vec2 d = abs(fract(scaled + 0.5) - 0.5);
+  vec2 widthPx = max(fwidth(scaled), vec2(0.009));
+  return 1.0 - smoothstep(0.0, 1.15, min(d.x / widthPx.x, d.y / widthPx.y));
+}
+
+float axisLine(vec2 q) {
+  vec2 pixel = max(fwidth(q), vec2(0.004));
+  return 1.0 - smoothstep(0.0, 1.35, min(abs(q.x) / pixel.x, abs(q.y) / pixel.y));
+}
+
+void mainImage(out vec4 colorOut, in vec2 fragCoord) {
+  bool right = fragCoord.x >= 0.5 * iResolution.x;
+  float panelWidth = 0.5 * iResolution.x;
+  float pixelsPerUnit = min(panelWidth, iResolution.y) / 6.0;
+  vec2 panelCenter = vec2(right ? 0.75 : 0.25, 0.5) * iResolution.xy;
+  vec2 p = (fragCoord - panelCenter) / pixelsPerUnit;
+  float r = uRadius * (uAnimate ? (1.0 + 0.08 * sin(iTime)) : 1.0);
+
+  // Inversion is undefined at p=0. A larger disk is hidden for GPU sampling.
+  float distance2 = dot(p, p);
+  bool renderable = !right || distance2 >= (0.13 * 0.13);
+  vec2 q = right && renderable ? (r * r / distance2) * p : p;
+
+  vec3 ink = vec3(1.0);                              // white canvas
+  float lines = renderable ? gridLine(q) : 0.0;
+  ink = mix(ink, vec3(0.5294, 0.8078, 0.9804), lines); // #87CEFA
+  float axes = renderable ? axisLine(q) : 0.0;
+  ink = mix(ink, vec3(0.0, 0.4824, 0.7059), axes);     // contrast axis
+
+  // Fixed sphere is geometric, not a physical service boundary.
+  float edgePx = max(fwidth(length(p)), 0.005);
+  float circle = 1.0 - smoothstep(0.0, 1.3, abs(length(p) - r) / edgePx);
+  ink = mix(ink, vec3(0.0, 0.7490, 1.0), circle);      // #00BFFF
+
+  // The white central mask is explicitly delimited with a dotted ring.
+  if (right) {
+    float maskRing = 1.0 - smoothstep(0.0, 1.0, abs(length(p) - 0.13) / edgePx);
+    float dashes = step(0.5, fract(atan(p.y, p.x) * 8.0));
+    ink = mix(ink, vec3(0.23, 0.35, 0.47), maskRing * dashes);
+  }
+
+  // Inversion is an involution; source marker and its image use the same
+  // analytical map. Distinct white-center/blue-outline glyphs avoid color-only meaning.
+  vec2 marker = right ? (r * r / dot(uProbe, uProbe)) * uProbe : uProbe;
+  float markerDistance = length(p - marker);
+  float aa = max(fwidth(p.x), 0.012);
+  float outer = 1.0 - smoothstep(0.060, 0.060 + aa, markerDistance);
+  float inner = 1.0 - smoothstep(0.034, 0.034 + aa, markerDistance);
+  ink = mix(ink, vec3(0.0, 0.4824, 0.7059), outer);
+  ink = mix(ink, vec3(1.0), inner);
+
+  float divider = 1.0 - smoothstep(0.0, 1.2, abs(fragCoord.x - panelWidth));
+  ink = mix(ink, vec3(0.67, 0.72, 0.78), divider);
+  colorOut = vec4(ink, 1.0);
+}
+
+void main() { mainImage(fragColor, gl_FragCoord.xy); }
+  </script>
+  <script type="module">
+    import {inspectProbe} from './probe.mjs';
+    (() => {
+      const canvas = document.getElementById('plot');
+      const fallback = document.getElementById('fallback');
+      const status = document.getElementById('status');
+      const radiusInput = document.getElementById('radius');
+      const radiusText = document.getElementById('radiusText');
+      const animateInput = document.getElementById('animate');
+      const reset = document.getElementById('reset');
+      const probeX = document.getElementById('probeX');
+      const probeY = document.getElementById('probeY');
+      const probeXText = document.getElementById('probeXText');
+      const probeYText = document.getElementById('probeYText');
+      const probeReport = document.getElementById('probeReport');
+      const gl = canvas.getContext('webgl2', { alpha: false, antialias: true });
+      function fallbackView(message) {
+        canvas.classList.add('hidden');
+        fallback.classList.remove('hidden');
+        for (const control of [radiusInput, animateInput, probeX, probeY, reset]) control.disabled = true;
+        probeReport.textContent = 'Interactive diagnostics are disabled. The static SVG shows radius r = 1 and does not depict a selected point.';
+        status.textContent = message;
+      }
+      if (!gl) { fallbackView('WebGL2 unavailable; showing the fixed-radius exact SVG example.'); return; }
+
+      function compile(kind, source) {
+        const shader = gl.createShader(kind);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+          throw new Error(gl.getShaderInfoLog(shader) || 'shader compilation failed');
+        }
+        return shader;
+      }
+      let program;
+      try {
+        const vs = compile(gl.VERTEX_SHADER, document.getElementById('vertex').textContent.trim());
+        const fs = compile(gl.FRAGMENT_SHADER, document.getElementById('fragment').textContent.trim());
+        program = gl.createProgram();
+        gl.attachShader(program, vs);
+        gl.attachShader(program, fs);
+        gl.linkProgram(program);
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+          throw new Error(gl.getProgramInfoLog(program) || 'program linking failed');
+        }
+        gl.deleteShader(vs);
+        gl.deleteShader(fs);
+      } catch (error) {
+        fallbackView('GPU shader could not compile; showing exact static SVG instead.');
+        console.error(error);
+        return;
+      }
+      const vao = gl.createVertexArray();
+      gl.bindVertexArray(vao);
+      gl.useProgram(program);
+      const resLoc = gl.getUniformLocation(program, 'iResolution');
+      const timeLoc = gl.getUniformLocation(program, 'iTime');
+      const radiusLoc = gl.getUniformLocation(program, 'uRadius');
+      const probeLoc = gl.getUniformLocation(program, 'uProbe');
+      const animLoc = gl.getUniformLocation(program, 'uAnimate');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const start = performance.now();
+      animateInput.disabled = reducedMotion.matches;
+      let frameHandle = null;
+      function draw() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const width = Math.max(2, Math.round(canvas.clientWidth * dpr));
+        const height = Math.max(2, Math.round(canvas.clientWidth * 0.5 * dpr));
+        if (canvas.width !== width || canvas.height !== height) {
+          canvas.width = width;
+          canvas.height = height;
+        }
+        gl.viewport(0, 0, width, height);
+        gl.uniform3f(resLoc, width, height, 1);
+        const seconds = (performance.now() - start) / 1000;
+        const radius = Number(radiusInput.value);
+        const effectiveRadius = radius * (animateInput.checked ? 1.0 + 0.08 * Math.sin(seconds) : 1.0);
+        const point = [Number(probeX.value), Number(probeY.value)];
+        const diagnostic = inspectProbe(point, effectiveRadius);
+        gl.uniform1f(timeLoc, seconds);
+        gl.uniform1f(radiusLoc, radius);
+        gl.uniform2f(probeLoc, point[0], point[1]);
+        probeXText.textContent = point[0].toFixed(2);
+        probeYText.textContent = point[1].toFixed(2);
+        probeReport.textContent = `r(t)=${effectiveRadius.toFixed(4)}; x=(${point.map(v => v.toFixed(2)).join(', ')}); I(x)=(${diagnostic.image.map(v => v.toFixed(4)).join(', ')}); |I(I(x))−x|=${diagnostic.roundTripError.toExponential(2)}; ||x||·||I(x)||−r² absolute residual=${diagnostic.radialError.toExponential(2)}.`;
+        gl.uniform1i(animLoc, animateInput.checked ? 1 : 0);
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+        if (animateInput.checked) frameHandle = requestAnimationFrame(draw);
+        else frameHandle = null;
+      }
+      function update() {
+        radiusText.textContent = Number(radiusInput.value).toFixed(2);
+        if (frameHandle !== null) cancelAnimationFrame(frameHandle);
+        frameHandle = null;
+        draw();
+      }
+      radiusInput.addEventListener('input', update);
+      probeX.addEventListener('input', update);
+      probeY.addEventListener('input', update);
+      animateInput.addEventListener('change', update);
+      reset.addEventListener('click', () => {
+        radiusInput.value = '1';
+        animateInput.checked = false;
+        probeX.value = '1.25';
+        probeY.value = '0.75';
+        update();
+      });
+      reducedMotion.addEventListener('change', () => {
+        animateInput.disabled = reducedMotion.matches;
+        if (reducedMotion.matches) animateInput.checked = false;
+        update();
+      });
+      window.addEventListener('resize', update);
+      canvas.addEventListener('webglcontextlost', event => {
+        event.preventDefault();
+        if (frameHandle !== null) cancelAnimationFrame(frameHandle);
+        fallbackView('WebGL context lost; displaying the static reference.');
+      });
+      status.textContent = 'Interactive WebGL2 renderer active. Animation defaults to off.';
+      update();
+    })();
+  </script>
+</body>
+</html>

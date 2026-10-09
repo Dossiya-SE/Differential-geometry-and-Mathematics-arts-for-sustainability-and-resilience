@@ -1,0 +1,44 @@
+{
+  "figure_id": "MSR-FIG-0002",
+  "version": "0.2.0",
+  "status": "PROPOSED_FOR_REVIEW",
+  "model_id": "MSR-MOD-0002",
+  "artifact_class": "EXPLANATORY",
+  "mathematical_validity": "PYTHON_REFERENCE_TESTED; WEBGL_RENDERER_NOT_INDEPENDENTLY_VALIDATED",
+  "communication_impact": "NOT_EVALUATED",
+  "application_decision": "NOT_SELECTED",
+  "source": [
+    "art/shaders/inversion_lab/index.html",
+    "art/shaders/inversion_lab/probe.mjs",
+    "art/shaders/inversion_lab/probe.test.mjs",
+    "scripts/generate_inversion_static.py"
+  ],
+  "static_fallback": "art/shaders/inversion_lab/static.svg",
+  "generation_command": "python scripts/generate_inversion_static.py",
+  "visual_encoding": {
+    "position": "two side-by-side dimensionless Cartesian coordinate panels",
+    "shape": "left original straight grid; right inversion of grid lines",
+    "circle": "fixed inversion sphere ||x||=r, not a viability threshold",
+    "color": "#87CEFA grid; #00BFFF inversion circle; axes use dark stroke",
+    "motion": "optional sinusoidal radius control, visual-time only",
+    "point_marker": "white-centered outlined circles mark user-selected input and mathematical image; not measured states",
+    "inspection": "pointwise image plus binary64 round-trip and radial-product residuals; GPU mapping separate"
+  },
+  "alt_text": "Left: original Cartesian grid. Right: inverted grid with circular image curves and unchanged axes. The center is singular and masked in GPU rendering.",
+  "known_limitations": [
+    "GPU precision and antialiasing depend on hardware and browser",
+    "a radius-0.13 render-only exclusion disk exceeds the mathematical singularity set",
+    "static reference is exact for r=1 while interactive radius may vary",
+    "no physical-domain interpretation or empirical validation",
+    "diagnostics are JavaScript binary64, not validated equivalence of GPU pixels to reference coordinates",
+    "point marker can leave the fixed plotting window at large image coordinates"
+  ],
+  "source_sha256": {
+    "art/shaders/inversion_lab/index.html": "e772a7c3d3202bbb812a681365c79a685b845c5474e85284f3134fdd12e01340",
+    "scripts/generate_inversion_static.py": "1d05ec383f82cc908ca18ab0e7be9c79278585bc308361ec5383b34285487380",
+    "art/shaders/inversion_lab/static.svg": "8eb1cfc32787a604faa037116811e0da004c5ba535f4a5c3a659221f062a2a8a",
+    "art/shaders/inversion_lab/probe.mjs": "1adebeb00ab0ac38eebbe4086b10254020d018e6e025d0e0f490d5201e52cdbb",
+    "art/shaders/inversion_lab/probe.test.mjs": "cc40ac61d8a443bae69a830c40791b8ed24b3de3818ceaee8c079a805ecef0e0",
+    "art/shaders/inversion_lab/README.md": "d714839591d2048d0d90c0c2e1baced4a22da16128bcf2b19f8e150ad72402c6"
+  }
+}

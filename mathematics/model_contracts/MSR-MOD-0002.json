@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0.0",
+  "model_id": "MSR-MOD-0002",
+  "version": "0.1.0",
+  "title": "Euclidean sphere inversion and conformal differential verification fixture",
+  "record_date": "2026-10-09",
+  "status": "PROPOSED",
+  "application_decision": "NOT_SELECTED",
+  "purpose": "Teach and independently verify coordinate inversion, conformality, GPU visual encoding, and failure-mode discipline without selecting a sustainability or resilience application.",
+  "mathematical_structure": {
+    "state_space": "R^n without center c, for n in {2,3}",
+    "ambient_space": "R^n",
+    "dimension": 2,
+    "ambient_dimension": 2,
+    "metric": "Euclidean metric; local conformal factor r^4 / ||x-c||^4",
+    "topology": "Euclidean subspace topology excluding c"
+  },
+  "maps": [
+    {
+      "name": "invert_point",
+      "domain": "(R^n \\ {c}) x R^n x R_{>0}; n in {2,3}",
+      "codomain": "R^n \\ {c}",
+      "definition": "I_c,r(x) = c + (r^2 / ||x-c||^2)(x-c)",
+      "singularities": "Undefined at x=c; finite IEEE-754 calculations also reject overflow or underresolved results."
+    },
+    {
+      "name": "inversion_jacobian",
+      "domain": "(R^n \\ {c}) x R^n x R_{>0}; n in {2,3}",
+      "codomain": "R^{n x n}",
+      "definition": "J(x) = (r^2 / d^2)(I_n - 2 u u^T), where d=||x-c|| and u=(x-c)/d"
+    }
+  ],
+  "parameters": [
+    {
+      "symbol": "c",
+      "meaning": "Center of Euclidean inversion",
+      "unit": "input coordinate unit",
+      "admissible_set": "R^n, n in {2,3}"
+    },
+    {
+      "symbol": "r",
+      "meaning": "Inversion sphere radius",
+      "unit": "input coordinate unit",
+      "admissible_set": "finite positive real numbers"
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "A-001",
+      "statement": "Reference inputs and radius are finite, r positive, and x differs from c.",
+      "status": "PROPOSED"
+    },
+    {
+      "id": "A-002",
+      "statement": "Reference operations use IEEE-754 binary64 arithmetic in 2 or 3 dimensions.",
+      "status": "PROPOSED"
+    },
+    {
+      "id": "A-003",
+      "statement": "The shader visualizes dimensionless planar coordinates in GPU-dependent precision.",
+      "status": "PROPOSED"
+    },
+    {
+      "id": "A-004",
+      "statement": "This mathematical fixture encodes no empirically validated infrastructure dynamics.",
+      "status": "PROPOSED"
+    }
+  ],
+  "invariants": [
+    {
+      "id": "INV-001",
+      "statement": "I(I(x)) equals x whenever both evaluations remain representable.",
+      "test": "tests/properties/test_inversion_properties.py"
+    },
+    {
+      "id": "INV-002",
+      "statement": "||I(x)-c|| times ||x-c|| equals r squared.",
+      "test": "tests/properties/test_inversion_properties.py"
+    },
+    {
+      "id": "INV-003",
+      "statement": "J^T J equals (r^4/d^4) I on the finite domain.",
+      "test": "tests/properties/test_inversion_properties.py"
+    },
+    {
+      "id": "INV-004",
+      "statement": "Every point on the inversion sphere is fixed.",
+      "test": "tests/unit/test_inversion.py"
+    }
+  ],
+  "numerical": {
+    "representation": "NumPy float64 vectors; fragment GPU computations use device-dependent WebGL2 highp float",
+    "precision": "IEEE-754 binary64 reference; WebGL2 highp fragment implementation not assumed binary64",
+    "absolute_tolerance": 2e-12,
+    "relative_tolerance": 2e-12
+  },
+  "uncertainty": {
+    "representation": "Deterministic analytic fixture with floating-point residual; no estimated physical uncertainty.",
+    "status": "NOT_APPLICABLE"
+  },
+  "evidence": {
+    "citation_keys": [
+      "needham1997visual"
+    ],
+    "audit_ids": [
+      "MSR-DER-0002"
+    ],
+    "evidence_status": "PROPOSED",
+    "limitations": [
+      "Inversion is singular at its center; the GPU additionally masks a finite-radius visualization-only disk.",
+      "Conformal coordinate deformation is not a physical dynamics or resilience mechanism.",
+      "Mathematical reference tests are not empirical validation or browser shader verification.",
+      "The 2D shader alone does not verify arbitrary 3D rendered transformations."
+    ]
+  },
+  "implementation": {
+    "reference_language": "Python",
+    "module": "msr.geometry.inversion"
+  },
+  "verification": {
+    "tests": [
+      "tests/unit/test_inversion.py",
+      "tests/properties/test_inversion_properties.py"
+    ],
+    "benchmark_experiments": [
+      "EXPLORATORY-MSR-MOD-0002-INTERNAL"
+    ],
+    "validation_status": "MATHEMATICAL_FIXTURE_ONLY"
+  }
+}
