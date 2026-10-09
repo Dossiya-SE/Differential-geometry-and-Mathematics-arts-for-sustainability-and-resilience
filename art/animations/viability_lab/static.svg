@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1220" height="720" viewBox="0 0 1220 720" role="img" aria-labelledby="title description" data-figure-id="MSR-FIG-0004">
+  <title id="title">Invariant unit disk and two initial states</title>
+  <desc id="description">A white coordinate plane with a blue unit circle, a labeled point A inside it and a point B outside it, alongside equations for the dimensionless flow x prime equals minus x. B is outside at time zero and therefore not viable at that initial instant.</desc>
+  <rect x="0" y="0" width="1220" height="720" fill="#FFFFFF"/>
+  <text x="55" y="57" font-family="system-ui" font-size="30" font-weight="700" fill="#17202A">Invariance is a mathematical property</text>
+  <text x="55" y="91" font-family="system-ui" font-size="19" fill="#5D6D7E">Autonomous, dimensionless example · initial state at τ = 0</text>
+  <line x1="155" y1="377" x2="735" y2="377" stroke="#899BA9" stroke-width="2"/>
+  <line x1="420" y1="627" x2="420" y2="137" stroke="#899BA9" stroke-width="2"/>
+  <text x="743" y="384" font-family="system-ui" font-size="18" fill="#17202A">x₁</text>
+  <text x="430" y="133" font-family="system-ui" font-size="18" fill="#17202A">x₂</text>
+  <circle data-boundary="unit-disk" cx="420" cy="377" r="190" fill="none" stroke="#00BFFF" stroke-width="5"/>
+  <text x="215" y="589" font-family="system-ui" font-size="19" fill="#0072B2">∂K: ‖x‖ = 1</text>
+  <circle data-point="A" cx="572" cy="291.5" r="11" fill="#FFFFFF" stroke="#00BFFF" stroke-width="4"/>
+  <text x="589" y="275.5" font-size="20" font-weight="700" fill="#17202A">A</text>
+  <circle data-point="B" cx="686" cy="310.5" r="11" fill="#FFFFFF" stroke="#17202A" stroke-width="4"/>
+  <text x="703" y="293.5" font-size="20" font-weight="700" fill="#17202A">B</text>
+  <line x1="798" y1="133" x2="798" y2="631" stroke="#C5D2DC" stroke-width="2"/>
+  <text x="823" y="167" font-family="system-ui" font-size="24" font-weight="650" fill="#17202A">Exact mathematical fixture</text>
+  <text x="823" y="212" font-family="system-ui" font-size="20" fill="#17202A">dx/dτ = −x</text>
+  <text x="823" y="250" font-family="system-ui" font-size="20" fill="#17202A">x(τ) = exp(−τ)x₀</text>
+  <text x="823" y="300" font-family="system-ui" font-size="20" fill="#17202A">K = {x : ‖x‖ ≤ 1}</text>
+  <text x="823" y="350" font-family="system-ui" font-size="18" fill="#17202A">A(0) = (0.80, 0.45)</text>
+  <text x="823" y="379" font-family="system-ui" font-size="18" fill="#17202A">Starts in K: stays in K</text>
+  <text x="823" y="435" font-family="system-ui" font-size="18" fill="#17202A">B(0) = (1.40, 0.35)</text>
+  <text x="823" y="464" font-family="system-ui" font-size="18" fill="#17202A">Starts outside K: not viable at τ = 0</text>
+  <text x="823" y="529" font-family="system-ui" font-size="17" fill="#5D6D7E">Proposed explanatory mathematics</text>
+  <text x="823" y="562" font-family="system-ui" font-size="17" fill="#5D6D7E">No measured system or physical recovery</text>
+  <text x="55" y="690" font-family="system-ui" font-size="17" fill="#5D6D7E">MSR-FIG-0004 · The disk is invariant for x′ = −x; the initial boundary is not a physical service threshold.</text>
+</svg>

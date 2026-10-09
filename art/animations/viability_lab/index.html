@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MSR-FIG-0004 | Invariance and initial-state viability</title>
+  <style>
+    :root{font-family:system-ui,Arial,sans-serif;color:#17202A;background:#fff;color-scheme:light}
+    *{box-sizing:border-box}body{max-width:1120px;margin:auto;padding:22px;background:#fff}
+    h1{font-size:1.8rem;margin:0 0 9px}p{line-height:1.55}
+    .controls{display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin:20px 0}
+    label{display:grid;gap:6px;font-weight:650}
+    input[type=range]{min-width:280px;accent-color:#00BFFF}
+    button{font:inherit;background:#fff;border:2px solid #00BFFF;color:#17202A;padding:8px 16px;cursor:pointer}
+    button:disabled{border-color:#A8B6C1;cursor:default}
+    svg,img{width:100%;height:auto;border:1px solid #C5D2DC;background:#fff}
+    figcaption{font-size:1rem;line-height:1.5;margin:8px 0}
+    .hidden{display:none!important}
+    :focus-visible{outline:3px solid #00BFFF;outline-offset:3px}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <h1>Viability boundary: an exact example</h1>
+  <p>This dimensionless laboratory shows the flow x′(τ)=−x(τ), x(τ)=e<sup>−τ</sup>x₀, with K={‖x‖≤1}. Points starting inside K remain inside. A point starting outside is <strong>not viable at τ=0</strong>, even when it enters later.</p>
+  <div class="controls">
+    <label for="time">Display time τ <output id="timeLabel">0.00</output>
+      <input type="range" id="time" min="0" max="3" step="0.01" value="0" disabled>
+    </label>
+    <button id="play" type="button" disabled>Play</button>
+    <button id="reset" type="button" disabled>Reset</button>
+  </div>
+  <figure>
+    <img id="reference" src="static.svg" alt="Initial frame: an outline of the unit disk, point A inside, point B outside, and the governing equations.">
+    <svg id="interactive" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 720" role="img" aria-labelledby="visualTitle visualDesc">
+      <title id="visualTitle">Dimensionless trajectories and invariant unit disk</title>
+      <desc id="visualDesc">An outline of a unit disk with two moving points: A starts inside; B starts outside. Their coordinates decay exponentially toward the origin as the display-time slider advances.</desc>
+      <rect x="0" y="0" width="1220" height="720" fill="#FFFFFF"/>
+      <text x="55" y="62" font-size="30" font-weight="700" fill="#17202A">Autonomous state flow with a unit-disk constraint</text>
+      <text x="55" y="101" font-size="19" fill="#5D6D7E">No physical units, disturbance, empirical data or restoration process</text>
+      <line x1="155" y1="377" x2="735" y2="377" stroke="#899BA9" stroke-width="2"/>
+      <line x1="420" y1="617" x2="420" y2="137" stroke="#899BA9" stroke-width="2"/>
+      <text x="748" y="382" font-size="19" fill="#17202A">x₁</text>
+      <text x="435" y="138" font-size="19" fill="#17202A">x₂</text>
+      <circle cx="420" cy="377" r="190" fill="none" stroke="#00BFFF" stroke-width="5"/>
+      <text x="210" y="590" font-size="19" fill="#0072B2">∂K: ‖x‖ = 1</text>
+      <circle id="pointA" cx="572" cy="291.5" r="11" fill="#FFFFFF" stroke="#00BFFF" stroke-width="4"/>
+      <circle id="pointB" cx="686" cy="310.5" r="11" fill="#FFFFFF" stroke="#17202A" stroke-width="4"/>
+      <text id="labelA" x="588" y="274" font-size="20" font-weight="700" fill="#17202A">A</text>
+      <text id="labelB" x="703" y="293" font-size="20" font-weight="700" fill="#17202A">B</text>
+      <line x1="798" y1="135" x2="798" y2="625" stroke="#C5D2DC" stroke-width="2"/>
+      <text x="825" y="191" font-size="23" font-weight="650" fill="#17202A">Exact dynamics</text>
+      <text x="825" y="236" font-size="20" fill="#17202A">x′(τ) = −x(τ)</text>
+      <text x="825" y="274" font-size="20" fill="#17202A">x(τ) = exp(−τ)x₀</text>
+      <text x="825" y="322" font-size="20" fill="#17202A">K = {x : ‖x‖ ≤ 1}</text>
+      <text id="rA" x="825" y="392" font-size="18" fill="#17202A">‖A(τ)‖ = 0.918</text>
+      <text id="rB" x="825" y="429" font-size="18" fill="#17202A">‖B(τ)‖ = 1.443</text>
+      <text x="825" y="495" font-size="18" fill="#17202A">A viable at τ = 0: yes</text>
+      <text x="825" y="528" font-size="18" fill="#17202A">B viable at τ = 0: no</text>
+      <text x="55" y="690" font-size="17" fill="#5D6D7E">MSR-FIG-0004 · A later entry into K does not change the original viability classification.</text>
+    </svg>
+    <figcaption>Figure MSR-FIG-0004 is an explanatory mathematical fixture. The time control changes a dimensionless parameter; this is not an empirical resilience or recovery simulation.</figcaption>
+  </figure>
+  <p id="status" role="status" aria-live="polite">Static mathematical reference shown.</p>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1370" height="815" viewBox="0 0 1370 815" role="img" aria-labelledby="title description" data-figure-id="MSR-FIG-0006">
+  <title id="title">Mathematics taxonomy for sustainability and resilience</title>
+  <desc id="description">One central root concept connects without arrows to three groups Foundations, Methods and Research interfaces. Each group has three named child concepts, nine leaves total. Connecting lines encode membership and are not causal arrows.</desc>
+  <rect x="0" y="0" width="1370" height="815" fill="#FFFFFF"/>
+  <text x="70" y="62" font-family="system-ui" font-size="31" font-weight="700" fill="#17202A">A nonexhaustive mathematics study taxonomy</text>
+  <text x="70" y="99" font-family="system-ui" font-size="19" fill="#5D6D7E">Lines encode parent–child grouping, never causal or operational dependencies</text>
+  <rect data-node="root" x="480" y="135" width="390" height="88" rx="5" fill="#FFFFFF" stroke="#00BFFF" stroke-width="4"/>
+  <text x="675" y="168" text-anchor="middle" font-family="system-ui" font-size="22" font-weight="650" fill="#17202A">Mathematics for</text>
+  <text x="675" y="197" text-anchor="middle" font-family="system-ui" font-size="22" font-weight="650" fill="#17202A">Sustainability and Resilience</text>
+  <path data-relation="root-to-0" d="M 675 223 V 265 H 379 V 289" fill="none" stroke="#87CEFA" stroke-width="3"/>
+  <rect data-node="branch-0" x="215" y="289" width="328" height="67" rx="4" fill="#FFFFFF" stroke="#00BFFF" stroke-width="3"/>
+  <text x="379" y="331" text-anchor="middle" font-family="system-ui" font-size="23" font-weight="650" fill="#17202A">Foundations</text>
+  <path data-relation="branch-0-to-0" d="M 379 356 V 387 H 197 V 454 H 215" fill="none" stroke="#87CEFA" stroke-width="2.5"/>
+  <rect data-node="leaf-0-0" x="215" y="420" width="328" height="68" rx="4" fill="#FFFFFF" stroke="#C5D2DC" stroke-width="2"/>
+  <text x="379" y="461" text-anchor="middle" font-family="system-ui" font-size="21" font-weight="550" fill="#17202A">Geometry</text>
+  <path data-relation="branch-0-to-1" d="M 379 356 V 387 H 197 V 550 H 215" fill="none" stroke="#87CEFA" stroke-width="2.5"/>
+  <rect data-node="leaf-0-1" x="215" y="516" width="328" height="68" rx="4" fill="#FFFFFF" stroke="#C5D2DC" stroke-width="2"/>
+  <text x="379" y="557" text-anchor="middle" font-family="system-ui" font-size="18" font-weight="550" fill="#17202A">Partial differential equations</text>
+  <path data-relation="branch-0-to-2" d="M 379 356 V 387 H 197 V 646 H 215" fill="none" stroke="#87CEFA" stroke-width="2.5"/>
+  <rect data-node="leaf-0-2" x="215" y="612" width="328" height="68" rx="4" fill="#FFFFFF" stroke="#C5D2DC" stroke-width="2"/>
+  <text x="379" y="653" text-anchor="middle" font-family="system-ui" font-size="21" font-weight="550" fill="#17202A">Dynamical systems</text>
+  <path data-relation="root-to-1" d="M 675 223 V 265 H 844 V 289" fill="none" stroke="#87CEFA" stroke-width="3"/>
+  <rect data-node="branch-1" x="680" y="289" width="328" height="67" rx="4" fill="#FFFFFF" stroke="#00BFFF" stroke-width="3"/>
+  <text x="844" y="331" text-anchor="middle" font-family="system-ui" font-size="23" font-weight="650" fill="#17202A">Methods</text>
+  <path data-relation="branch-1-to-0" d="M 844 356 V 387 H 662 V 454 H 680" fill="none" stroke="#87CEFA" stroke-width="2.5"/>
+  <rect data-node="leaf-1-0" x="680" y="420" width="328" height="68" rx="4" fill="#FFFFFF" stroke="#C5D2DC" stroke-width="2"/>
+  <text x="844" y="461" text-anchor="middle" font-family="system-ui" font-size="21" font-weight="550" fill="#17202A">Optimization</text>
+  <path data-relation="branch-1-to-1" d="M 844 356 V 387 H 662 V 550 H 680" fill="none" stroke="#87CEFA" stroke-width="2.5"/>
+  <rect data-node="leaf-1-1" x="680" y="516" width="328" height="68" rx="4" fill="#FFFFFF" stroke="#C5D2DC" stroke-width="2"/>
+  <text x="844" y="557" text-anchor="middle" font-family="system-ui" font-size="21" font-weight="550" fill="#17202A">Uncertainty</text>
+  <path data-relation="branch-1-to-2" d="M 844 356 V 387 H 662 V 646 H 680" fill="none" stroke="#87CEFA" stroke-width="2.5"/>
+  <rect data-node="leaf-1-2" x="680" y="612" width="328" height="68" rx="4" fill="#FFFFFF" stroke="#C5D2DC" stroke-width="2"/>
+  <text x="844" y="653" text-anchor="middle" font-family="system-ui" font-size="21" font-weight="550" fill="#17202A">Scientific computation</text>
+  <path data-relation="root-to-2" d="M 675 223 V 265 H 1309 V 289" fill="none" stroke="#87CEFA" stroke-width="3"/>
+  <rect data-node="branch-2" x="1145" y="289" width="328" height="67" rx="4" fill="#FFFFFF" stroke="#00BFFF" stroke-width="3"/>
+  <text x="1309" y="331" text-anchor="middle" font-family="system-ui" font-size="23" font-weight="650" fill="#17202A">Research interfaces</text>
+  <path data-relation="branch-2-to-0" d="M 1309 356 V 387 H 1127 V 454 H 1145" fill="none" stroke="#87CEFA" stroke-width="2.5"/>
+  <rect data-node="leaf-2-0" x="1145" y="420" width="328" height="68" rx="4" fill="#FFFFFF" stroke="#C5D2DC" stroke-width="2"/>
+  <text x="1309" y="461" text-anchor="middle" font-family="system-ui" font-size="21" font-weight="550" fill="#17202A">Viability</text>
+  <path data-relation="branch-2-to-1" d="M 1309 356 V 387 H 1127 V 550 H 1145" fill="none" stroke="#87CEFA" stroke-width="2.5"/>
+  <rect data-node="leaf-2-1" x="1145" y="516" width="328" height="68" rx="4" fill="#FFFFFF" stroke="#C5D2DC" stroke-width="2"/>
+  <text x="1309" y="557" text-anchor="middle" font-family="system-ui" font-size="21" font-weight="550" fill="#17202A">Networks</text>
+  <path data-relation="branch-2-to-2" d="M 1309 356 V 387 H 1127 V 646 H 1145" fill="none" stroke="#87CEFA" stroke-width="2.5"/>
+  <rect data-node="leaf-2-2" x="1145" y="612" width="328" height="68" rx="4" fill="#FFFFFF" stroke="#C5D2DC" stroke-width="2"/>
+  <text x="1309" y="653" text-anchor="middle" font-family="system-ui" font-size="21" font-weight="550" fill="#17202A">Visualization</text>
+  <text x="70" y="780" font-family="system-ui" font-size="18" fill="#5D6D7E">MSR-FIG-0006 · Concept hierarchy only · 1 root / 3 branches / 9 leaves · proposed taxonomy.</text>
+</svg>

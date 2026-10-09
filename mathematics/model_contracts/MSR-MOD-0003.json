@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0.0",
+  "version": "0.1.0",
+  "record_date": "2026-10-09",
+  "status": "PROPOSED",
+  "application_decision": "NOT_SELECTED",
+  "model_id": "MSR-MOD-0003",
+  "title": "Dimensionless stable linear autonomous flow and unit-disk invariance fixture",
+  "purpose": "Define a transparent exact flow and constraint set for teaching dynamics and a trivial viability kernel without making infrastructure resilience claims.",
+  "mathematical_structure": {
+    "state_space": "R^2 with closed unit disk K for initial-state membership",
+    "ambient_space": "R^2",
+    "dimension": 2,
+    "ambient_dimension": 2,
+    "metric": "Euclidean norm ||x||_2",
+    "topology": "standard Euclidean topology; K closed"
+  },
+  "maps": [
+    {
+      "name": "flow",
+      "domain": "R^2 x [0,infinity)",
+      "codomain": "R^2",
+      "definition": "phi_tau(x0) = exp(-tau) x0"
+    },
+    {
+      "name": "in_unit_disk",
+      "domain": "R^2",
+      "codomain": "{true,false}",
+      "definition": "Returns true iff ||x||_2 <= 1"
+    },
+    {
+      "name": "entrance_time",
+      "domain": "R^2",
+      "codomain": "[0,infinity) or None",
+      "definition": "For ||x0||>1 return log(||x0||); else return None"
+    }
+  ],
+  "parameters": [
+    {
+      "symbol": "x0",
+      "meaning": "dimensionless two-component initial state",
+      "unit": "dimensionless",
+      "admissible_set": "R^2 with finite binary64 coordinates"
+    },
+    {
+      "symbol": "tau",
+      "meaning": "dimensionless autonomous evolution parameter",
+      "unit": "dimensionless",
+      "admissible_set": "finite tau >= 0"
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "A-001",
+      "statement": "Autonomous flow dx/dtau=-x; no control, uncertainty or disturbance.",
+      "status": "PROPOSED"
+    },
+    {
+      "id": "A-002",
+      "statement": "All states, times and constraint radii are dimensionless.",
+      "status": "PROPOSED"
+    },
+    {
+      "id": "A-003",
+      "statement": "A state is viable only if the all-future constraint holds from tau=0, including initial admissibility.",
+      "status": "PROPOSED"
+    }
+  ],
+  "invariants": [
+    {
+      "id": "INV-001",
+      "statement": "For all x0 in K, ||phi_tau(x0)|| <= 1 for tau >= 0.",
+      "test": "tests/unit/test_visual_math.py"
+    },
+    {
+      "id": "INV-002",
+      "statement": "phi_(t+s)(x0) = phi_t(phi_s(x0)).",
+      "test": "art/animations/viability_lab/model.test.mjs"
+    },
+    {
+      "id": "INV-003",
+      "statement": "For x0 outside K, boundary entrance time is log(||x0||), not initial viability.",
+      "test": "tests/unit/test_visual_math.py"
+    }
+  ],
+  "numerical": {
+    "representation": "Python math binary64 and separate JavaScript binary64 reference; SVG path is sampled explanatory geometry",
+    "precision": "IEEE-754 binary64 for numeric references; no GPU comparison",
+    "absolute_tolerance": 2e-14,
+    "relative_tolerance": 2e-14
+  },
+  "uncertainty": {
+    "representation": "None: deterministic mathematical teaching fixture",
+    "status": "NOT_APPLICABLE"
+  },
+  "evidence": {
+    "citation_keys": [
+      "aubin1991viability"
+    ],
+    "audit_ids": [
+      "MSR-DER-0003"
+    ],
+    "evidence_status": "PROPOSED",
+    "limitations": [
+      "The admissible unit disk and flow are illustrative, with no empirical physical domain.",
+      "The viability kernel equality pertains only to the declared autonomous system.",
+      "A state outside K that later enters K does not satisfy initial viability."
+    ]
+  },
+  "implementation": {
+    "reference_language": "Python",
+    "module": "msr.dynamics.linear_invariance"
+  },
+  "verification": {
+    "tests": [
+      "tests/unit/test_visual_math.py",
+      "art/animations/viability_lab/model.test.mjs"
+    ],
+    "benchmark_experiments": [
+      "VISUAL-SUITE-V1-EXACT-FLOW-REFERENCE"
+    ],
+    "validation_status": "MATHEMATICAL_FIXTURE_ONLY"
+  }
+}
