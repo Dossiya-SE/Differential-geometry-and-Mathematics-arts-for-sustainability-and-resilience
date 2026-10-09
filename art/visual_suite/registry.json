@@ -29,7 +29,8 @@
         "Internally generated illustrative mathematical or semantic representation",
         "Independent audience accessibility and communication impact not yet evaluated",
         "No application-specific physical or empirical validation"
-      ]
+      ],
+      "svg_sha256": "5048f5be828f8c831241c9f357037bc64d49f33fcc643787b6bd670ed60ca4d9"
     },
     {
       "id": "MSR-FIG-0005",
@@ -53,7 +54,8 @@
         "Internally generated illustrative mathematical or semantic representation",
         "Independent audience accessibility and communication impact not yet evaluated",
         "No application-specific physical or empirical validation"
-      ]
+      ],
+      "svg_sha256": "5cada72af7d3d895ac9d9558b01408f82ee5905ce6b8a6c30ef6b0e236660ba3"
     },
     {
       "id": "MSR-FIG-0006",
@@ -77,7 +79,8 @@
         "Internally generated illustrative mathematical or semantic representation",
         "Independent audience accessibility and communication impact not yet evaluated",
         "No application-specific physical or empirical validation"
-      ]
+      ],
+      "svg_sha256": "bae5fdda6b64e5141c17baf07f4acc07ddff7be2ae83ce7a4fb0126866e3b00b"
     },
     {
       "id": "MSR-FIG-0007",
@@ -102,7 +105,8 @@
         "Internally generated illustrative mathematical or semantic representation",
         "Independent audience accessibility and communication impact not yet evaluated",
         "No application-specific physical or empirical validation"
-      ]
+      ],
+      "svg_sha256": "2c831dee910fac430e82a47d40fb227990959a61008fe22ebbd15e0a90e5ea90"
     },
     {
       "id": "MSR-FIG-0008",
@@ -127,7 +131,8 @@
         "Internally generated illustrative mathematical or semantic representation",
         "Independent audience accessibility and communication impact not yet evaluated",
         "No application-specific physical or empirical validation"
-      ]
+      ],
+      "svg_sha256": "ae1b294eba213416b17f9620d9bb3df45bbd58604c13fdaf3621bc9734ffd1e6"
     }
   ]
 }
