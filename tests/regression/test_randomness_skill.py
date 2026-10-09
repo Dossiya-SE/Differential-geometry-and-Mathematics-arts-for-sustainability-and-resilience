@@ -15,12 +15,8 @@ ART = ROOT / "art" / "shaders" / "randomness_lab"
 class RandomnessSkillGovernanceTests(unittest.TestCase):
     def test_skill_declares_all_seven_labs_and_research_scope(self) -> None:
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
-        lessons = (SKILL / "references" / "CHAPTER_10_LESSONS.md").read_text(
-            encoding="utf-8"
-        )
-        adaptation = (SKILL / "references" / "TASK_ADAPTATION.md").read_text(
-            encoding="utf-8"
-        )
+        lessons = (SKILL / "references" / "CHAPTER_10_LESSONS.md").read_text(encoding="utf-8")
+        adaptation = (SKILL / "references" / "TASK_ADAPTATION.md").read_text(encoding="utf-8")
         self.assertIn("name: shader-randomness-scientific-visuals", skill)
         for lesson in range(1, 8):
             self.assertIn(f"L{lesson} ", lessons)
