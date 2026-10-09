@@ -74,6 +74,12 @@ The mathematics-publication controls are demonstrated with an immutable mixed-su
 
 These controls extend the non-conflation rules in [`literature_review/protocol/CHAIN_ARCHITECTURE.md`](literature_review/protocol/CHAIN_ARCHITECTURE.md).
 
+## Scientific Visual System v1 — five governed families
+
+The first [scientific visual suite](art/visual_suite/README.md) is a reproducible, domain-neutral baseline with five original vector representations: [viability animation](art/animations/viability_lab/index.html), [methodological diagram](art/diagrams/model_to_visualization.svg), [concept mind map](art/mindmaps/mathematics_taxonomy.svg), [analytical chart](art/charts/analytic_radius.svg), and [stereographic mathematical figure](art/mathematical_figures/stereographic_projection.svg).
+
+Use the [Visual System SKILL.md](skills/scientific-visual-system/SKILL.md), [v1 design and scientific contract](docs/VISUAL_SYSTEM_V1.md), and [machine-readable registry](art/visual_suite/registry.json). Mathematical source contracts are `MSR-MOD-0003` (linear autonomous flow) and `MSR-MOD-0004` (stereographic projection). **Everything remains `PROPOSED_FOR_REVIEW` and domain-neutral; these figures are not observed service/recovery results.** Run `make visualsuite` for deterministic SVG reproduction and `make webtest` for math and visual-kernel checks.
+
 ## Experimental mathematical graphics and teaching skills
 
 - [Sphere-inversion WebGL2 laboratory](art/shaders/inversion_lab/README.md) — an internally tested geometric transformation (`MSR-MOD-0002` / `MSR-FIG-0002`), merged as a *proposed* educational artifact; independent browser validation and gallery promotion remain tracked in [issue #27](https://github.com/Dossiya-SE/Differential-geometry-and-Mathematics-arts-for-sustainability-and-resilience/issues/27).
