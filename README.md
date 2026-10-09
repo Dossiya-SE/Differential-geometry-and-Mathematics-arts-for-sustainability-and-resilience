@@ -74,6 +74,12 @@ The mathematics-publication controls are demonstrated with an immutable mixed-su
 
 These controls extend the non-conflation rules in [`literature_review/protocol/CHAIN_ARCHITECTURE.md`](literature_review/protocol/CHAIN_ARCHITECTURE.md).
 
+## Experimental mathematical geometry laboratory
+
+The proposed [sphere-inversion WebGL2 laboratory](art/shaders/inversion_lab/README.md) demonstrates a mathematically specified nonlinear coordinate transformation using an interactive point probe, numerically reported invariants, and a static SVG fallback. Open [the browser source](art/shaders/inversion_lab/index.html) through a local HTTP server (see the laboratory README). The code is on a draft review branch and remains **unreviewed** until GPU/browser testing and independent mathematical inspection are complete.
+
+**Scope boundary:** `MSR-MOD-0002` is a geometry-learning fixture, not a selected sustainability domain, physical infrastructure model, or empirical resilience result. To run the independent browser-kernel checks on this branch, use Node.js 22 and `make webtest`.
+
 ## Quick start
 
 Python 3.11 or later is required for the reference package.
