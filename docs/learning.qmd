@@ -1,0 +1,432 @@
+---
+title: "Mathematical Visualization Learning Laboratory"
+subtitle: "Equation-to-pixel, differential geometry, animation, and scientific visualization"
+---
+
+## Status
+
+| Field | Value |
+|---|---|
+| Learning architecture | `MSR-LA-001` |
+| Version | `0.1.0` |
+| State | `PROPOSED_ACTIVE_LEARNING` |
+| Entry stack | Python + NumPy + SymPy + Matplotlib |
+| Advanced stack | Manim + scientific 3D + shaders/WebGL |
+| Core rule | mathematics must generate or govern the visual |
+
+This learning laboratory converts mathematical-art study into a reproducible technical discipline. The objective is not to imitate finished pictures. The objective is to understand, derive, implement, test, render, animate, and explain the mathematics that produces a visual result.
+
+The governing progression is
+
+$$
+(x,y,t,\theta)
+\longrightarrow
+\text{mathematical fields}
+\longrightarrow
+\text{geometry}
+\longrightarrow
+\text{colour/light}
+\longrightarrow
+\text{image or animation}.
+$$
+
+For scientifically interpretable work, the stronger progression is
+
+$$
+\text{theory}
+\rightarrow
+\text{equations}
+\rightarrow
+\text{geometry}
+\rightarrow
+\text{numerical solution}
+\rightarrow
+\text{visual encoding}
+\rightarrow
+\text{validation}.
+$$
+
+## 1. Learning sequence
+
+Do not begin with complex black-hole or aurora scenes. Build the required mathematical vocabulary first.
+
+| Level | Mathematical focus | Computational focus | Exit capability |
+|---|---|---|---|
+| 0 | Functions, coordinates, arrays | Python, NumPy | Evaluate vectorized functions over a grid |
+| 1 | Scalar and RGB fields | NumPy, Matplotlib | Generate an image entirely from equations |
+| 2 | Composition and procedural structure | masks, warps, distance fields | Construct original procedural mathematical art |
+| 3 | Curves and surfaces | parametric geometry | Render and interrogate geometric objects |
+| 4 | Differential geometry | metrics, normals, curvature, geodesics | Encode intrinsic/extrinsic geometry visually |
+| 5 | Dynamics | ODEs/PDEs, time-dependent fields | Produce mathematically governed motion |
+| 6 | Mathematical animation | Manim | Explain transformations and geometry dynamically |
+| 7 | GPU and interactive graphics | shaders, Three.js/WebGL | Evaluate mathematical fields interactively |
+
+## 2. Equation-to-pixel foundation
+
+For an image domain $\Omega\subset\mathbb{R}^2$, associate every pixel with coordinates $(x,y)\in\Omega$ and define
+
+$$
+I(x,y)=
+\begin{bmatrix}
+R(x,y)\\
+G(x,y)\\
+B(x,y)
+\end{bmatrix},
+\qquad
+0\le R,G,B\le 1.
+$$
+
+This is the first major proficiency target: a complete image generated from explicit functions rather than from a photograph or opaque image-generation system.
+
+The first registered exercise uses polar coordinates
+
+$$
+r=\sqrt{x^2+y^2},
+\qquad
+\theta=\operatorname{atan2}(y,x),
+$$
+
+an annular localization field
+
+$$
+A(r)=\exp\left[-\alpha(r-r_0)^2\right],
+$$
+
+and an oscillatory phase field
+
+$$
+W(r,\theta)=\frac{1+\sin(k_\theta\theta+k_r r+\beta\sin(m\theta))}{2}.
+$$
+
+The RGB channels are then explicit bounded functions of $A$ and $W$.
+
+## 3. Mathematical primitives to master
+
+The following primitives form a compact vocabulary for a large class of mathematical visuals.
+
+### Oscillation
+
+$$
+\sin(kx+\phi),\qquad \cos(kx+\phi).
+$$
+
+Understand amplitude, frequency, wavelength, phase, superposition, interference, and beating.
+
+### Radial distance
+
+$$
+r=\sqrt{(x-x_0)^2+(y-y_0)^2}.
+$$
+
+Use it for rings, vortices, localized structures, circular wavefronts, and radial masks.
+
+### Gaussian localization
+
+$$
+G(x,y)=\exp\left[-\frac{(x-x_0)^2+(y-y_0)^2}{\sigma^2}\right].
+$$
+
+Know how $\sigma$ changes localization width and how translated Gaussians compose.
+
+### Smooth transition
+
+$$
+L(x)=\frac{1}{1+e^{-kx}}.
+$$
+
+Use it for differentiable boundaries and masks.
+
+### Rotation
+
+$$
+\begin{bmatrix}x'\\y'\end{bmatrix}
+=
+\begin{bmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{bmatrix}
+\begin{bmatrix}x\\y\end{bmatrix}.
+$$
+
+### Nonlinear coordinate warping
+
+$$
+x'=x+\alpha\sin(\beta y),
+\qquad
+y'=y+\gamma\cos(\delta x).
+$$
+
+The learner must understand the unwarped field before applying the warp.
+
+### Distance fields
+
+For a set $S$,
+
+$$
+d(\mathbf{x},S)=\inf_{\mathbf{p}\in S}\|\mathbf{x}-\mathbf{p}\|.
+$$
+
+Distance fields support smooth shape construction, boundaries, contours, and compositing.
+
+## 4. Function-composition discipline
+
+Complexity should arise from interpretable composition rather than unexplained long expressions. For example,
+
+$$
+f(x,y)=e^{-8(r-1)^2}\sin\left(15\theta+4r+2\sin(5\theta)\right)
+$$
+
+must be decomposed as
+
+$$
+(x,y)
+\rightarrow(r,\theta)
+\rightarrow 5\theta
+\rightarrow\sin(5\theta)
+\rightarrow15\theta+4r+2\sin(5\theta)
+\rightarrow\sin(\cdot)
+\rightarrow e^{-8(r-1)^2}\sin(\cdot).
+$$
+
+A learner should be able to predict the qualitative effect of every subexpression before rendering it.
+
+## 5. The first 100 experiments
+
+The first milestone is not a single impressive picture. It is a controlled body of 100 small experiments.
+
+| Family | Required count | Main capability |
+|---|---:|---|
+| Cartesian scalar fields | 15 | coordinates, scaling, symmetry |
+| Radial/polar fields | 15 | $r$-$\theta$ reasoning |
+| Interference fields | 15 | superposition and phase |
+| Coordinate transforms | 15 | rotation, scaling, nonlinear warping |
+| Distance fields | 10 | geometric construction |
+| Masks/compositing | 10 | controlled layering |
+| Explicit RGB synthesis | 10 | colour as mathematics |
+| Time-dependent fields | 10 | transition from image to animation |
+| **Total** | **100** | foundational proficiency |
+
+Every experiment must preserve its equation, parameters, implementation, tests, output, and interpretation.
+
+## 6. Twelve-week curriculum
+
+| Week | Mathematics | Computation | Required deliverable |
+|---|---|---|---|
+| 1 | functions and coordinates | NumPy arrays, broadcasting | 20 scalar fields |
+| 2 | polar coordinates | RGB synthesis | 10 equation-generated images |
+| 3 | composition and masks | vectorization | one multi-layer procedural scene |
+| 4 | transformations | SymPy + NumPy | symbolic-to-numeric renderer |
+| 5 | parametric curves | Matplotlib/Manim | animated curve study |
+| 6 | curvature of curves | Manim | Frenet-frame animation |
+| 7 | parametric surfaces | scientific 3D | surface atlas |
+| 8 | first fundamental form | symbolic differentiation | metric visualization |
+| 9 | Gaussian and mean curvature | numerical geometry | curvature-driven artwork |
+| 10 | geodesics | ODE integration | geodesic animation |
+| 11 | dynamic surfaces | Manim 3D | $X(u,v,t)$ animation |
+| 12 | shader mathematics | WebGL/GLSL | interactive mathematical field |
+
+Calendar time does not override proficiency gates. A week is complete only when the corresponding gate is passed.
+
+## 7. Proficiency gates
+
+### Gate A — Mathematical image synthesis
+
+Generate a complete image from $R(x,y)$, $G(x,y)$, and $B(x,y)$ without copying a tutorial.
+
+### Gate B — Reconstruction reasoning
+
+Given a visual pattern, identify plausible mathematical primitives that could produce its major structures.
+
+### Gate C — Transformation control
+
+Given $f(x,y)$, correctly implement translation, rotation, scaling, and at least one nonlinear warp while explaining each transformation.
+
+### Gate D — Geometry
+
+For a parametric surface $X(u,v)$, compute $X_u$, $X_v$, and the unit normal
+
+$$
+N=\frac{X_u\times X_v}{\|X_u\times X_v\|}.
+$$
+
+### Gate E — Differential geometry
+
+Compute and interpret at minimum the first fundamental form coefficients $E,F,G$, Gaussian curvature $K$, and mean curvature $H$ for controlled examples.
+
+### Gate F — Animation
+
+Convert a validated static field $F(x,y)$ into $F(x,y,t)$ without replacing the mathematical model with manual object motion.
+
+### Gate G — Scientific meaning
+
+State what every visible quantity represents, its units when applicable, its mathematical source, and whether the visual is artistic, mathematical, or scientific.
+
+## 8. Differential-geometry progression
+
+After the 100 foundational experiments, begin with curves
+
+$$
+\gamma(t)=(x(t),y(t),z(t)),
+$$
+
+then tangent and curvature quantities, followed by surfaces
+
+$$
+X(u,v)=(x(u,v),y(u,v),z(u,v)).
+$$
+
+For surfaces, compute
+
+$$
+E=X_u\cdot X_u,\qquad
+F=X_u\cdot X_v,\qquad
+G=X_v\cdot X_v,
+$$
+
+then progress to curvature and geodesics
+
+$$
+\ddot{x}^{k}+\Gamma^{k}_{ij}\dot{x}^{i}\dot{x}^{j}=0.
+$$
+
+A high-value target is to make geometry determine visual encoding, for example
+
+$$
+C(u,v)=\Phi\left(K(u,v),H(u,v),\|\nabla K(u,v)\|\right).
+$$
+
+Here the image is not merely decorated with mathematics; it encodes geometric structure.
+
+## 9. Three classes of visual work
+
+These classes must not be conflated.
+
+### A. Mathematical art
+
+$$
+\text{equations}\rightarrow\text{visual aesthetic}.
+$$
+
+No claim of physical fidelity is implied.
+
+### B. Mathematical visualization
+
+$$
+\text{mathematical object}\rightarrow\text{visual representation}.
+$$
+
+Example: Gaussian curvature rendered over a surface.
+
+### C. Scientific visualization
+
+$$
+\text{validated physical model}
+\rightarrow
+\text{numerical solution}
+\rightarrow
+\text{visualization}.
+$$
+
+Physical interpretation requires model validity, numerical validation, and appropriate visual encoding. Visual similarity to a physical phenomenon is not sufficient.
+
+## 10. Experiment contract
+
+Every registered learning experiment must contain at least:
+
+```text
+ID:
+Objective:
+Classification: mathematical-art | mathematical-visualization | scientific-visualization
+Domain:
+Governing expression(s):
+Parameters:
+Resolution / discretization:
+Numerical method:
+Expected invariants:
+Tests:
+Output:
+Interpretation:
+Known limitations:
+```
+
+No experiment is considered complete if only the final image is preserved.
+
+## 11. Software progression
+
+Use the smallest stack that supports the current learning objective.
+
+1. **Foundation:** Python, NumPy, SymPy, Matplotlib.
+2. **Geometry and numerics:** SciPy, Geomstats, scientific 3D tools as needed.
+3. **Mathematical animation:** Manim.
+4. **High-fidelity 3D:** Blender/Geometry Nodes or a scientific 3D renderer.
+5. **Interactive/GPU:** GLSL, WebGL/WebGPU, Three.js.
+6. **Publication:** Quarto, SVG/TikZ/Asymptote, MathJax/KaTeX.
+
+Do not install or learn all layers simultaneously.
+
+## 12. Immediate start
+
+Install the repository and visualization extra:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e '.[dev,visualization]'
+```
+
+Run the first learning experiment:
+
+```bash
+python experiments/learning/01_equation_to_pixel/matart_001_radial_ring.py
+```
+
+Run its tests:
+
+```bash
+pytest tests/unit/test_visualization_fields.py -q
+```
+
+The first objective is to modify one parameter at a time and predict the effect before rendering.
+
+## 13. Analysis questions required before coding
+
+For every new function $f$, answer:
+
+1. What is its domain?
+2. What is its range?
+3. Where is it zero?
+4. Where is it maximal or minimal?
+5. What symmetries does it possess?
+6. What happens near boundaries or at infinity?
+7. Which parameters control scale?
+8. Which parameters control frequency or phase?
+9. Is it continuous and differentiable where required?
+10. What qualitative change should each parameter produce?
+
+The goal is prediction before rendering, not random parameter search.
+
+## 14. Mastery target
+
+The long-term capability is
+
+$$
+\boxed{
+\text{formulate}
+\rightarrow
+\text{analyze}
+\rightarrow
+\text{implement}
+\rightarrow
+\text{test}
+\rightarrow
+\text{render}
+\rightarrow
+\text{animate}
+\rightarrow
+\text{interact}
+\rightarrow
+\text{explain}
+}
+$$
+
+A visual is considered mature only when its mathematics, code, tests, provenance, and interpretation remain connected.

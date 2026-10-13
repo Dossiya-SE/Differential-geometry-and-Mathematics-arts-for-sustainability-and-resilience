@@ -1,0 +1,140 @@
+name: mathematical-visual-studio
+
+on:
+  push:
+    branches: [main, feat/mathematical-visualization-learning-lab]
+    paths:
+      - 'frameworks/research-framework-visual/studio/**'
+      - '.github/workflows/mathematical-visual-studio.yml'
+  pull_request:
+    paths:
+      - 'frameworks/research-framework-visual/studio/**'
+      - '.github/workflows/mathematical-visual-studio.yml'
+  workflow_dispatch:
+
+jobs:
+  web-quality-gate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frameworks/research-framework-visual/studio
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install pinned studio dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Verify architecture-foundation dependency identities
+        run: npm ls --depth=0 @xyflow/react@12.11.3 ajv@8.20.0 elkjs@0.12.0 vega-lite@6.4.3
+
+      - name: Run Visual IR v1 architecture conformance
+        run: npm run foundation:check
+
+      - name: Run complete mathematical Visual IR tests
+        run: npm run test
+
+      - name: Build production web UI
+        run: npm run build:web
+
+      - name: Validate Python adapter syntax
+        run: python -m py_compile python/visual_ir_adapter.py python/scientific_core_worker.py
+
+      - name: Upload web production UI
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathematical-visual-design-studio-web
+          path: frameworks/research-framework-visual/studio/dist/
+
+  scientific-core-engine:
+    name: scientific-core-engine (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-14]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: frameworks/research-framework-visual/studio
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: frameworks/research-framework-visual/studio/python/scientific-core-requirements.txt
+
+      - name: Install frozen free/open scientific core
+        run: python -m pip install --disable-pip-version-check -r python/scientific-core-requirements.txt
+
+      - name: Verify exact scientific engine identities
+        run: |
+          python - <<'PY'
+          import importlib.metadata
+          expected = {
+              "numpy": "2.3.5",
+              "scipy": "1.18.0",
+              "sympy": "1.14.0",
+              "geomstats": "2.8.0",
+              "networkx": "3.6.1",
+              "ortools": "9.15.6755",
+          }
+          actual = {name: importlib.metadata.version(name) for name in expected}
+          if actual != expected:
+              raise SystemExit(f"dependency identity mismatch: {actual!r}")
+          print(actual)
+          PY
+
+      - name: Compile governed scientific worker
+        run: python -m py_compile python/scientific_core_worker.py
+
+      - name: Run scientific engine conformance repeatedly
+        shell: bash
+        run: |
+          set -euo pipefail
+          for pass in 1 2 3; do
+            echo "Scientific Core conformance pass ${pass}/3"
+            python -m unittest discover -s python/tests -p 'test_scientific_core_worker.py' -v
+          done
+
+  native-macos-gui:
+    runs-on: macos-14
+    needs: [web-quality-gate, scientific-core-engine]
+    defaults:
+      run:
+        working-directory: frameworks/research-framework-visual/studio
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install pinned studio dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Run Visual IR v1 architecture conformance on macOS
+        run: npm run foundation:check
+
+      - name: Generate native application icon set
+        run: npm run gui:icons
+
+      - name: Check native Rust/Tauri shell
+        run: npm run desktop:check
+
+      - name: Build native macOS DMG
+        run: npm run gui:build -- --bundles dmg
+
+      - name: Upload installable macOS GUI
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathematical-visual-design-studio-macos-dmg
+          path: frameworks/research-framework-visual/studio/src-tauri/target/release/bundle/dmg/*.dmg
+          if-no-files-found: error

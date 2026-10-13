@@ -26,6 +26,10 @@ geometry = [
   "scipy>=1.14,<2",
   "sympy>=1.13,<2",
 ]
+visualization = [
+  "matplotlib>=3.9,<4",
+  "sympy>=1.13,<2",
+]
 autodiff = ["jax>=0.5,<1"]
 dev = [
   "hypothesis>=6.130,<7",

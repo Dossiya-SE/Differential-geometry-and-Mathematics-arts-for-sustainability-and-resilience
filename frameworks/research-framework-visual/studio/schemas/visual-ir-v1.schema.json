@@ -1,0 +1,229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mvs.local/schema/visual-ir-v1.schema.json",
+  "title": "MVS Semantic Visual IR v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "id", "title", "semantics", "presentation", "validationPolicy"],
+  "properties": {
+    "schema": { "const": "mvs.visual-ir/1.0" },
+    "id": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "minLength": 1 },
+    "semantics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expressions", "objects"],
+      "properties": {
+        "expressions": { "type": "array", "items": { "$ref": "#/$defs/expression" } },
+        "objects": { "type": "array", "items": { "$ref": "#/$defs/semanticObject" } }
+      }
+    },
+    "presentation": { "$ref": "presentation-ir-v1.schema.json" },
+    "validationPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["failClosed", "requiredDomains"],
+      "properties": {
+        "failClosed": { "const": true },
+        "requiredDomains": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "enum": ["SCHEMA", "MATH", "DIMENSION", "NUMERICAL", "TOPOLOGY", "DATA", "VISUAL_ENCODING", "RENDER", "PROVENANCE", "REPRODUCTION"] }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "unit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["symbol"],
+      "properties": {
+        "symbol": { "type": "string" },
+        "dimension": { "type": "string" }
+      }
+    },
+    "expression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "source", "language", "variables", "exact"],
+      "properties": {
+        "id": { "type": "string" },
+        "source": { "type": "string" },
+        "language": { "enum": ["infix", "sympy", "latex"] },
+        "variables": { "type": "array", "items": { "type": "string" } },
+        "exact": { "type": "boolean" },
+        "unit": { "$ref": "#/$defs/unit" }
+      }
+    },
+    "port": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "direction", "valueKind"],
+      "properties": {
+        "id": { "type": "string" },
+        "direction": { "enum": ["input", "output"] },
+        "valueKind": { "enum": ["scalar", "vector", "matrix", "boolean", "string", "dataset", "surface", "scalar_field", "vector_field", "camera"] },
+        "unit": { "$ref": "#/$defs/unit" },
+        "domainRef": { "type": "string" },
+        "required": { "type": "boolean" }
+      }
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "label", "ports"],
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "type": "string" },
+        "label": { "type": "string" },
+        "ports": { "type": "array", "items": { "$ref": "#/$defs/port" } },
+        "expressionRef": { "type": "string" },
+        "assumptions": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "from", "to"],
+      "properties": {
+        "id": { "type": "string" },
+        "from": { "$ref": "#/$defs/endpoint" },
+        "to": { "$ref": "#/$defs/endpoint" }
+      }
+    },
+    "endpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nodeId", "portId"],
+      "properties": {
+        "nodeId": { "type": "string" },
+        "portId": { "type": "string" }
+      }
+    },
+    "surface": {
+      "type": "object",
+      "required": ["id", "kind", "name", "epistemicStatus", "domain", "parameters", "assumptions", "mapping", "derived", "coordinateFrame", "numericPolicy"],
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "const": "parametric_surface" },
+        "name": { "type": "string" },
+        "epistemicStatus": { "$ref": "#/$defs/epistemicStatus" },
+        "domain": {
+          "type": "object",
+          "required": ["id", "variables"],
+          "properties": {
+            "id": { "type": "string" },
+            "variables": { "type": "array", "items": { "type": "string" } },
+            "bounds": { "type": "object", "additionalProperties": { "type": "array", "prefixItems": [{ "type": "number" }, { "type": "number" }], "minItems": 2, "maxItems": 2 } }
+          },
+          "additionalProperties": false
+        },
+        "parameters": { "type": "object", "additionalProperties": { "type": "number" } },
+        "assumptions": { "type": "array", "items": { "type": "string" } },
+        "mapping": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x", "y", "z"],
+          "properties": { "x": { "$ref": "#/$defs/expression" }, "y": { "$ref": "#/$defs/expression" }, "z": { "$ref": "#/$defs/expression" } }
+        },
+        "derived": { "type": "array", "items": { "$ref": "#/$defs/expression" } },
+        "coordinateFrame": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "handedness", "unit"],
+          "properties": { "id": { "type": "string" }, "handedness": { "enum": ["right", "left"] }, "unit": { "$ref": "#/$defs/unit" } }
+        },
+        "numericPolicy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["scalarType", "tolerance", "sampleU", "sampleV"],
+          "properties": {
+            "scalarType": { "const": "float64" },
+            "tolerance": { "type": "number", "exclusiveMinimum": 0 },
+            "sampleU": { "type": "integer", "minimum": 8 },
+            "sampleV": { "type": "integer", "minimum": 8 }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "graph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "epistemicStatus", "nodes", "edges"],
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "const": "computational_graph" },
+        "epistemicStatus": { "$ref": "#/$defs/epistemicStatus" },
+        "nodes": { "type": "array", "items": { "$ref": "#/$defs/node" } },
+        "edges": { "type": "array", "items": { "$ref": "#/$defs/edge" } }
+      }
+    },
+    "chartField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "enum": ["quantitative", "ordinal", "nominal", "temporal"] },
+        "unit": { "$ref": "#/$defs/unit" }
+      }
+    },
+    "chart": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "epistemicStatus", "data", "mark", "encoding"],
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "const": "scientific_chart" },
+        "epistemicStatus": { "$ref": "#/$defs/epistemicStatus" },
+        "data": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "fields"],
+          "properties": {
+            "name": { "type": "string" },
+            "fields": { "type": "array", "items": { "$ref": "#/$defs/chartField" } }
+          }
+        },
+        "mark": { "enum": ["line", "point", "bar", "area"] },
+        "encoding": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x", "y"],
+          "properties": {
+            "x": { "$ref": "#/$defs/fieldRef" },
+            "y": { "$ref": "#/$defs/fieldRef" },
+            "color": { "$ref": "#/$defs/fieldRef" }
+          }
+        },
+        "uncertainty": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["field", "meaning"],
+          "properties": {
+            "field": { "type": "string" },
+            "meaning": { "enum": ["standard_error", "standard_deviation", "confidence_interval"] }
+          }
+        }
+      }
+    },
+    "fieldRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["field"],
+      "properties": { "field": { "type": "string" } }
+    },
+    "epistemicStatus": {
+      "enum": ["USER_SPECIFIED", "COMPUTED", "OBSERVED", "PUBLISHED", "CALIBRATED", "DERIVED", "ASSUMED", "SYNTHETIC", "ILLUSTRATIVE", "TO_BE_VALIDATED"]
+    },
+    "semanticObject": {
+      "oneOf": [
+        { "$ref": "#/$defs/surface" },
+        { "$ref": "#/$defs/graph" },
+        { "$ref": "#/$defs/chart" }
+      ]
+    }
+  }
+}

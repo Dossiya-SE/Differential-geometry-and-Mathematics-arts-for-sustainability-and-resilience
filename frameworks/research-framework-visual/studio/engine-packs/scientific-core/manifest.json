@@ -1,0 +1,22 @@
+{
+  "schema": "mvs.engine-pack/1",
+  "id": "org.mvs.python.scientific-core",
+  "version": "0.1.0",
+  "platform": "source-any",
+  "adapterProtocol": "1.0",
+  "entrypoint": "python/scientific_core_worker.py",
+  "runtime": {
+    "kind": "cpython",
+    "version": "3.12"
+  },
+  "capabilities": {
+    "filesystem": {
+      "read": [],
+      "write": []
+    },
+    "network": [],
+    "processSpawn": []
+  },
+  "payloadSha256": "sha256:b7ab8c44237d7810f11d622103f72ad00c470e2a3a1e340f20ade7c82974cd82",
+  "lockSha256": "sha256:5c962602512bbf3653ebc723ee7b0f0fe5e06f209d79f4a325bf176972fb23ab"
+}

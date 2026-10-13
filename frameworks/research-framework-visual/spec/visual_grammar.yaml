@@ -1,0 +1,13 @@
+node: research_state_or_object
+arrow: dependency_or_information
+curve: trajectory
+surface: model_or_admissible_state_space
+boundary: constraint_or_validity_boundary
+tube_width: uncertainty
+vector_length: sensitivity_or_influence
+density: evidence_strength
+convergence: verification
+optimization_path: calibration
+model_observation_pair: validation
+closed_region: bounded_conclusion
+faded_region: unsupported_or_out_of_domain
